@@ -111,6 +111,18 @@
       </manifest>
     </jar>
 
+    <!-- This is a bit of a kludge, as only this jar file needs the Jamod library -->
+    <unjar src="${extlib.dir}/jamod/jamod-1.2-SNAPSHOT.jar" dest="${tmp.dir}" />
+    <jar destfile="${build.jar.dir}/wattdepot-sensor-shark.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.sensor.modbus.SharkSensor" />
+        <attribute name="Implementation-Title" value="WattDepot SharkSensor" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
     <!-- Unjar the additional libraries required for server -->
     <unjar src="${lib.dir}/commons-lang/commons-lang.jar" dest="${tmp.dir}" />
     <unjar src="${lib.dir}/commons-logging/commons-logging.jar" dest="${tmp.dir}" />

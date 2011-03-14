@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svn/!svn/ver/290/trunk/src/org/wattdepot/datainput
+/svn/!svn/ver/326/trunk/src/org/wattdepot/datainput
 END
 ExampleStreamingSensor.java
 K 25
@@ -25,7 +25,7 @@ RowParser.java
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svn/!svn/ver/115/trunk/src/org/wattdepot/datainput/RowParser.java
+/svn/!svn/ver/326/trunk/src/org/wattdepot/datainput/RowParser.java
 END
 DataInputClientProperties.java
 K 25

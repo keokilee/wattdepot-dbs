@@ -207,6 +207,9 @@
     <path refid="google-collections.path" />
     <path refid="google-visualization-java.path" />
     <path refid="derby.path" />
+    <fileset dir="external-libs">
+      <include name="**/*.jar"/>
+    </fileset>
   </path>
 
   <target name="compile" depends="install-ivy, install-libraries" description="Compiles the code.">

@@ -46,9 +46,9 @@ public class Ted5000Sensor {
 
   /** Name of the property file containing essential preferences. */
   protected DataInputClientProperties properties;
-  /** The name of the source to be monitored. */
+  /** The name of the source to send data to. */
   private String sourceName;
-  /** The rate at which to poll the source for new data. */
+  /** The rate at which to poll the device for new data. */
   private int updateRate;
   /** Whether to display debugging data. */
   private boolean debug;
@@ -70,7 +70,7 @@ public class Ted5000Sensor {
    * Creates the new streaming sensor.
    * 
    * @param propertyFilename Name of the file to read essential properties from.
-   * @param sourceName The name of the source to be monitored.
+   * @param sourceName The name of the source to send data to.
    * @param updateRate The rate at which to send new data to the source, in seconds.
    * @param debug If true then display new sensor data when sending it.
    * @param tedHostname The hostname of the TED 5000 sensor to be polled.
@@ -100,7 +100,7 @@ public class Ted5000Sensor {
   }
 
   /**
-   * Creates bogus sensor data periodically and sends it to a Source in a WattDepot server.
+   * Retrieves meter sensor data periodically and sends it to a Source in a WattDepot server.
    * 
    * @return False if there is a fatal problem. Otherwise will never return.
    * @throws InterruptedException If some other thread interrupts our sleep.
@@ -252,7 +252,7 @@ public class Ted5000Sensor {
     if ((hostname == null) || (hostname.length() == 0)) {
       throw new IllegalArgumentException("No hostname was provided");
     }
-    
+
     // Have to make HTTP connection manually so we can set proper timeouts
     URL url;
     try {
@@ -294,7 +294,7 @@ public class Ted5000Sensor {
   }
 
   /**
-   * Processes command line arguments, creates the ExampleStreamingSensor object and starts sending.
+   * Processes command line arguments, creates the Ted5000Sensor object and starts sending.
    * 
    * @param args command line arguments.
    * @throws InterruptedException If some other thread interrupts our sleep.

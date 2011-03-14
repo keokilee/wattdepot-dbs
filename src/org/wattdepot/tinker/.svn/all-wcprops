@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/svn/!svn/ver/308/trunk/src/org/wattdepot/tinker
+/svn/!svn/ver/327/trunk/src/org/wattdepot/tinker
 END
 PingApplication.java
 K 25
@@ -44,6 +44,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 69
 /svn/!svn/ver/308/trunk/src/org/wattdepot/tinker/LatestBenchmark.java
+END
+ModbusTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/327/trunk/src/org/wattdepot/tinker/ModbusTest.java
 END
 QueryTestServlet.java
 K 25

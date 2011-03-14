@@ -11,7 +11,7 @@ import org.wattdepot.resource.sensordata.jaxb.SensorData;
  */
 public abstract class RowParser {
 
-  /** Name of the tool sending the data. Needed to build a SensorData object.*/
+  /** Name of the tool sending the data. Needed to build a SensorData object. */
   protected String toolName;
 
   /** URI of WattDepot server to send data to. Needed to build a SensorData object. */
@@ -27,12 +27,24 @@ public abstract class RowParser {
    * @param serverUri URI of WattDepot server to send data to.
    * @param sourceName Name of Source to send data to.
    */
-  public RowParser (String toolName, String serverUri, String sourceName) {
+  public RowParser(String toolName, String serverUri, String sourceName) {
     this.toolName = toolName;
     this.serverUri = serverUri;
     this.sourceName = sourceName;
   }
-  
+
+  /**
+   * Creates the RowParser, and initializes fields based on the provided arguments. This constructor
+   * should be used when the name of the Source to send data to is derived from the tabular data
+   * row.
+   * 
+   * @param toolName Name of the tool sending the data.
+   * @param serverUri URI of WattDepot server to send data to.
+   */
+  public RowParser(String toolName, String serverUri) {
+    this(toolName, serverUri, null);
+  }
+
   /**
    * Converts an array of String objects into an appropriate SensorData object. Since the order and
    * type of each String will differ for each kind of tabular data (for example each type of power

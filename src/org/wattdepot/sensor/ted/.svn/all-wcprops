@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 52
-/svn/!svn/ver/291/trunk/src/org/wattdepot/sensor/ted
+/svn/!svn/ver/327/trunk/src/org/wattdepot/sensor/ted
 END
 bustedTestTed5000Sensor.java
 K 25
@@ -13,7 +13,7 @@ Ted5000Sensor.java
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/svn/!svn/ver/290/trunk/src/org/wattdepot/sensor/ted/Ted5000Sensor.java
+/svn/!svn/ver/327/trunk/src/org/wattdepot/sensor/ted/Ted5000Sensor.java
 END
 package.html
 K 25
