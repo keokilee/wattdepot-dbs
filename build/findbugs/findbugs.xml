@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://findbugs.sourceforge.net/xsl/default.xsl"?>
+
+<BugCollection version="1.3.8" sequence="0" timestamp="1298183964238" analysisTimestamp="1298183965999" release="">
+  <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
+    <Jar>/Users/gelee/Code/wattdepot/trunk/build/classes</Jar>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/junit/junit.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/restlet/com.noelios.restlet.ext.simple_3.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/restlet/com.noelios.restlet.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/restlet/org.restlet.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/restlet/org.simpleframework.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/commons-cli/commons-cli.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/commons-lang/commons-lang.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/commons-logging/commons-logging.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/opencsv/opencsv.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/jetty/jetty-util.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/jetty/jetty.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/jetty/servlet-api-2.5.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/icu4j/icu4j-charsets.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/icu4j/icu4j-localespi.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/icu4j/icu4j.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/google-collections/google-collect.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/google-visualization-java/visualization-datasource.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derby.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_cs.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_de_DE.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_es.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_fr.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_hu.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_it.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_ja_JP.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_ko_KR.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_pl.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_pt_BR.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_ru.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_zh_CN.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>/Users/gelee/Code/wattdepot/trunk/lib/derby/derbyLocale_zh_TW.jar</AuxClasspathEntry>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/BadXmlException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/MiscClientException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/NotAuthorizedException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/OverwriteAttemptedException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/ResourceNotFoundException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/WattDepotClient.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/WattDepotClientException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/monitor/MonitorSourceClient.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/property/PropertyAdder.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/client/snapshot/SnapshotClient.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/BMONetworkClient.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/BMOSensor.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/DataInputClientProperties.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/ExampleStreamingSensor.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/OscarDataConverter.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/OscarRowParser.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/RowParseException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/RowParser.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/TabularFileSensor.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/TestOscarRowParser.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/TestVerisRowParser.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/datainput/VerisRowParser.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/ResponseMessage.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/WattDepotResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/carbon/Carbon.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/carbon/CarbonResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/carbon/TestCarbon.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/carbon/TestCarbonResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/db/DatabaseResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/db/TestDatabaseResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/energy/Energy.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/energy/EnergyCounterException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/energy/EnergyResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/energy/TestEnergy.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/energy/TestEnergyResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/gviz/GVisualizationResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/gviz/GVisualizationServlet.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/health/HealthResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/health/TestHealthResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/power/PowerResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/power/TestPowerResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/property/jaxb/Properties.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/property/jaxb/Property.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/property/jaxb/TestPropertyJaxb.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/SensorDataResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/SensorDataStraddle.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/StraddleList.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/TestSensorDataJaxb.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/TestSensorDataResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/TestSensorDataStraddle.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/jaxb/ObjectFactory.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/jaxb/SensorData.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/jaxb/SensorDataIndex.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/jaxb/SensorDataRef.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/sensordata/jaxb/SensorDatas.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/SourceResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/TestSourceJaxb.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/TestSourceResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/ObjectFactory.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/Source.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/SourceIndex.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/SourceRef.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/Sources.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/jaxb/SubSources.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/SourceSummaryResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/TestSourceSummaryJaxb.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/TestSourceSummaryResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/jaxb/ObjectFactory.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/jaxb/SourceSummaries.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/source/summary/jaxb/SourceSummary.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/TestUserJaxb.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/TestUserResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/UserResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/jaxb/ObjectFactory.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/jaxb/User.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/jaxb/UserIndex.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/jaxb/UserRef.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/resource/user/jaxb/Users.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/sensor/ted/Ted5000Sensor.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/sensor/ted/bustedTestTed5000Sensor.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/AdminAuthenticator.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/Server.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/ServerProperties.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/WattDepotAuthenticator.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/DbBadIntervalException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/DbException.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/DbImplementation.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/DbManager.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/DbManagerTestHelper.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/TestDbManager.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/TestDbManagerSensorData.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/TestDbManagerSources.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/TestDbManagerUsers.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/derby/DerbyStorageImplementation.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/derby/TestDerbyStorageImplementation.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/server/db/memory/MemoryStorageImplementation.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/test/DataGenerator.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/test/ServerTestHelper.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/test/functional/TestOscarFunctionality.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/test/stress/StressTest.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/LatestBenchmark.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/PingApplication.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/PingClient.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/PingMain.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/PingResource.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/QueryTestServlet.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/TestPingApi.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/Tinker.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/tinker/XPathTest.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/StackTrace.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/TestStackTrace.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/UriUtils.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/OneLineFormatter.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/RestletLoggerUtil.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/TestWattDepotLogger.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/TestWattDepotUserHome.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/WattDepotLogger.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/logger/WattDepotUserHome.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/tstamp/TestTstamp.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/tstamp/Tstamp.java</SrcDir>
+    <SrcDir>/Users/gelee/Code/wattdepot/trunk/src/org/wattdepot/util/tstamp/TstampComparator.java</SrcDir>
+  </Project>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Sat, 19 Feb 2011 20:39:24 -1000" total_classes="124" referenced_classes="367" total_bugs="0" total_size="9882" num_packages="33" vm_version="17.1-b03-307" cpu_seconds="60.15" clock_seconds="56.98" peak_mbytes="233.25" alloc_mbytes="507.88" gc_seconds="15.19">
+    <FileStats path="org/wattdepot/client/BadXmlException.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/client/MiscClientException.java" bugCount="0" size="11"/>
+    <FileStats path="org/wattdepot/client/NotAuthorizedException.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/client/OverwriteAttemptedException.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/client/ResourceNotFoundException.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/client/WattDepotClient.java" bugCount="0" size="421"/>
+    <FileStats path="org/wattdepot/client/WattDepotClientException.java" bugCount="0" size="20"/>
+    <FileStats path="org/wattdepot/client/monitor/MonitorSourceClient.java" bugCount="0" size="125"/>
+    <FileStats path="org/wattdepot/client/property/PropertyAdder.java" bugCount="0" size="128"/>
+    <FileStats path="org/wattdepot/client/snapshot/SnapshotClient.java" bugCount="0" size="76"/>
+    <FileStats path="org/wattdepot/datainput/BMONetworkClient.java" bugCount="0" size="41"/>
+    <FileStats path="org/wattdepot/datainput/BMOSensor.java" bugCount="0" size="230"/>
+    <FileStats path="org/wattdepot/datainput/DataInputClientProperties.java" bugCount="0" size="64"/>
+    <FileStats path="org/wattdepot/datainput/ExampleStreamingSensor.java" bugCount="0" size="141"/>
+    <FileStats path="org/wattdepot/datainput/OscarDataConverter.java" bugCount="0" size="111"/>
+    <FileStats path="org/wattdepot/datainput/OscarRowParser.java" bugCount="0" size="26"/>
+    <FileStats path="org/wattdepot/datainput/RowParseException.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/datainput/RowParser.java" bugCount="0" size="11"/>
+    <FileStats path="org/wattdepot/datainput/TabularFileSensor.java" bugCount="0" size="143"/>
+    <FileStats path="org/wattdepot/datainput/TestOscarRowParser.java" bugCount="0" size="43"/>
+    <FileStats path="org/wattdepot/datainput/TestVerisRowParser.java" bugCount="0" size="53"/>
+    <FileStats path="org/wattdepot/datainput/VerisRowParser.java" bugCount="0" size="34"/>
+    <FileStats path="org/wattdepot/resource/ResponseMessage.java" bugCount="0" size="33"/>
+    <FileStats path="org/wattdepot/resource/WattDepotResource.java" bugCount="0" size="291"/>
+    <FileStats path="org/wattdepot/resource/carbon/Carbon.java" bugCount="0" size="53"/>
+    <FileStats path="org/wattdepot/resource/carbon/CarbonResource.java" bugCount="0" size="52"/>
+    <FileStats path="org/wattdepot/resource/carbon/TestCarbon.java" bugCount="0" size="52"/>
+    <FileStats path="org/wattdepot/resource/carbon/TestCarbonResource.java" bugCount="0" size="126"/>
+    <FileStats path="org/wattdepot/resource/db/DatabaseResource.java" bugCount="0" size="22"/>
+    <FileStats path="org/wattdepot/resource/db/TestDatabaseResource.java" bugCount="0" size="15"/>
+    <FileStats path="org/wattdepot/resource/energy/Energy.java" bugCount="0" size="92"/>
+    <FileStats path="org/wattdepot/resource/energy/EnergyCounterException.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/resource/energy/EnergyResource.java" bugCount="0" size="52"/>
+    <FileStats path="org/wattdepot/resource/energy/TestEnergy.java" bugCount="0" size="79"/>
+    <FileStats path="org/wattdepot/resource/energy/TestEnergyResource.java" bugCount="0" size="203"/>
+    <FileStats path="org/wattdepot/resource/gviz/GVisualizationResource.java" bugCount="0" size="3"/>
+    <FileStats path="org/wattdepot/resource/gviz/GVisualizationServlet.java" bugCount="0" size="258"/>
+    <FileStats path="org/wattdepot/resource/health/HealthResource.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/resource/health/TestHealthResource.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/resource/power/PowerResource.java" bugCount="0" size="37"/>
+    <FileStats path="org/wattdepot/resource/power/TestPowerResource.java" bugCount="0" size="119"/>
+    <FileStats path="org/wattdepot/resource/property/jaxb/Properties.java" bugCount="0" size="71"/>
+    <FileStats path="org/wattdepot/resource/property/jaxb/Property.java" bugCount="0" size="58"/>
+    <FileStats path="org/wattdepot/resource/property/jaxb/TestPropertyJaxb.java" bugCount="0" size="66"/>
+    <FileStats path="org/wattdepot/resource/sensordata/SensorDataResource.java" bugCount="0" size="148"/>
+    <FileStats path="org/wattdepot/resource/sensordata/SensorDataStraddle.java" bugCount="0" size="103"/>
+    <FileStats path="org/wattdepot/resource/sensordata/StraddleList.java" bugCount="0" size="18"/>
+    <FileStats path="org/wattdepot/resource/sensordata/TestSensorDataJaxb.java" bugCount="0" size="83"/>
+    <FileStats path="org/wattdepot/resource/sensordata/TestSensorDataResource.java" bugCount="0" size="389"/>
+    <FileStats path="org/wattdepot/resource/sensordata/TestSensorDataStraddle.java" bugCount="0" size="139"/>
+    <FileStats path="org/wattdepot/resource/sensordata/jaxb/ObjectFactory.java" bugCount="0" size="37"/>
+    <FileStats path="org/wattdepot/resource/sensordata/jaxb/SensorData.java" bugCount="0" size="144"/>
+    <FileStats path="org/wattdepot/resource/sensordata/jaxb/SensorDataIndex.java" bugCount="0" size="19"/>
+    <FileStats path="org/wattdepot/resource/sensordata/jaxb/SensorDataRef.java" bugCount="0" size="125"/>
+    <FileStats path="org/wattdepot/resource/sensordata/jaxb/SensorDatas.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/resource/source/SourceResource.java" bugCount="0" size="83"/>
+    <FileStats path="org/wattdepot/resource/source/TestSourceJaxb.java" bugCount="0" size="116"/>
+    <FileStats path="org/wattdepot/resource/source/TestSourceResource.java" bugCount="0" size="112"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/ObjectFactory.java" bugCount="0" size="59"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/Source.java" bugCount="0" size="224"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/SourceIndex.java" bugCount="0" size="38"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/SourceRef.java" bugCount="0" size="181"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/Sources.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/resource/source/jaxb/SubSources.java" bugCount="0" size="35"/>
+    <FileStats path="org/wattdepot/resource/source/summary/SourceSummaryResource.java" bugCount="0" size="24"/>
+    <FileStats path="org/wattdepot/resource/source/summary/TestSourceSummaryJaxb.java" bugCount="0" size="37"/>
+    <FileStats path="org/wattdepot/resource/source/summary/TestSourceSummaryResource.java" bugCount="0" size="48"/>
+    <FileStats path="org/wattdepot/resource/source/summary/jaxb/ObjectFactory.java" bugCount="0" size="25"/>
+    <FileStats path="org/wattdepot/resource/source/summary/jaxb/SourceSummaries.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/resource/source/summary/jaxb/SourceSummary.java" bugCount="0" size="72"/>
+    <FileStats path="org/wattdepot/resource/user/TestUserJaxb.java" bugCount="0" size="60"/>
+    <FileStats path="org/wattdepot/resource/user/TestUserResource.java" bugCount="0" size="28"/>
+    <FileStats path="org/wattdepot/resource/user/UserResource.java" bugCount="0" size="34"/>
+    <FileStats path="org/wattdepot/resource/user/jaxb/ObjectFactory.java" bugCount="0" size="37"/>
+    <FileStats path="org/wattdepot/resource/user/jaxb/User.java" bugCount="0" size="101"/>
+    <FileStats path="org/wattdepot/resource/user/jaxb/UserIndex.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/resource/user/jaxb/UserRef.java" bugCount="0" size="76"/>
+    <FileStats path="org/wattdepot/resource/user/jaxb/Users.java" bugCount="0" size="14"/>
+    <FileStats path="org/wattdepot/sensor/ted/Ted5000Sensor.java" bugCount="0" size="186"/>
+    <FileStats path="org/wattdepot/server/AdminAuthenticator.java" bugCount="0" size="11"/>
+    <FileStats path="org/wattdepot/server/Server.java" bugCount="0" size="200"/>
+    <FileStats path="org/wattdepot/server/ServerProperties.java" bugCount="0" size="136"/>
+    <FileStats path="org/wattdepot/server/WattDepotAuthenticator.java" bugCount="0" size="11"/>
+    <FileStats path="org/wattdepot/server/db/DbBadIntervalException.java" bugCount="0" size="5"/>
+    <FileStats path="org/wattdepot/server/db/DbException.java" bugCount="0" size="5"/>
+    <FileStats path="org/wattdepot/server/db/DbImplementation.java" bugCount="0" size="124"/>
+    <FileStats path="org/wattdepot/server/db/DbManager.java" bugCount="0" size="109"/>
+    <FileStats path="org/wattdepot/server/db/DbManagerTestHelper.java" bugCount="0" size="45"/>
+    <FileStats path="org/wattdepot/server/db/TestDbManager.java" bugCount="0" size="12"/>
+    <FileStats path="org/wattdepot/server/db/TestDbManagerSensorData.java" bugCount="0" size="368"/>
+    <FileStats path="org/wattdepot/server/db/TestDbManagerSources.java" bugCount="0" size="138"/>
+    <FileStats path="org/wattdepot/server/db/TestDbManagerUsers.java" bugCount="0" size="70"/>
+    <FileStats path="org/wattdepot/server/db/derby/DerbyStorageImplementation.java" bugCount="0" size="958"/>
+    <FileStats path="org/wattdepot/server/db/derby/TestDerbyStorageImplementation.java" bugCount="0" size="16"/>
+    <FileStats path="org/wattdepot/server/db/memory/MemoryStorageImplementation.java" bugCount="0" size="299"/>
+    <FileStats path="org/wattdepot/test/DataGenerator.java" bugCount="0" size="65"/>
+    <FileStats path="org/wattdepot/test/ServerTestHelper.java" bugCount="0" size="68"/>
+    <FileStats path="org/wattdepot/test/functional/TestOscarFunctionality.java" bugCount="0" size="261"/>
+    <FileStats path="org/wattdepot/test/stress/StressTest.java" bugCount="0" size="103"/>
+    <FileStats path="org/wattdepot/tinker/LatestBenchmark.java" bugCount="0" size="27"/>
+    <FileStats path="org/wattdepot/tinker/PingApplication.java" bugCount="0" size="7"/>
+    <FileStats path="org/wattdepot/tinker/PingClient.java" bugCount="0" size="18"/>
+    <FileStats path="org/wattdepot/tinker/PingMain.java" bugCount="0" size="12"/>
+    <FileStats path="org/wattdepot/tinker/PingResource.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/tinker/QueryTestServlet.java" bugCount="0" size="25"/>
+    <FileStats path="org/wattdepot/tinker/TestPingApi.java" bugCount="0" size="12"/>
+    <FileStats path="org/wattdepot/tinker/Tinker.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/tinker/XPathTest.java" bugCount="0" size="23"/>
+    <FileStats path="org/wattdepot/util/StackTrace.java" bugCount="0" size="8"/>
+    <FileStats path="org/wattdepot/util/TestStackTrace.java" bugCount="0" size="9"/>
+    <FileStats path="org/wattdepot/util/UriUtils.java" bugCount="0" size="7"/>
+    <FileStats path="org/wattdepot/util/logger/OneLineFormatter.java" bugCount="0" size="26"/>
+    <FileStats path="org/wattdepot/util/logger/RestletLoggerUtil.java" bugCount="0" size="41"/>
+    <FileStats path="org/wattdepot/util/logger/TestWattDepotLogger.java" bugCount="0" size="10"/>
+    <FileStats path="org/wattdepot/util/logger/TestWattDepotUserHome.java" bugCount="0" size="13"/>
+    <FileStats path="org/wattdepot/util/logger/WattDepotLogger.java" bugCount="0" size="43"/>
+    <FileStats path="org/wattdepot/util/logger/WattDepotUserHome.java" bugCount="0" size="9"/>
+    <FileStats path="org/wattdepot/util/tstamp/TestTstamp.java" bugCount="0" size="121"/>
+    <FileStats path="org/wattdepot/util/tstamp/Tstamp.java" bugCount="0" size="159"/>
+    <FileStats path="org/wattdepot/util/tstamp/TstampComparator.java" bugCount="0" size="11"/>
+    <PackageStats package="org.wattdepot.client" total_bugs="0" total_types="7" total_size="484">
+      <ClassStats class="org.wattdepot.client.BadXmlException" sourceFile="BadXmlException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.MiscClientException" sourceFile="MiscClientException.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.NotAuthorizedException" sourceFile="NotAuthorizedException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.OverwriteAttemptedException" sourceFile="OverwriteAttemptedException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.ResourceNotFoundException" sourceFile="ResourceNotFoundException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.WattDepotClient" sourceFile="WattDepotClient.java" interface="false" size="421" bugs="0"/>
+      <ClassStats class="org.wattdepot.client.WattDepotClientException" sourceFile="WattDepotClientException.java" interface="false" size="20" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.client.monitor" total_bugs="0" total_types="1" total_size="125">
+      <ClassStats class="org.wattdepot.client.monitor.MonitorSourceClient" sourceFile="MonitorSourceClient.java" interface="false" size="125" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.client.property" total_bugs="0" total_types="1" total_size="128">
+      <ClassStats class="org.wattdepot.client.property.PropertyAdder" sourceFile="PropertyAdder.java" interface="false" size="128" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.client.snapshot" total_bugs="0" total_types="1" total_size="76">
+      <ClassStats class="org.wattdepot.client.snapshot.SnapshotClient" sourceFile="SnapshotClient.java" interface="false" size="76" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.datainput" total_bugs="0" total_types="12" total_size="911">
+      <ClassStats class="org.wattdepot.datainput.BMONetworkClient" sourceFile="BMONetworkClient.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.BMOSensor" sourceFile="BMOSensor.java" interface="false" size="230" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.DataInputClientProperties" sourceFile="DataInputClientProperties.java" interface="false" size="64" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.ExampleStreamingSensor" sourceFile="ExampleStreamingSensor.java" interface="false" size="141" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.OscarDataConverter" sourceFile="OscarDataConverter.java" interface="false" size="111" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.OscarRowParser" sourceFile="OscarRowParser.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.RowParseException" sourceFile="RowParseException.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.RowParser" sourceFile="RowParser.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.TabularFileSensor" sourceFile="TabularFileSensor.java" interface="false" size="143" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.TestOscarRowParser" sourceFile="TestOscarRowParser.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.TestVerisRowParser" sourceFile="TestVerisRowParser.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="org.wattdepot.datainput.VerisRowParser" sourceFile="VerisRowParser.java" interface="false" size="34" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource" total_bugs="0" total_types="2" total_size="324">
+      <ClassStats class="org.wattdepot.resource.ResponseMessage" sourceFile="ResponseMessage.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.WattDepotResource" sourceFile="WattDepotResource.java" interface="false" size="291" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.carbon" total_bugs="0" total_types="4" total_size="283">
+      <ClassStats class="org.wattdepot.resource.carbon.Carbon" sourceFile="Carbon.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.carbon.CarbonResource" sourceFile="CarbonResource.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.carbon.TestCarbon" sourceFile="TestCarbon.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.carbon.TestCarbonResource" sourceFile="TestCarbonResource.java" interface="false" size="126" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.db" total_bugs="0" total_types="2" total_size="37">
+      <ClassStats class="org.wattdepot.resource.db.DatabaseResource" sourceFile="DatabaseResource.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.db.TestDatabaseResource" sourceFile="TestDatabaseResource.java" interface="false" size="15" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.energy" total_bugs="0" total_types="5" total_size="434">
+      <ClassStats class="org.wattdepot.resource.energy.Energy" sourceFile="Energy.java" interface="false" size="92" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.energy.EnergyCounterException" sourceFile="EnergyCounterException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.energy.EnergyResource" sourceFile="EnergyResource.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.energy.TestEnergy" sourceFile="TestEnergy.java" interface="false" size="79" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.energy.TestEnergyResource" sourceFile="TestEnergyResource.java" interface="false" size="203" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.gviz" total_bugs="0" total_types="2" total_size="261">
+      <ClassStats class="org.wattdepot.resource.gviz.GVisualizationResource" sourceFile="GVisualizationResource.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.gviz.GVisualizationServlet" sourceFile="GVisualizationServlet.java" interface="false" size="258" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.health" total_bugs="0" total_types="2" total_size="16">
+      <ClassStats class="org.wattdepot.resource.health.HealthResource" sourceFile="HealthResource.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.health.TestHealthResource" sourceFile="TestHealthResource.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.power" total_bugs="0" total_types="2" total_size="156">
+      <ClassStats class="org.wattdepot.resource.power.PowerResource" sourceFile="PowerResource.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.power.TestPowerResource" sourceFile="TestPowerResource.java" interface="false" size="119" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.property.jaxb" total_bugs="0" total_types="3" total_size="195">
+      <ClassStats class="org.wattdepot.resource.property.jaxb.Properties" sourceFile="Properties.java" interface="false" size="71" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.property.jaxb.Property" sourceFile="Property.java" interface="false" size="58" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.property.jaxb.TestPropertyJaxb" sourceFile="TestPropertyJaxb.java" interface="false" size="66" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.sensordata" total_bugs="0" total_types="6" total_size="880">
+      <ClassStats class="org.wattdepot.resource.sensordata.SensorDataResource" sourceFile="SensorDataResource.java" interface="false" size="148" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.SensorDataStraddle" sourceFile="SensorDataStraddle.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.StraddleList" sourceFile="StraddleList.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.TestSensorDataJaxb" sourceFile="TestSensorDataJaxb.java" interface="false" size="83" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.TestSensorDataResource" sourceFile="TestSensorDataResource.java" interface="false" size="389" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.TestSensorDataStraddle" sourceFile="TestSensorDataStraddle.java" interface="false" size="139" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.sensordata.jaxb" total_bugs="0" total_types="5" total_size="339">
+      <ClassStats class="org.wattdepot.resource.sensordata.jaxb.ObjectFactory" sourceFile="ObjectFactory.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.jaxb.SensorData" sourceFile="SensorData.java" interface="false" size="144" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.jaxb.SensorDataIndex" sourceFile="SensorDataIndex.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.jaxb.SensorDataRef" sourceFile="SensorDataRef.java" interface="false" size="125" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.sensordata.jaxb.SensorDatas" sourceFile="SensorDatas.java" interface="false" size="14" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.source" total_bugs="0" total_types="3" total_size="311">
+      <ClassStats class="org.wattdepot.resource.source.SourceResource" sourceFile="SourceResource.java" interface="false" size="83" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.TestSourceJaxb" sourceFile="TestSourceJaxb.java" interface="false" size="116" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.TestSourceResource" sourceFile="TestSourceResource.java" interface="false" size="112" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.source.jaxb" total_bugs="0" total_types="6" total_size="551">
+      <ClassStats class="org.wattdepot.resource.source.jaxb.ObjectFactory" sourceFile="ObjectFactory.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.jaxb.Source" sourceFile="Source.java" interface="false" size="224" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.jaxb.SourceIndex" sourceFile="SourceIndex.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.jaxb.SourceRef" sourceFile="SourceRef.java" interface="false" size="181" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.jaxb.Sources" sourceFile="Sources.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.jaxb.SubSources" sourceFile="SubSources.java" interface="false" size="35" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.source.summary" total_bugs="0" total_types="3" total_size="109">
+      <ClassStats class="org.wattdepot.resource.source.summary.SourceSummaryResource" sourceFile="SourceSummaryResource.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.summary.TestSourceSummaryJaxb" sourceFile="TestSourceSummaryJaxb.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.summary.TestSourceSummaryResource" sourceFile="TestSourceSummaryResource.java" interface="false" size="48" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.source.summary.jaxb" total_bugs="0" total_types="3" total_size="111">
+      <ClassStats class="org.wattdepot.resource.source.summary.jaxb.ObjectFactory" sourceFile="ObjectFactory.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.summary.jaxb.SourceSummaries" sourceFile="SourceSummaries.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.source.summary.jaxb.SourceSummary" sourceFile="SourceSummary.java" interface="false" size="72" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.user" total_bugs="0" total_types="3" total_size="122">
+      <ClassStats class="org.wattdepot.resource.user.TestUserJaxb" sourceFile="TestUserJaxb.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.TestUserResource" sourceFile="TestUserResource.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.UserResource" sourceFile="UserResource.java" interface="false" size="34" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.resource.user.jaxb" total_bugs="0" total_types="5" total_size="242">
+      <ClassStats class="org.wattdepot.resource.user.jaxb.ObjectFactory" sourceFile="ObjectFactory.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.jaxb.User" sourceFile="User.java" interface="false" size="101" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.jaxb.UserIndex" sourceFile="UserIndex.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.jaxb.UserRef" sourceFile="UserRef.java" interface="false" size="76" bugs="0"/>
+      <ClassStats class="org.wattdepot.resource.user.jaxb.Users" sourceFile="Users.java" interface="false" size="14" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.sensor.ted" total_bugs="0" total_types="1" total_size="186">
+      <ClassStats class="org.wattdepot.sensor.ted.Ted5000Sensor" sourceFile="Ted5000Sensor.java" interface="false" size="186" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.server" total_bugs="0" total_types="4" total_size="358">
+      <ClassStats class="org.wattdepot.server.AdminAuthenticator" sourceFile="AdminAuthenticator.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.Server" sourceFile="Server.java" interface="false" size="200" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.ServerProperties" sourceFile="ServerProperties.java" interface="false" size="136" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.WattDepotAuthenticator" sourceFile="WattDepotAuthenticator.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.server.db" total_bugs="0" total_types="9" total_size="876">
+      <ClassStats class="org.wattdepot.server.db.DbBadIntervalException" sourceFile="DbBadIntervalException.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.DbException" sourceFile="DbException.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.DbImplementation" sourceFile="DbImplementation.java" interface="false" size="124" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.DbManager" sourceFile="DbManager.java" interface="false" size="109" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.DbManagerTestHelper" sourceFile="DbManagerTestHelper.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.TestDbManager" sourceFile="TestDbManager.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.TestDbManagerSensorData" sourceFile="TestDbManagerSensorData.java" interface="false" size="368" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.TestDbManagerSources" sourceFile="TestDbManagerSources.java" interface="false" size="138" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.TestDbManagerUsers" sourceFile="TestDbManagerUsers.java" interface="false" size="70" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.server.db.derby" total_bugs="0" total_types="3" total_size="974">
+      <ClassStats class="org.wattdepot.server.db.derby.DerbyStorageImplementation" sourceFile="DerbyStorageImplementation.java" interface="false" size="943" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.derby.DerbyStorageImplementation$1" sourceFile="DerbyStorageImplementation.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.wattdepot.server.db.derby.TestDerbyStorageImplementation" sourceFile="TestDerbyStorageImplementation.java" interface="false" size="16" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.server.db.memory" total_bugs="0" total_types="1" total_size="299">
+      <ClassStats class="org.wattdepot.server.db.memory.MemoryStorageImplementation" sourceFile="MemoryStorageImplementation.java" interface="false" size="299" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.test" total_bugs="0" total_types="2" total_size="133">
+      <ClassStats class="org.wattdepot.test.DataGenerator" sourceFile="DataGenerator.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="org.wattdepot.test.ServerTestHelper" sourceFile="ServerTestHelper.java" interface="false" size="68" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.test.functional" total_bugs="0" total_types="4" total_size="261">
+      <ClassStats class="org.wattdepot.test.functional.TestOscarFunctionality" sourceFile="TestOscarFunctionality.java" interface="false" size="231" bugs="0"/>
+      <ClassStats class="org.wattdepot.test.functional.TestOscarFunctionality$1" sourceFile="TestOscarFunctionality.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="org.wattdepot.test.functional.TestOscarFunctionality$Direction" sourceFile="TestOscarFunctionality.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.wattdepot.test.functional.TestOscarFunctionality$StatisticType" sourceFile="TestOscarFunctionality.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.test.stress" total_bugs="0" total_types="1" total_size="103">
+      <ClassStats class="org.wattdepot.test.stress.StressTest" sourceFile="StressTest.java" interface="false" size="103" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.tinker" total_bugs="0" total_types="9" total_size="140">
+      <ClassStats class="org.wattdepot.tinker.LatestBenchmark" sourceFile="LatestBenchmark.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.PingApplication" sourceFile="PingApplication.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.PingClient" sourceFile="PingClient.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.PingMain" sourceFile="PingMain.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.PingResource" sourceFile="PingResource.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.QueryTestServlet" sourceFile="QueryTestServlet.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.TestPingApi" sourceFile="TestPingApi.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.Tinker" sourceFile="Tinker.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.tinker.XPathTest" sourceFile="XPathTest.java" interface="false" size="23" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.util" total_bugs="0" total_types="3" total_size="24">
+      <ClassStats class="org.wattdepot.util.StackTrace" sourceFile="StackTrace.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.TestStackTrace" sourceFile="TestStackTrace.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.UriUtils" sourceFile="UriUtils.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.util.logger" total_bugs="0" total_types="6" total_size="142">
+      <ClassStats class="org.wattdepot.util.logger.OneLineFormatter" sourceFile="OneLineFormatter.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.logger.RestletLoggerUtil" sourceFile="RestletLoggerUtil.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.logger.TestWattDepotLogger" sourceFile="TestWattDepotLogger.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.logger.TestWattDepotUserHome" sourceFile="TestWattDepotUserHome.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.logger.WattDepotLogger" sourceFile="WattDepotLogger.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.logger.WattDepotUserHome" sourceFile="WattDepotUserHome.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.wattdepot.util.tstamp" total_bugs="0" total_types="3" total_size="291">
+      <ClassStats class="org.wattdepot.util.tstamp.TestTstamp" sourceFile="TestTstamp.java" interface="false" size="121" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.tstamp.Tstamp" sourceFile="Tstamp.java" interface="false" size="159" bugs="0"/>
+      <ClassStats class="org.wattdepot.util.tstamp.TstampComparator" sourceFile="TstampComparator.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UncallableMethodOfAnonymousClass" totalMilliseconds="11" invocations="124" avgMicrosecondsPerInvocation="95" maxMicrosecondsPerInvocation="1045" standardDeviationMircosecondsPerInvocation="136"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteCheckReturnValue" totalMilliseconds="11" invocations="367" avgMicrosecondsPerInvocation="32" maxMicrosecondsPerInvocation="527" standardDeviationMircosecondsPerInvocation="49"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadlyOverriddenAdapter" totalMilliseconds="12" invocations="124" avgMicrosecondsPerInvocation="98" maxMicrosecondsPerInvocation="1056" standardDeviationMircosecondsPerInvocation="132"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.IncompatMask" totalMilliseconds="12" invocations="124" avgMicrosecondsPerInvocation="102" maxMicrosecondsPerInvocation="1054" standardDeviationMircosecondsPerInvocation="143"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteAnnotationRetention" totalMilliseconds="12" invocations="367" avgMicrosecondsPerInvocation="34" maxMicrosecondsPerInvocation="411" standardDeviationMircosecondsPerInvocation="44"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InefficientToArray" totalMilliseconds="12" invocations="124" avgMicrosecondsPerInvocation="103" maxMicrosecondsPerInvocation="1066" standardDeviationMircosecondsPerInvocation="141"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadUseOfReturnValue" totalMilliseconds="13" invocations="124" avgMicrosecondsPerInvocation="108" maxMicrosecondsPerInvocation="1237" standardDeviationMircosecondsPerInvocation="158"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.HugeSharedStringConstants" totalMilliseconds="13" invocations="124" avgMicrosecondsPerInvocation="108" maxMicrosecondsPerInvocation="1341" standardDeviationMircosecondsPerInvocation="188"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StartInConstructor" totalMilliseconds="13" invocations="124" avgMicrosecondsPerInvocation="111" maxMicrosecondsPerInvocation="10087" standardDeviationMircosecondsPerInvocation="900"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBugsSummaryStats" totalMilliseconds="13" invocations="367" avgMicrosecondsPerInvocation="38" maxMicrosecondsPerInvocation="1575" standardDeviationMircosecondsPerInvocation="117"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LockCheckerFactory" totalMilliseconds="14" invocations="1018" avgMicrosecondsPerInvocation="13" maxMicrosecondsPerInvocation="7351" standardDeviationMircosecondsPerInvocation="230"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindTwoLockWait" totalMilliseconds="14" invocations="124" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="5494" standardDeviationMircosecondsPerInvocation="499"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.IDivResultCastToDouble" totalMilliseconds="14" invocations="124" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="1203" standardDeviationMircosecondsPerInvocation="161"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRunInvocations" totalMilliseconds="14" invocations="124" avgMicrosecondsPerInvocation="116" maxMicrosecondsPerInvocation="1347" standardDeviationMircosecondsPerInvocation="168"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSpinLoop" totalMilliseconds="14" invocations="124" avgMicrosecondsPerInvocation="119" maxMicrosecondsPerInvocation="1183" standardDeviationMircosecondsPerInvocation="168"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InheritanceUnsafeGetResource" totalMilliseconds="14" invocations="124" avgMicrosecondsPerInvocation="120" maxMicrosecondsPerInvocation="1058" standardDeviationMircosecondsPerInvocation="177"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="15" invocations="42" avgMicrosecondsPerInvocation="372" maxMicrosecondsPerInvocation="9882" standardDeviationMircosecondsPerInvocation="1487"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Methods" totalMilliseconds="15" invocations="367" avgMicrosecondsPerInvocation="43" maxMicrosecondsPerInvocation="6234" standardDeviationMircosecondsPerInvocation="326"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindMaskedFields" totalMilliseconds="15" invocations="124" avgMicrosecondsPerInvocation="128" maxMicrosecondsPerInvocation="1166" standardDeviationMircosecondsPerInvocation="170"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonNullAnnotations" totalMilliseconds="15" invocations="367" avgMicrosecondsPerInvocation="43" maxMicrosecondsPerInvocation="1807" standardDeviationMircosecondsPerInvocation="108"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteCheckReturnValueAnnotations" totalMilliseconds="16" invocations="367" avgMicrosecondsPerInvocation="43" maxMicrosecondsPerInvocation="4131" standardDeviationMircosecondsPerInvocation="218"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnnecessaryMath" totalMilliseconds="16" invocations="124" avgMicrosecondsPerInvocation="131" maxMicrosecondsPerInvocation="1430" standardDeviationMircosecondsPerInvocation="213"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonSerializableValuePassedToWriteObject" totalMilliseconds="16" invocations="124" avgMicrosecondsPerInvocation="137" maxMicrosecondsPerInvocation="1426" standardDeviationMircosecondsPerInvocation="209"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUninitializedGet" totalMilliseconds="17" invocations="124" avgMicrosecondsPerInvocation="137" maxMicrosecondsPerInvocation="1205" standardDeviationMircosecondsPerInvocation="165"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnsyncGet" totalMilliseconds="17" invocations="124" avgMicrosecondsPerInvocation="142" maxMicrosecondsPerInvocation="1322" standardDeviationMircosecondsPerInvocation="202"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.asm.ClassReaderAnalysisEngine" totalMilliseconds="17" invocations="1049" avgMicrosecondsPerInvocation="17" maxMicrosecondsPerInvocation="7997" standardDeviationMircosecondsPerInvocation="247"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableStaticFields" totalMilliseconds="18" invocations="124" avgMicrosecondsPerInvocation="147" maxMicrosecondsPerInvocation="5251" standardDeviationMircosecondsPerInvocation="476"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.WrongMapIterator" totalMilliseconds="18" invocations="124" avgMicrosecondsPerInvocation="152" maxMicrosecondsPerInvocation="1244" standardDeviationMircosecondsPerInvocation="181"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableLock" totalMilliseconds="20" invocations="124" avgMicrosecondsPerInvocation="163" maxMicrosecondsPerInvocation="4420" standardDeviationMircosecondsPerInvocation="482"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindEmptySynchronizedBlock" totalMilliseconds="20" invocations="124" avgMicrosecondsPerInvocation="166" maxMicrosecondsPerInvocation="4262" standardDeviationMircosecondsPerInvocation="402"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSleepWithLockHeld" totalMilliseconds="21" invocations="124" avgMicrosecondsPerInvocation="173" maxMicrosecondsPerInvocation="18794" standardDeviationMircosecondsPerInvocation="1679"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Naming" totalMilliseconds="21" invocations="124" avgMicrosecondsPerInvocation="174" maxMicrosecondsPerInvocation="1743" standardDeviationMircosecondsPerInvocation="206"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodFactory" totalMilliseconds="21" invocations="444" avgMicrosecondsPerInvocation="49" maxMicrosecondsPerInvocation="5056" standardDeviationMircosecondsPerInvocation="242"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.WaitInLoop" totalMilliseconds="23" invocations="124" avgMicrosecondsPerInvocation="191" maxMicrosecondsPerInvocation="8689" standardDeviationMircosecondsPerInvocation="785"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LoadedFieldSetFactory" totalMilliseconds="23" invocations="1018" avgMicrosecondsPerInvocation="23" maxMicrosecondsPerInvocation="3195" standardDeviationMircosecondsPerInvocation="103"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNakedNotify" totalMilliseconds="24" invocations="124" avgMicrosecondsPerInvocation="195" maxMicrosecondsPerInvocation="11253" standardDeviationMircosecondsPerInvocation="1008"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindLocalSelfAssignment2" totalMilliseconds="24" invocations="124" avgMicrosecondsPerInvocation="200" maxMicrosecondsPerInvocation="8742" standardDeviationMircosecondsPerInvocation="790"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StringConcatenation" totalMilliseconds="25" invocations="124" avgMicrosecondsPerInvocation="208" maxMicrosecondsPerInvocation="9085" standardDeviationMircosecondsPerInvocation="825"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SuspiciousThreadInterrupted" totalMilliseconds="25" invocations="124" avgMicrosecondsPerInvocation="208" maxMicrosecondsPerInvocation="8039" standardDeviationMircosecondsPerInvocation="803"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.VarArgsProblems" totalMilliseconds="25" invocations="124" avgMicrosecondsPerInvocation="209" maxMicrosecondsPerInvocation="11939" standardDeviationMircosecondsPerInvocation="1071"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.AssertionMethodsFactory" totalMilliseconds="26" invocations="124" avgMicrosecondsPerInvocation="212" maxMicrosecondsPerInvocation="17846" standardDeviationMircosecondsPerInvocation="1591"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DoInsideDoPrivileged" totalMilliseconds="26" invocations="124" avgMicrosecondsPerInvocation="215" maxMicrosecondsPerInvocation="11783" standardDeviationMircosecondsPerInvocation="1057"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteSuppressedWarnings" totalMilliseconds="26" invocations="367" avgMicrosecondsPerInvocation="73" maxMicrosecondsPerInvocation="4705" standardDeviationMircosecondsPerInvocation="261"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUselessControlFlow" totalMilliseconds="27" invocations="124" avgMicrosecondsPerInvocation="218" maxMicrosecondsPerInvocation="11862" standardDeviationMircosecondsPerInvocation="1063"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EmptyZipFileEntry" totalMilliseconds="29" invocations="124" avgMicrosecondsPerInvocation="234" maxMicrosecondsPerInvocation="17864" standardDeviationMircosecondsPerInvocation="1593"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InitializationChain" totalMilliseconds="29" invocations="124" avgMicrosecondsPerInvocation="234" maxMicrosecondsPerInvocation="20530" standardDeviationMircosecondsPerInvocation="1854"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBadCast2" totalMilliseconds="29" invocations="124" avgMicrosecondsPerInvocation="235" maxMicrosecondsPerInvocation="5897" standardDeviationMircosecondsPerInvocation="618"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteJCIPAnnotation" totalMilliseconds="31" invocations="367" avgMicrosecondsPerInvocation="85" maxMicrosecondsPerInvocation="16574" standardDeviationMircosecondsPerInvocation="863"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFinalizeInvocations" totalMilliseconds="33" invocations="124" avgMicrosecondsPerInvocation="268" maxMicrosecondsPerInvocation="20703" standardDeviationMircosecondsPerInvocation="1848"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.VolatileUsage" totalMilliseconds="34" invocations="124" avgMicrosecondsPerInvocation="276" maxMicrosecondsPerInvocation="22081" standardDeviationMircosecondsPerInvocation="1971"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFieldSelfAssignment" totalMilliseconds="34" invocations="124" avgMicrosecondsPerInvocation="281" maxMicrosecondsPerInvocation="20930" standardDeviationMircosecondsPerInvocation="1868"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSelfComparison2" totalMilliseconds="34" invocations="124" avgMicrosecondsPerInvocation="282" maxMicrosecondsPerInvocation="15144" standardDeviationMircosecondsPerInvocation="1355"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDoubleCheck" totalMilliseconds="35" invocations="124" avgMicrosecondsPerInvocation="287" maxMicrosecondsPerInvocation="17557" standardDeviationMircosecondsPerInvocation="1571"/>
+      <ClassProfile name="edu.umd.cs.findbugs.NonReportingDetectorToDetector2Adapter" totalMilliseconds="39" invocations="5019" avgMicrosecondsPerInvocation="7" maxMicrosecondsPerInvocation="1983" standardDeviationMircosecondsPerInvocation="32"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUncalledPrivateMethods" totalMilliseconds="43" invocations="124" avgMicrosecondsPerInvocation="346" maxMicrosecondsPerInvocation="13800" standardDeviationMircosecondsPerInvocation="1569"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDerefsInvolvingNonShortCircuitEvaluation" totalMilliseconds="46" invocations="124" avgMicrosecondsPerInvocation="375" maxMicrosecondsPerInvocation="4717" standardDeviationMircosecondsPerInvocation="585"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LazyInit" totalMilliseconds="49" invocations="124" avgMicrosecondsPerInvocation="397" maxMicrosecondsPerInvocation="44039" standardDeviationMircosecondsPerInvocation="3936"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFloatEquality" totalMilliseconds="49" invocations="124" avgMicrosecondsPerInvocation="398" maxMicrosecondsPerInvocation="4910" standardDeviationMircosecondsPerInvocation="616"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ReverseDepthFirstSearchFactory" totalMilliseconds="51" invocations="1018" avgMicrosecondsPerInvocation="50" maxMicrosecondsPerInvocation="7123" standardDeviationMircosecondsPerInvocation="306"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="51" invocations="125" avgMicrosecondsPerInvocation="411" maxMicrosecondsPerInvocation="34318" standardDeviationMircosecondsPerInvocation="3066"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InstantiateStaticClass" totalMilliseconds="52" invocations="124" avgMicrosecondsPerInvocation="424" maxMicrosecondsPerInvocation="39161" standardDeviationMircosecondsPerInvocation="3497"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonShortCircuit" totalMilliseconds="55" invocations="124" avgMicrosecondsPerInvocation="447" maxMicrosecondsPerInvocation="4942" standardDeviationMircosecondsPerInvocation="667"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="56" invocations="124" avgMicrosecondsPerInvocation="457" maxMicrosecondsPerInvocation="11583" standardDeviationMircosecondsPerInvocation="1118"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NumberConstructor" totalMilliseconds="64" invocations="124" avgMicrosecondsPerInvocation="523" maxMicrosecondsPerInvocation="48071" standardDeviationMircosecondsPerInvocation="4299"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SuperfluousInstanceOf" totalMilliseconds="65" invocations="124" avgMicrosecondsPerInvocation="528" maxMicrosecondsPerInvocation="27323" standardDeviationMircosecondsPerInvocation="3290"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNonSerializableStoreIntoSession" totalMilliseconds="67" invocations="124" avgMicrosecondsPerInvocation="544" maxMicrosecondsPerInvocation="28766" standardDeviationMircosecondsPerInvocation="3193"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="71" invocations="124" avgMicrosecondsPerInvocation="580" maxMicrosecondsPerInvocation="17041" standardDeviationMircosecondsPerInvocation="1644"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ClassContextClassAnalysisEngine" totalMilliseconds="72" invocations="895" avgMicrosecondsPerInvocation="80" maxMicrosecondsPerInvocation="57941" standardDeviationMircosecondsPerInvocation="1944"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReadReturnShouldBeChecked" totalMilliseconds="73" invocations="124" avgMicrosecondsPerInvocation="590" maxMicrosecondsPerInvocation="28818" standardDeviationMircosecondsPerInvocation="3271"/>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="73" invocations="13624" avgMicrosecondsPerInvocation="5" maxMicrosecondsPerInvocation="15247" standardDeviationMircosecondsPerInvocation="135"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="79" invocations="1445" avgMicrosecondsPerInvocation="55" maxMicrosecondsPerInvocation="24521" standardDeviationMircosecondsPerInvocation="687"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnconditionalWait" totalMilliseconds="80" invocations="124" avgMicrosecondsPerInvocation="647" maxMicrosecondsPerInvocation="34955" standardDeviationMircosecondsPerInvocation="3570"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindHEmismatch" totalMilliseconds="81" invocations="124" avgMicrosecondsPerInvocation="656" maxMicrosecondsPerInvocation="15182" standardDeviationMircosecondsPerInvocation="1699"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.QuestionableBooleanAssignment" totalMilliseconds="82" invocations="124" avgMicrosecondsPerInvocation="662" maxMicrosecondsPerInvocation="51621" standardDeviationMircosecondsPerInvocation="4864"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSelfComparison" totalMilliseconds="82" invocations="124" avgMicrosecondsPerInvocation="667" maxMicrosecondsPerInvocation="11135" standardDeviationMircosecondsPerInvocation="1499"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizeAndNullCheckField" totalMilliseconds="90" invocations="124" avgMicrosecondsPerInvocation="732" maxMicrosecondsPerInvocation="68989" standardDeviationMircosecondsPerInvocation="6157"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.AppendingToAnObjectOutputStream" totalMilliseconds="90" invocations="124" avgMicrosecondsPerInvocation="733" maxMicrosecondsPerInvocation="17027" standardDeviationMircosecondsPerInvocation="2114"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MethodReturnCheck" totalMilliseconds="91" invocations="124" avgMicrosecondsPerInvocation="734" maxMicrosecondsPerInvocation="21814" standardDeviationMircosecondsPerInvocation="2126"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadResultSetAccess" totalMilliseconds="91" invocations="124" avgMicrosecondsPerInvocation="739" maxMicrosecondsPerInvocation="24710" standardDeviationMircosecondsPerInvocation="2495"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindBadForLoop" totalMilliseconds="94" invocations="124" avgMicrosecondsPerInvocation="765" maxMicrosecondsPerInvocation="39261" standardDeviationMircosecondsPerInvocation="3568"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="102" invocations="124" avgMicrosecondsPerInvocation="828" maxMicrosecondsPerInvocation="9602" standardDeviationMircosecondsPerInvocation="1352"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizingOnContentsOfFieldToProtectField" totalMilliseconds="102" invocations="124" avgMicrosecondsPerInvocation="830" maxMicrosecondsPerInvocation="21201" standardDeviationMircosecondsPerInvocation="2776"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizeOnClassLiteralNotGetClass" totalMilliseconds="104" invocations="124" avgMicrosecondsPerInvocation="845" maxMicrosecondsPerInvocation="53014" standardDeviationMircosecondsPerInvocation="4814"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SerializableIdiom" totalMilliseconds="106" invocations="124" avgMicrosecondsPerInvocation="860" maxMicrosecondsPerInvocation="16134" standardDeviationMircosecondsPerInvocation="2514"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="106" invocations="124" avgMicrosecondsPerInvocation="862" maxMicrosecondsPerInvocation="82796" standardDeviationMircosecondsPerInvocation="7405"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InfiniteRecursiveLoop" totalMilliseconds="109" invocations="124" avgMicrosecondsPerInvocation="884" maxMicrosecondsPerInvocation="24285" standardDeviationMircosecondsPerInvocation="2941"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="117" invocations="124" avgMicrosecondsPerInvocation="948" maxMicrosecondsPerInvocation="46977" standardDeviationMircosecondsPerInvocation="4427"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="122" invocations="124" avgMicrosecondsPerInvocation="987" maxMicrosecondsPerInvocation="90346" standardDeviationMircosecondsPerInvocation="8062"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.InfiniteLoop" totalMilliseconds="125" invocations="124" avgMicrosecondsPerInvocation="1009" maxMicrosecondsPerInvocation="20242" standardDeviationMircosecondsPerInvocation="2915"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="127" invocations="124" avgMicrosecondsPerInvocation="1025" maxMicrosecondsPerInvocation="50345" standardDeviationMircosecondsPerInvocation="4651"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ReturnPathTypeDataflowFactory" totalMilliseconds="128" invocations="438" avgMicrosecondsPerInvocation="294" maxMicrosecondsPerInvocation="10571" standardDeviationMircosecondsPerInvocation="971"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="130" invocations="124" avgMicrosecondsPerInvocation="1055" maxMicrosecondsPerInvocation="56617" standardDeviationMircosecondsPerInvocation="5425"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CallToUnsupportedMethod" totalMilliseconds="131" invocations="124" avgMicrosecondsPerInvocation="1058" maxMicrosecondsPerInvocation="18761" standardDeviationMircosecondsPerInvocation="2181"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindDeadLocalStores" totalMilliseconds="132" invocations="124" avgMicrosecondsPerInvocation="1067" maxMicrosecondsPerInvocation="27198" standardDeviationMircosecondsPerInvocation="2870"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="133" invocations="124" avgMicrosecondsPerInvocation="1073" maxMicrosecondsPerInvocation="107386" standardDeviationMircosecondsPerInvocation="9592"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.RepeatedConditionals" totalMilliseconds="133" invocations="124" avgMicrosecondsPerInvocation="1075" maxMicrosecondsPerInvocation="68938" standardDeviationMircosecondsPerInvocation="6171"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ObligationDataflowFactory" totalMilliseconds="134" invocations="221" avgMicrosecondsPerInvocation="610" maxMicrosecondsPerInvocation="75582" standardDeviationMircosecondsPerInvocation="5238"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnsatisfiedObligation" totalMilliseconds="141" invocations="124" avgMicrosecondsPerInvocation="1139" maxMicrosecondsPerInvocation="49332" standardDeviationMircosecondsPerInvocation="6499"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.RuntimeExceptionCapture" totalMilliseconds="143" invocations="124" avgMicrosecondsPerInvocation="1155" maxMicrosecondsPerInvocation="29223" standardDeviationMircosecondsPerInvocation="3193"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="148" invocations="367" avgMicrosecondsPerInvocation="403" maxMicrosecondsPerInvocation="21365" standardDeviationMircosecondsPerInvocation="1581"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindPuzzlers" totalMilliseconds="153" invocations="124" avgMicrosecondsPerInvocation="1235" maxMicrosecondsPerInvocation="22692" standardDeviationMircosecondsPerInvocation="3520"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BadSyntaxForRegularExpression" totalMilliseconds="156" invocations="124" avgMicrosecondsPerInvocation="1264" maxMicrosecondsPerInvocation="40649" standardDeviationMircosecondsPerInvocation="4796"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="157" invocations="367" avgMicrosecondsPerInvocation="429" maxMicrosecondsPerInvocation="26287" standardDeviationMircosecondsPerInvocation="1895"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="174" invocations="124" avgMicrosecondsPerInvocation="1403" maxMicrosecondsPerInvocation="43455" standardDeviationMircosecondsPerInvocation="4322"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="187" invocations="124" avgMicrosecondsPerInvocation="1509" maxMicrosecondsPerInvocation="57005" standardDeviationMircosecondsPerInvocation="6032"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison" totalMilliseconds="206" invocations="124" avgMicrosecondsPerInvocation="1663" maxMicrosecondsPerInvocation="34946" standardDeviationMircosecondsPerInvocation="4249"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DuplicateBranches" totalMilliseconds="207" invocations="124" avgMicrosecondsPerInvocation="1677" maxMicrosecondsPerInvocation="34999" standardDeviationMircosecondsPerInvocation="5625"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="209" invocations="124" avgMicrosecondsPerInvocation="1688" maxMicrosecondsPerInvocation="45506" standardDeviationMircosecondsPerInvocation="4939"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="231" invocations="25983" avgMicrosecondsPerInvocation="8" maxMicrosecondsPerInvocation="30457" standardDeviationMircosecondsPerInvocation="263"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.URLProblems" totalMilliseconds="249" invocations="124" avgMicrosecondsPerInvocation="2013" maxMicrosecondsPerInvocation="41909" standardDeviationMircosecondsPerInvocation="4804"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="267" invocations="124" avgMicrosecondsPerInvocation="2154" maxMicrosecondsPerInvocation="55517" standardDeviationMircosecondsPerInvocation="8010"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="268" invocations="367" avgMicrosecondsPerInvocation="730" maxMicrosecondsPerInvocation="70323" standardDeviationMircosecondsPerInvocation="4981"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SwitchFallthrough" totalMilliseconds="284" invocations="124" avgMicrosecondsPerInvocation="2295" maxMicrosecondsPerInvocation="94901" standardDeviationMircosecondsPerInvocation="11493"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="289" invocations="124" avgMicrosecondsPerInvocation="2333" maxMicrosecondsPerInvocation="86741" standardDeviationMircosecondsPerInvocation="8626"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LiveLocalStoreDataflowFactory" totalMilliseconds="352" invocations="1012" avgMicrosecondsPerInvocation="348" maxMicrosecondsPerInvocation="69266" standardDeviationMircosecondsPerInvocation="2719"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="441" invocations="1018" avgMicrosecondsPerInvocation="434" maxMicrosecondsPerInvocation="62616" standardDeviationMircosecondsPerInvocation="3047"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="443" invocations="489" avgMicrosecondsPerInvocation="906" maxMicrosecondsPerInvocation="196291" standardDeviationMircosecondsPerInvocation="9063"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.obl.ObligationAnalysis" totalMilliseconds="557" invocations="221" avgMicrosecondsPerInvocation="2523" maxMicrosecondsPerInvocation="62101" standardDeviationMircosecondsPerInvocation="7004"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="579" invocations="367" avgMicrosecondsPerInvocation="1578" maxMicrosecondsPerInvocation="184969" standardDeviationMircosecondsPerInvocation="11280"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="589" invocations="248" avgMicrosecondsPerInvocation="2377" maxMicrosecondsPerInvocation="49945" standardDeviationMircosecondsPerInvocation="5130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FormatStringChecker" totalMilliseconds="843" invocations="124" avgMicrosecondsPerInvocation="6805" maxMicrosecondsPerInvocation="768561" standardDeviationMircosecondsPerInvocation="68696"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="850" invocations="1018" avgMicrosecondsPerInvocation="835" maxMicrosecondsPerInvocation="60478" standardDeviationMircosecondsPerInvocation="3116"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="859" invocations="367" avgMicrosecondsPerInvocation="2341" maxMicrosecondsPerInvocation="548597" standardDeviationMircosecondsPerInvocation="29811"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="932" invocations="1018" avgMicrosecondsPerInvocation="916" maxMicrosecondsPerInvocation="256067" standardDeviationMircosecondsPerInvocation="8491"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="947" invocations="367" avgMicrosecondsPerInvocation="2583" maxMicrosecondsPerInvocation="86151" standardDeviationMircosecondsPerInvocation="8198"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="1032" invocations="6160" avgMicrosecondsPerInvocation="167" maxMicrosecondsPerInvocation="55950" standardDeviationMircosecondsPerInvocation="1448"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="1081" invocations="1048" avgMicrosecondsPerInvocation="1031" maxMicrosecondsPerInvocation="412401" standardDeviationMircosecondsPerInvocation="13239"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="1354" invocations="367" avgMicrosecondsPerInvocation="3691" maxMicrosecondsPerInvocation="158859" standardDeviationMircosecondsPerInvocation="13475"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="1402" invocations="1169" avgMicrosecondsPerInvocation="1200" maxMicrosecondsPerInvocation="467295" standardDeviationMircosecondsPerInvocation="14468"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="1861" invocations="840" avgMicrosecondsPerInvocation="2215" maxMicrosecondsPerInvocation="448423" standardDeviationMircosecondsPerInvocation="16702"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.XMLFactoryBypass" totalMilliseconds="1919" invocations="124" avgMicrosecondsPerInvocation="15478" maxMicrosecondsPerInvocation="1838971" standardDeviationMircosecondsPerInvocation="164480"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="1989" invocations="124" avgMicrosecondsPerInvocation="16045" maxMicrosecondsPerInvocation="1886178" standardDeviationMircosecondsPerInvocation="168635"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="2562" invocations="1018" avgMicrosecondsPerInvocation="2517" maxMicrosecondsPerInvocation="96516" standardDeviationMircosecondsPerInvocation="7507"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="3448" invocations="1018" avgMicrosecondsPerInvocation="3387" maxMicrosecondsPerInvocation="119960" standardDeviationMircosecondsPerInvocation="10236"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="3582" invocations="1512" avgMicrosecondsPerInvocation="2369" maxMicrosecondsPerInvocation="190525" standardDeviationMircosecondsPerInvocation="8386"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="4185" invocations="1170" avgMicrosecondsPerInvocation="3577" maxMicrosecondsPerInvocation="241431" standardDeviationMircosecondsPerInvocation="15278"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="4878" invocations="1122" avgMicrosecondsPerInvocation="4347" maxMicrosecondsPerInvocation="2363277" standardDeviationMircosecondsPerInvocation="70848"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="6943" invocations="1018" avgMicrosecondsPerInvocation="6820" maxMicrosecondsPerInvocation="4896818" standardDeviationMircosecondsPerInvocation="153495"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

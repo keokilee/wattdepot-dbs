@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/318/trunk/src/org/wattdepot/server
+END
+ServerProperties.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/315/trunk/src/org/wattdepot/server/ServerProperties.java
+END
+AdminAuthenticator.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/58/trunk/src/org/wattdepot/server/AdminAuthenticator.java
+END
+Server.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/318/trunk/src/org/wattdepot/server/Server.java
+END
+WattDepotAuthenticator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/229/trunk/src/org/wattdepot/server/WattDepotAuthenticator.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/48/trunk/src/org/wattdepot/server/package.html
+END

@@ -1,0 +1,45 @@
+<project name="verify" default="verify">
+  <description>
+    Makes sure system compiles and passes checkstyle, findbugs, and pmd.  
+  </description>
+
+  <property name="pmd.failonerror" value="true" />
+  <property name="findbugs.failOnError" value="true" />
+  <property name="checkstyle.failOnViolation" value="true" />
+  <property name="junit.haltonfailure" value="true" />
+
+  <import file="build.xml" />
+  <import file="checkstyle.build.xml" />
+  <import file="dependencyfinder.build.xml" />
+  <import file="dist.build.xml" />
+  <import file="emma.build.xml" />
+  <import file="findbugs.build.xml" />
+  <import file="javancss.build.xml" />
+  <import file="pmd.build.xml" />
+  <import file="sclc.build.xml" />
+  <import file="junit.build.xml" />
+
+  <target name="verify" depends="compile, junit.tool, checkstyle.tool, pmd.tool, findbugs.tool" description="Verifies system.">
+    <fail message="FindBugs reported warnings." if="findbugs.warningsfound" />
+  </target>
+
+  <target name="verify-all" description="Runs (almost) all Ant targets, including sensor targets, to make sure build system is working properly.">
+    <!-- Using antcall instead of depends parameter to work around emma's need to create fresh class files and instrument
+  			 them, which hoses any other tasks coming after that -->
+    <!-- Call Emma first to get its weirdness out of the way first -->
+    <antcall target="emma" />
+    <antcall target="clean" />
+    <antcall target="compile" />
+    <antcall target="checkstyle" />
+    <antcall target="dependencyfinder" />
+    <antcall target="junit" />
+    <antcall target="pmd" />
+    <antcall target="findbugs" />
+    <antcall target="javadoc.zip" />
+    <antcall target="javancss" />
+    <antcall target="sclc" />
+    <antcall target="dist" />
+    <fail message="FindBugs reported warnings." if="findbugs.warningsfound" />
+  </target>
+
+</project>

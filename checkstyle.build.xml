@@ -1,0 +1,68 @@
+<project name="checkstyle" default="checkstyle" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Runs checkstyle on system, using rules in: lib/configfiles
+  Invocation: ant -f checkstyle.build.xml
+  For more information about checkstyle, goto http://checkstyle.sourceforge.net
+  </description>
+  
+  <import file="build.xml"/>
+  <property name="checkstyle.dir" location="${build.dir}/checkstyle/"/>
+  <property name="checkstyle.install.dir" location="${lib.dir}/checkstyle"/>
+  <property name="checkstyle.jar" value="checkstyle-all.jar"/>
+  <property name="checkstyle.failOnViolation" value="false"/>
+  <property name="checkstyle.config.file" value="wattdepot.checkstyle.xml"/>
+  <property name="checkstyle.config.file.path" location="${configfiles.dir}/${checkstyle.config.file}"/>
+
+  <available file="${checkstyle.config.file.path}" type="file" property="checkstyle.config.available" />
+
+  <target name="install-checkstyle" depends="install-ivy" description="Install checkstyle if necessary.">
+    <ivy:retrieve module="checkstyle" organisation="com.puppycrawl" revision="${checkstyle.version}" pattern="${lib.dir}/checkstyle/[artifact].[ext]" sync="true" inline="true" log="download-only" conf="bundled" transitive="false" type="jar,report"/>
+  </target>
+
+  <target name="checkstyle.install.config.file" unless="checkstyle.config.available">
+    <!-- Modified checkstyle config file is pulled from WattDepot now, not Hackystat -->
+    <get src="http://wattdepot.googlecode.com/svn/trunk/xml/configfiles/${checkstyle.config.file}"
+         dest="${checkstyle.config.file.path}" usetimestamp="true"/>
+  </target>
+
+  <path id="checkstyle.classpath">
+    <pathelement path="${build.dir}/classes"/>
+    <path refid="compile.classpath"/>
+  </path>
+
+  <target name="checkstyle" depends="compile, install-checkstyle, checkstyle.tool, checkstyle.report, checkstyle.sensor" 
+      description="Runs Checkstyle."/>
+
+  <target name="checkstyle.tool" depends="install-checkstyle, checkstyle.install.config.file" description="Checks the style of the sources and reports issues.">
+    <taskdef resource="checkstyletask.properties" classpath="${checkstyle.install.dir}/${checkstyle.jar}" />
+    <mkdir dir="${checkstyle.dir}"/>
+    <checkstyle config="${checkstyle.config.file.path}"
+                failOnViolation="${checkstyle.failOnViolation}" 
+                classpathref="checkstyle.classpath"
+                failureProperty="checkstyle.failed">
+      <fileset dir="${src.dir}" includes="**/*.java" excludes="**/jaxb/**, **/tinker/**" />
+      <formatter type="plain"/>
+      <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml" />
+    </checkstyle>
+  </target>
+
+  <target name="checkstyle.report" description="Generates an HTML report for Checkstyle.">
+    <xslt in="${checkstyle.dir}/checkstyle.xml" 
+          out="${checkstyle.dir}/index.html" 
+          style="${checkstyle.install.dir}/checkstyle-noframes.xsl">
+      <param name="title" expression="Checkstyle Report" />
+      <param name="module" expression="${system.name}" />
+    </xslt>
+  </target>
+  
+
+  <target name="checkstyle.sensor" depends="define-sensors" if="hackystat.enabled" description="Sends CodeIssue data to Hackystat using the Checkstyle Sensor.">
+    <hacky-checkstyle verbose="${hackystat.verbose.mode}" failOnError="true">
+      <datafiles>
+        <fileset file="${checkstyle.dir}/checkstyle.xml" />
+      </datafiles>
+    </hacky-checkstyle>
+  </target>
+
+</project>
+

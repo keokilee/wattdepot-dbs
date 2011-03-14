@@ -1,0 +1,127 @@
+<project name="common" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Boilerplate Ant code used by WattDepot projects. 
+  </description>
+
+  <!-- Basic directory structure. -->
+  <property name="src.dir" location="${basedir}/src" />
+  <property name="lib.dir" location="${basedir}/lib" />
+  <property name="build.dir" location="${basedir}/build" />
+
+  <!-- Make sure we're running a Java 5 or better. -->
+  <condition property="java.5.available">
+    <or>
+      <contains string="${java.version}" substring="1.5" />
+      <contains string="${java.version}" substring="1.6" />
+    </or>
+  </condition>
+  <fail message="This package requires Java 5 or 6." unless="java.5.available" />
+
+  <!-- Make sure we're running Ant 1.7.1 or better. Ant 1.7.0 has a bug that we must avoid.  -->
+  <condition property="ant.1.7.available">
+    <or>
+      <and>
+        <contains string="${ant.version}" substring="1.7" />
+        <not>
+          <contains string="${ant.version}" substring="1.7.0" />
+        </not>
+      </and>
+      <contains string="${ant.version}" substring="1.8" />
+    </or>
+  </condition>
+  <fail message="This package requires Ant 1.7.1 or better; found ${ant.version}" unless="ant.1.7.available" />
+
+  <!-- Ivy download and configuration targets -->
+  <property name="ivy.jar.path" location="${user.home}/.ivy2/ivyjar/" />
+  <property name="library.versions.path" location="${basedir}/configfiles/library.versions.properties" />
+<!--  <available file="${library.versions.path}" type="file" property="library.versions.available" /> -->
+  <property file="${library.versions.path}" />
+  <available file="${ivy.jar.path}/ivy.jar" type="file" property="ivy.available" />
+
+  <target name="install-ivy" depends="download-ivy-if-necessary" description="Makes Ivy tasks available, downloads Ivy first if necessary.">
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
+  </target>
+
+  <target name="download-ivy-if-necessary" unless="ivy.available" description="Only downloads Ivy if necessary.">
+    <antcall target="download-ivy" />
+  </target>
+
+  <target name="download-ivy" description="Downloads ivy.jar.">
+    <mkdir dir="${ivy.jar.path}" />
+    <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar" dest="${ivy.jar.path}/ivy.jar" usetimestamp="true" />
+  </target>
+
+  <target name="download-library-versions-properties-if-necessary" unless="library.versions.available" description="Only downloads library.versions.properties file if necessary.">
+    <antcall target="download-library-versions-properties" />
+  </target>
+
+  <target name="download-library-versions-properties">
+    <mkdir dir="${user.home}/.wattdepot" />
+    <get src="http://wattdepot.googlecode.com/svn/trunk/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
+    <property file="${library.versions.path}" />
+  </target>
+
+  <target name="clean-cache" description="Cleans the ivy cache">
+    <ivy:cleancache />
+  </target>
+
+
+  <!-- Where to look for configuration files (Checkstyle, PMD, FindBugs, etc.) -->
+  <property name="configfiles.url" value="http://hackystat.googlecode.com/svn/trunk/configfiles/" />
+  <property name="configfiles.dir" location="${lib.dir}/configfiles" />
+  <mkdir dir="${configfiles.dir}" />
+
+  <!-- Basic properties for this system. -->
+  <property name="majorVersionNumber" value="8" />
+  <property name="minorVersionNumber" value="3" />
+  <tstamp>
+    <format property="DAYSTAMP" pattern="Mdd" />
+  </tstamp>
+  <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
+
+  <!-- Hackystat sensor definitions and configuration. -->
+
+  <!--
+    You can change the default settings of the following two properties on the command line:
+       ant -Dhackystat.enable=false -f checkstyle.build.xml
+  -->
+  <property name="hackystat.verbose.mode" value="false" />
+  <property name="hackystat.enable" value="true" />
+
+  <!-- define hackystat.enabled iff hackystat.enable is true, so we can use it in an 'if' clause -->
+  <condition property="hackystat.enabled">
+    <istrue value="${hackystat.enable}" />
+  </condition>
+
+  <property name="ant.lib.dir" location="${user.home}/.ant/lib" />
+  <target name="define-sensors" description="Checks to make sure antsensors.jar is installed. Fails build if absent, defines ant sensor tasks if present.">
+    <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
+    <fail message="Hackystat sensors not installed. Please invoke 'ant install-sensors'." unless="antsensors.available" />
+    <taskdef resource="antlib.xml" classpath="${ant.lib.dir}/antsensors.jar" />
+  </target>
+
+  <!-- antsensors.jar cannot be automatically installed during a run due to a classpath problem in Restlet. We must require the user to invoke 'ant install-sensors'.-->
+  <target name="install-sensors" depends="install-ivy" description="Installs the Ant and XmlData sensors.">
+    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
+    <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
+  </target>
+
+  <!-- Miscellaneous housekeeping targets -->
+
+  <target name="clean" description="Delete build/ directory and top-level jar files.">
+    <delete>
+      <fileset dir="${basedir}" includes="*.jar" />
+    </delete>
+    <delete dir="${build.dir}" />
+    <delete dir="${basedir}/sandbox" />
+  </target>
+
+  <target name="reallyclean" depends="clean" description="Delete build/ directory, top-level jar files, and lib/ directory.">
+    <delete dir="${lib.dir}" />
+  </target>
+
+  <target name="convertLineEndings" description="Makes line endings compatible with host platform.">
+    <fixcrlf srcdir="${basedir}" includes="*.build.xml" />
+  </target>
+
+</project>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/125/trunk/xml/schema
+END
+sensordata.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/45/trunk/xml/schema/sensordata.xsd
+END
+source-summary.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/125/trunk/xml/schema/source-summary.xsd
+END
+user.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/43/trunk/xml/schema/user.xsd
+END
+source.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/67/trunk/xml/schema/source.xsd
+END

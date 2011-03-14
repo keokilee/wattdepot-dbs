@@ -1,0 +1,6 @@
+<body>
+This package provides classes that input data into WattDepot. These DataInputClients consult some
+source (flat files, external databases, meters) to collect data, turn the data into SensorData
+objects, and then use the WattDepotClient class to turn the SensorData objects into resources on a
+WattDepot server. 
+</body>

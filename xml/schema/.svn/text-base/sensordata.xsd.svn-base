@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"
+           jaxb:version="2.0">
+         
+    <xs:annotation>
+       <xs:appinfo>
+          <jaxb:globalBindings generateIsSetMethod="true">
+              <xjc:serializable uid="12343"/>
+          </jaxb:globalBindings>
+       </xs:appinfo>
+    </xs:annotation>
+
+  <!-- Primitive elements and attributes -->
+  <xs:element name="Timestamp" type="xs:dateTime"/>
+  <xs:element name="Tool" type="xs:string"/>
+  <xs:element name="Source" type="xs:anyURI"/>
+  <xs:element name="Key" type="xs:string"/>
+  <xs:element name="Value" type="xs:string"/>
+  <xs:attribute name="Timestamp" type="xs:dateTime"/>
+  <xs:attribute name="Tool" type="xs:string"/>
+  <xs:attribute name="Source" type="xs:anyURI"/>
+  <xs:attribute name="Href" type="xs:anyURI"/>
+
+
+  <xs:element name="Property">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Key"/>
+        <xs:element ref="Value"/>
+     </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Properties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Property" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="SensorData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Timestamp" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Tool" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Source" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="Properties" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SensorDatas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SensorData" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SensorDataRef">
+    <xs:complexType>
+      <xs:attribute ref="Timestamp" use="required"/>
+      <xs:attribute ref="Tool" use="required"/>
+      <xs:attribute ref="Source" use="required"/>
+      <xs:attribute ref="Href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SensorDataIndex">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SensorDataRef" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element> 
+
+</xs:schema>

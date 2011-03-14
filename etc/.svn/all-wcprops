@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/svn/!svn/ver/316/trunk/etc
+END
+org.wattdepot.apps.sim.plist
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.apps.sim.plist
+END
+org.wattdepot.server.sim.plist
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.server.sim.plist
+END
+org.wattdepot.gdata.kukuicup.plist
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.gdata.kukuicup.plist
+END
+org.wattdepot.sensor.kailua-house.plist
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.sensor.kailua-house.plist
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/316/trunk/etc/README.txt
+END
+org.wattdepot.apps.live.plist
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.apps.live.plist
+END
+org.wattdepot.server.snapshot.plist
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.server.snapshot.plist
+END
+org.wattdepot.simulation.dorm.plist
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.simulation.dorm.plist
+END
+org.wattdepot.server.live.plist
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/316/trunk/etc/org.wattdepot.server.live.plist
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/220/trunk/src/org/wattdepot/resource/source/summary
+END
+TestSourceSummaryJaxb.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/141/trunk/src/org/wattdepot/resource/source/summary/TestSourceSummaryJaxb.java
+END
+TestSourceSummaryResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/220/trunk/src/org/wattdepot/resource/source/summary/TestSourceSummaryResource.java
+END
+SourceSummaryResource.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/125/trunk/src/org/wattdepot/resource/source/summary/SourceSummaryResource.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/125/trunk/src/org/wattdepot/resource/source/summary/package.html
+END

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>WattDepot Simple Chart Demo</title>
+  <script type='text/javascript' src='http://www.google.com/jsapi'></script>
+  <script type='text/javascript'>
+   // Load the Visualization API and Annotated Timeline visualization
+   google.load('visualization', '1', {'packages':['annotatedtimeline']});
+   
+   // Set a callback to run when the API is loaded.
+   google.setOnLoadCallback(init);
+   
+
+   // Send the query to the data source.
+   function init() {
+    // Specify the data source URL.
+    var query = new google.visualization.Query('http://localhost:8184/gviz/sources/saunders-hall');
+    
+    // Apply query language.
+    query.setQuery('select timePoint, powerConsumed');
+
+    // Send the query with a callback function.
+    query.send(handleQueryResponse);
+   }
+   
+  // Handle the query response.
+  function handleQueryResponse(response) {
+   if (response.isError()) {
+    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+   }
+
+   // Draw the visualization.
+   var data = response.getDataTable();
+   var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+   chart.draw(data, {displayAnnotations: false});
+  }
+  </script>
+ </head>
+
+ <body>
+  <h1>WattDepot chart demo</h1>
+  A chart that shows data taken from the single demo data source.
+  <p></p>
+  <div id='chart_div' style='width: 700px; height: 240px;'></div>
+ </body>
+</html>

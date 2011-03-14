@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>org.wattdepot.server.snapshot</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/wattdepot/wattdepot-run/make-wattdepot-snapshot.sh</string>
+	</array>
+	<key>StandardErrorPath</key>
+	<string>/Users/wattdepot/wattdepot-run/make-wattdepot-snapshot.out</string>
+	<key>StandardOutPath</key>
+	<string>/Users/wattdepot/wattdepot-run/make-wattdepot-snapshot.out</string>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Minute</key>
+		<integer>38</integer>
+	</dict>
+	<key>UserName</key>
+	<string>wattdepot</string>
+</dict>
+</plist>

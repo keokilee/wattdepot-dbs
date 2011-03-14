@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/191/trunk/src/org/wattdepot/resource/user/jaxb
+END
+Users.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/55/trunk/src/org/wattdepot/resource/user/jaxb/Users.java
+END
+UserIndex.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/55/trunk/src/org/wattdepot/resource/user/jaxb/UserIndex.java
+END
+UserRef.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/191/trunk/src/org/wattdepot/resource/user/jaxb/UserRef.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/186/trunk/src/org/wattdepot/resource/user/jaxb/User.java
+END
+ObjectFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/177/trunk/src/org/wattdepot/resource/user/jaxb/ObjectFactory.java
+END

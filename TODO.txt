@@ -1,0 +1,5 @@
+List of things to do:
+
+  Should now be recorded as issues on Google Code site.
+    
+Refactoring:

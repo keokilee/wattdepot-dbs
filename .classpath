@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/restlet/com.noelios.restlet.ext.simple_3.1.jar" sourcepath="lib/restlet/com.noelios.restlet.ext.simple_3.1.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/restlet/ext.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/restlet/com.noelios.restlet.jar" sourcepath="lib/restlet/com.noelios.restlet.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/restlet/nre.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/restlet/org.restlet.jar" sourcepath="lib/restlet/org.restlet.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/restlet/api.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/restlet/org.simpleframework.jar"/>
+	<classpathentry kind="lib" path="lib/commons-cli/commons-cli.jar" sourcepath="lib/commons-cli/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/commons-cli/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/opencsv/opencsv.jar" sourcepath="lib/opencsv/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/opencsv/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-lang/commons-lang.jar" sourcepath="lib/commons-lang/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/commons-lang/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-logging/commons-logging.jar" sourcepath="lib/commons-logging/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/commons-logging/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jetty/servlet-api-2.5.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/jetty/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jetty/jetty.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/jetty/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jetty/jetty-util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/jetty/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/icu4j/icu4j.jar" sourcepath="lib/icu4j/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/icu4j/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/google-collections/google-collect.jar" sourcepath="lib/google-collections/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/google-collections/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/google-visualization-java/visualization-datasource.jar" sourcepath="lib/google-visualization-java/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="http://code.google.com/apis/visualization/documentation/dev/dsl_javadocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/derby/derby.jar" sourcepath="lib/derby/source.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/wattdepot/lib/derby/javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

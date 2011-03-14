@@ -1,0 +1,46 @@
+<project name="junit" default="junit" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Runs junit on system, but only the test that is currently failing intermittantly.
+  </description>
+
+  <import file="build.xml"/>
+  <property name="junit.build.dir" location="${build.dir}/junit" />
+  <property name="junit.haltonfailure" value="true"/>
+
+  <target name="junit" depends="junit.tool, junit.report, junit.sensor" description="Runs JUnit, JunitReport"/>
+
+  <target name="junit.tool" depends="compile" description="Run JUnit tests.">
+    <mkdir dir="${junit.build.dir}" />
+    <!-- Run all non-DB tests. -->
+    <junit printsummary="withOutAndErr" haltonfailure="${junit.haltonfailure}" failureproperty="junit.failed" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath"/>
+      </classpath>
+      <formatter type="xml" />
+      <batchtest todir="${junit.build.dir}">
+        <fileset dir="${src.dir}" includes="**/TestSensorDataResource.java" excludes="**/tinker/**, **/TestDb*.java"/>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="junit.report" description="Generates an HTML report for JUnit.">
+    <taskdef name="junitreport" 
+      classname="org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator" />
+    <junitreport todir="${junit.build.dir}">
+      <fileset dir="${junit.build.dir}" includes="TEST-*.xml"/>
+      <report format="frames" todir="${junit.build.dir}" />
+    </junitreport>
+  </target>
+  
+  <target name="junit.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends UnitTest data to Hackystat using the JUnit sensor.">
+    <hacky-junit verbose="${hackystat.verbose.mode}" failOnError="true">
+      <sourcefiles>
+        <fileset dir="${src.dir}" includes="**/*.java"/>
+      </sourcefiles>
+      <datafiles>
+        <fileset dir="${junit.build.dir}" includes="TEST-*.xml" />
+      </datafiles>
+    </hacky-junit>
+  </target>
+</project>

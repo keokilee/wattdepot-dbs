@@ -1,0 +1,109 @@
+<project name="qa" default="qa">
+  <description>
+    Compiles system, runs junit, checkstyle, findbugs, and pmd.  
+  </description>
+
+  <import file="build.xml" />
+  <import file="checkstyle.build.xml" />
+  <import file="findbugs.build.xml" />
+  <import file="pmd.build.xml" />
+  <import file="junit.build.xml" />
+
+  <condition property="isMacOSX">
+    <os name="Mac OS X" />
+  </condition>
+
+  <!-- Since Mac OS X is based on Unix, we need a property that tells us when we are using
+       something like Linux, i.e. Unix but not Mac OS X -->
+  <condition property="isUnixButNotMacOSX">
+    <and>
+      <os family="unix" />
+      <not>
+        <os family="mac" />
+      </not>
+    </and>
+  </condition>
+
+  <condition property="isWinNT">
+    <os family="winnt" />
+  </condition>
+
+  <condition property="isWin9x">
+    <os family="win9x" />
+  </condition>
+
+  <target name="qa" depends="clean, compile, junit, checkstyle, pmd, findbugs, maybe-display-junit,
+    display-checkstyle, display-pmd, display-findbugs, display-no-errors" description="Verifies system.">
+  </target>
+
+  <target name="qa.display-junit-macox" if="isMacOSX">
+    <exec executable="open">
+      <arg file="${junit.build.dir}/index.html" />
+    </exec>
+  </target>
+
+  <target name="qa.display-junit-unix" if="isUnixButNotMacOSX">
+    <!-- How to launch a file on Linux -->
+    <!-- http://stackoverflow.com/questions/264395/linux-equivalent-of-the-mac-os-x-open-command/264401#264401 -->
+    <exec executable="xdg-open">
+      <arg file="${junit.build.dir}/index.html" />
+    </exec>
+  </target>
+
+  <target name="qa.display-junit-winnt" if="isWinNT">
+    <!-- How to launch a file on Windows 9x family (95, 98, etc) and Windows NT family (XP, etc) -->
+    <!-- http://stackoverflow.com/questions/501290/windows-equivalent-of-the-mac-os-x-open-command/501295#501295 -->
+    <exec executable="start">
+      <arg value='""' />
+      <arg file="${junit.build.dir}/index.html" />
+    </exec>
+  </target>
+
+  <target name="qa.display-junit-win9x" if="isWin9x">
+    <!-- How to launch a file on Windows 9x family (95, 98, etc) and Windows NT family (XP, etc) -->
+    <!-- http://stackoverflow.com/questions/501290/windows-equivalent-of-the-mac-os-x-open-command/501295#501295 -->
+    <exec executable="start">
+      <arg file="${junit.build.dir}/index.html" />
+    </exec>
+  </target>
+
+  <target name="maybe-display-junit" if="junit.failed">
+    <antcall target="display-junit" />
+  </target>
+
+  <target name="display-junit" depends="qa.display-junit-macox, qa.display-junit-unix, qa.display-junit-winnt, qa.display-junit-win9x">
+  </target>
+
+  <target name="display-checkstyle" if="checkstyle.failed">
+    <exec executable="open" os="Mac OS X">
+      <arg file="${checkstyle.dir}/index.html" />
+    </exec>
+  </target>
+
+  <target name="display-pmd" if="pmd.failed">
+    <exec executable="open" os="Mac OS X">
+      <arg file="${pmd.dir}/pmd-report-per-class.html" />
+    </exec>
+  </target>
+
+  <target name="display-findbugs" if="findbugs.warningsfound">
+    <exec executable="open" os="Mac OS X">
+      <arg file="${findbugs.dir}/findbugs-default.html" />
+    </exec>
+  </target>
+
+  <target name="display-no-errors" depends="check-for-failures" unless="qa.failures">
+    <echo message="No QA failures found!" />
+  </target>
+
+  <target name="check-for-failures">
+    <condition property="qa.failures">
+      <or>
+        <isset property="junit.failed" />
+        <isset property="checkstyle.failed" />
+        <isset property="pmd.failed" />
+        <isset property="findbugs.warningsfound" />
+      </or>
+    </condition>
+  </target>
+</project>

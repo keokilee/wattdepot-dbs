@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WattDepot Simple Table Demo</title>
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+
+  //Load the Visualization API and the ready-made Google table visualization
+  google.load('visualization', '1', {'packages':['table']});
+
+  // Set a callback to run when the API is loaded.
+  google.setOnLoadCallback(init);
+
+  // Send the query to the data source.
+  function init() {
+
+    // Specify the data source URL.
+    var query = new google.visualization.Query('http://localhost:8184/gviz/sources/saunders-hall');
+
+    // Send the query with a callback function.
+    query.send(handleQueryResponse);
+  }
+
+  // Handle the query response.
+  function handleQueryResponse(response) {
+    if (response.isError()) {
+      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+      return;
+    }
+
+    // Draw the visualization.
+    var data = response.getDataTable();
+    var chart = new google.visualization.Table(document.getElementById('chart_div'));
+    chart.draw(data, {width: 650, height: 250, is3D: true});
+  }
+  </script>
+</head>
+<body>
+  <h1>WattDepot table demo</h1>
+  A table chart that shows data taken from the single demo data source.
+  <p></p>
+  <!--Div that will hold the visualization-->
+  <div id="chart_div"></div>
+</body>
+</html>

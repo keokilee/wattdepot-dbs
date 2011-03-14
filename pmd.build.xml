@@ -1,0 +1,79 @@
+<project name="pmd" default="pmd" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Runs pmd on system, using rules in: lib/pmd/pmd.rulesets.xml
+    Invocation: ant -f pmd.build.xml
+    For more information about pmd, goto http://pmd.sourceforge.net
+  </description>
+
+  <import file="build.xml" />
+  
+  <!-- Download PMD from Ivy if necessary. -->
+  <property name="pmd.install.dir" location="${lib.dir}/pmd" />
+  <target name="install-pmd" depends="install-ivy">
+    <ivy:retrieve module="pmd" organisation="net.sourceforge.pmd" revision="${pmd.version}" pattern="${lib.dir}/pmd/[artifact].[ext]" sync="true" inline="true" log="download-only" type="jar,report"/>
+  </target>
+
+  <property name="pmd.dir" location="${build.dir}/pmd" />
+  <property name="pmd.failonerror" value="false" />
+  
+  <!-- Download the pmd.rulesets.xml file if necessary. -->
+  <property name="pmd.rulesets.file" location="${configfiles.dir}/hackystat.pmd.xml"/>
+  <available file="${pmd.rulesets.file}" type="file" property="pmd.rulesets.available" />
+  <target name="pmd.install.rulesets.file" unless="pmd.rulesets.available">
+    <get src="${configfiles.url}/hackystat.pmd.xml"
+         dest="${pmd.rulesets.file}" usetimestamp="true"/>
+  </target>
+
+  <target name="pmd"
+          depends="pmd.tool, pmd.report, pmd.sensor"
+          description="Runs the PMD tool, report" />
+
+  <target name="pmd.tool" depends="install-pmd, pmd.install.rulesets.file"
+          description="Runs PMD over the source code to check for problems.">
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+      <classpath>
+        <fileset dir="${pmd.install.dir}" includes="*.jar" />
+      </classpath>
+    </taskdef>
+
+    <!-- Run PMD -->
+    <mkdir dir="${pmd.dir}" />
+    <pmd rulesetfiles="${pmd.rulesets.file}"
+         shortFilenames="true"
+         targetjdk="1.5"
+         failuresPropertyName="pmd.failure.count"
+         failonerror="${pmd.failonerror}"
+         failOnRuleViolation="${pmd.failonerror}">
+      <formatter type="xml" toFile="${pmd.dir}/pmd.xml" />
+      <fileset dir="${src.dir}" includes="**/*.java" excludes="**/jaxb/**, **/tinker/**" />
+    </pmd>
+    <!-- If failures found, set pmd.failed property. Need separate property because -->
+    <!-- pmd.failure.count is set to 0 when there are no failures, so cannot be used to tell if -->
+    <!-- there was a failure. -->
+    <condition property="pmd.failed">
+      <isset property="pmd.failure.count"/>
+    </condition>
+    <!-- Provide a value for this property if it hasn't gotten one by the pmd task already. -->
+    <property name="pmd.failure.count" value="0"/>
+    <echo message="PMD found ${pmd.failure.count} problem(s)." />
+  </target>
+
+  <target name="pmd.report"
+          description="Generates HTML reports on the PMD output.">
+    <xslt in="${pmd.dir}/pmd.xml"
+          style="${pmd.install.dir}/pmd-report-per-class.xslt"
+          out="${pmd.dir}/pmd-report-per-class.html" />
+  </target>
+  
+  <target name="pmd.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends CodeIssue data to Hackystat using the PMD sensor.">
+     <hacky-pmd verbose="${hackystat.verbose.mode}">
+       <datafiles>
+         <fileset file="${pmd.dir}/pmd.xml" />
+       </datafiles>
+       <sourcefiles>
+         <fileset dir="${src.dir}" includes="**/*.java" excludes="**/jaxb/**" />
+       </sourcefiles>
+     </hacky-pmd>
+   </target>
+
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeepAlive</key>
+	<true/>
+	<key>Label</key>
+	<string>org.wattdepot.simulation.dorm</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/java</string>
+		<string>-jar</string>
+		<string>/Users/wattdepot/wattdepot-simulation/simulation-dorm.jar</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/Users/wattdepot/wattdepot-run/simulation-dorm.out</string>
+	<key>StandardOutPath</key>
+	<string>/Users/wattdepot/wattdepot-run/simulation-dorm.out</string>
+	<key>UserName</key>
+	<string>wattdepot</string>
+</dict>
+</plist>

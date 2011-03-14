@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeepAlive</key>
+	<true/>
+	<key>Label</key>
+	<string>org.wattdepot.apps.live</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/java</string>
+		<string>-jar</string>
+		<string>/Users/wattdepot/wattdepot-apps.jar</string>
+		<string>-resturi</string>
+		<string>http://server.wattdepot.org:8186/wattdepot/</string>
+		<string>-datauri</string>
+		<string>http://server.wattdepot.org:8188/gviz/</string>
+		<string>-port</string>
+		<string>8004</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/Users/wattdepot/wattdepot-run/apps-live.out</string>
+	<key>StandardOutPath</key>
+	<string>/Users/wattdepot/wattdepot-run/apps-live.out</string>
+	<key>UserName</key>
+	<string>wattdepot</string>
+	<key>WorkingDirectory</key>
+	<string>/Users/wattdepot/wattdepot-run</string>
+</dict>
+</plist>

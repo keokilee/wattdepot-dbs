@@ -1,0 +1,52 @@
+10
+
+dir
+325
+https://wattdepot.googlecode.com/svn/trunk/src/org/wattdepot
+https://wattdepot.googlecode.com/svn
+
+
+
+2010-09-02T01:09:12.860308Z
+318
+rbrewer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+962b3a1e-5fa1-11de-82f7-67359cf3946f
+
+test
+dir
+
+server
+dir
+
+resource
+dir
+
+datainput
+dir
+
+sensor
+dir
+
+tinker
+dir
+
+util
+dir
+
+client
+dir
+

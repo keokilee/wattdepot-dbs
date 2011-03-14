@@ -1,0 +1,232 @@
+<project name="wattdepot" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Build file for the WattDepot system. 
+  </description>
+
+  <!-- Override version number properties set in common.build.xml before loading it -->
+  <property name="majorVersionNumber" value="1" />
+  <property name="minorVersionNumber" value="4" />
+
+  <import file="common.build.xml" />
+
+  <!-- *** Kludge until these packages are available via Ivy RoundUp. *** -->
+  <!-- Always make environment variables available with the "env." prefix. -->
+<!--  <property environment="env" /> -->
+
+  <target name="install-libraries" description="Install external libraries.">
+    <ivy:retrieve organisation="org.junit"
+                  module="junit"
+                  revision="${junit.version}"
+                  pattern="${lib.dir}/junit/[artifact].[ext]"
+                  sync="true"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar" />
+    <path id="junit.path" location="${lib.dir}/junit/junit.jar" />
+
+    <!--
+    <ivy:retrieve organisation="javax" module="mail" revision="${javamail.version}" pattern="${lib.dir}/javamail/[artifact].[ext]" sync="true" inline="true" conf="default" log="download-only" transitive="false" type="jar" />
+    <path id="javamail.path" location="${lib.dir}/javamail/mail.jar" />
+    -->
+
+    <!-- Used to handle RESTful communication on both server and client sides -->
+    <ivy:retrieve organisation="org.restlet"
+                  module="restlet"
+                  revision="${restlet.version}"
+                  pattern="${lib.dir}/restlet/[artifact].[ext]"
+                  sync="false"
+                  inline="true"
+                  conf="core,simple"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc, source" />
+    <path id="restlet.path">
+      <fileset dir="${lib.dir}/restlet">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Used to process command line arguments in data input clients -->
+    <ivy:retrieve organisation="org.apache.commons"
+                  module="commons-cli"
+                  revision="${commons-cli.version}"
+                  pattern="${lib.dir}/commons-cli/[artifact].[ext]"
+                  sync="false"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc, source" />
+    <path id="commons-cli.path">
+      <fileset dir="${lib.dir}/commons-cli">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library -->
+    <ivy:retrieve organisation="org.apache.commons"
+                  module="commons-lang"
+                  revision="${commons-lang.version}"
+                  pattern="${lib.dir}/commons-lang/[artifact].[ext]"
+                  sync="false"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc, source" />
+    <path id="commons-lang.path">
+      <fileset dir="${lib.dir}/commons-lang">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library -->
+    <ivy:retrieve organisation="org.apache.commons"
+                  module="commons-logging"
+                  revision="${commons-logging.version}"
+                  pattern="${lib.dir}/commons-logging/[artifact].[ext]"
+                  sync="false"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc, source" />
+    <path id="commons-logging.path">
+      <fileset dir="${lib.dir}/commons-logging">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library, and TabularFileDataInputClient -->
+    <ivy:retrieve organisation="net.sourceforge.opencsv"
+                  module="opencsv"
+                  revision="${opencsv.version}"
+                  pattern="${lib.dir}/opencsv/[artifact].[ext]"
+                  sync="false"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc, source" />
+    <path id="opencsv.path">
+      <fileset dir="${lib.dir}/opencsv">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library -->
+    <ivy:retrieve organisation="org.mortbay"
+                  module="jetty"
+                  revision="${jetty.version}"
+                  pattern="${lib.dir}/jetty/[artifact].[ext]"
+                  sync="true"
+                  inline="true"
+                  conf="default"
+                  log="download-only"
+                  transitive="false"
+                  type="jar, javadoc" />
+    <path id="jetty.path">
+      <fileset dir="${lib.dir}/jetty">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library -->
+    <ivy:retrieve organisation="com.ibm.icu4j"
+                  module="icu4j"
+                  revision="${icu4j.version}"
+                  pattern="${lib.dir}/icu4j/[artifact].[ext]"
+                  sync="true"
+                  inline="true"
+                  conf="all"
+                  log="download-only"
+                  transitive="false" />
+    <path id="icu4j.path">
+      <fileset dir="${lib.dir}/icu4j">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Needed by Google Visualization Data Source Library -->
+    <ivy:retrieve organisation="com.google.common"
+                  module="google-collections"
+                  revision="${google-collections.version}"
+                  pattern="${lib.dir}/google-collections/[artifact].[ext]"
+                  sync="true"
+                  inline="true"
+                  conf="all"
+                  log="download-only"
+                  transitive="false" />
+    <path id="google-collections.path">
+      <fileset dir="${lib.dir}/google-collections">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <!-- Google Visualization Data Source Library itself -->
+    <ivy:retrieve organisation="com.google.visualization"
+                  module="google-visualization-java"
+                  revision="${google-visualization-java.version}"
+                  pattern="${lib.dir}/google-visualization-java/[artifact].[ext]"
+                  sync="true"
+                  inline="true"
+                  conf="all"
+                  log="download-only"
+                  transitive="false" />
+    <path id="google-visualization-java.path">
+      <fileset dir="${lib.dir}/google-visualization-java">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+
+    <ivy:retrieve organisation="org.apache.derby" module="derby" revision="${derby.version}" pattern="${lib.dir}/derby/[artifact].[ext]" sync="true" inline="true" conf="default,locale" log="download-only" transitive="false" type="jar, javadoc, source" />
+    <path id="derby.path">
+      <fileset dir="${lib.dir}/derby">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+    
+  </target>
+
+  <!-- Basic properties for this system. -->
+  <property name="system.name" value="wattdepot" />
+
+  <!-- The compile classpath is useful to many tools. -->
+  <path id="compile.classpath">
+    <path refid="junit.path" />
+    <!-- <path refid="javamail.path" /> -->
+    <path refid="restlet.path" />
+    <path refid="commons-cli.path" />
+    <path refid="commons-lang.path" />
+    <path refid="commons-logging.path" />
+    <path refid="opencsv.path" />
+    <path refid="jetty.path" />
+    <path refid="icu4j.path" />
+    <path refid="google-collections.path" />
+    <path refid="google-visualization-java.path" />
+    <path refid="derby.path" />
+  </path>
+
+  <target name="compile" depends="install-ivy, install-libraries" description="Compiles the code.">
+    <!-- Now compile the code into build/classes -->
+    <mkdir dir="${build.dir}/classes" />
+    <javac srcdir="${src.dir}" destdir="${build.dir}/classes" debug="on" includeAntRuntime="no">
+      <classpath refid="compile.classpath" />
+      <compilerarg value="-Xlint:all" />
+      <compilerarg value="-Werror" />
+    </javac>
+  </target>
+
+  <target name="run" depends="compile" description="Compiles the WattDepot server and starts it up.">
+    <java classname="org.wattdepot.server.Server" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath" />
+      </classpath>
+      <jvmarg value="-Xmx512M"/>
+    </java>
+  </target>
+
+</project>

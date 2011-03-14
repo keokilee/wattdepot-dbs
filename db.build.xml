@@ -1,0 +1,22 @@
+<project name="db" default="clean-db">
+  <description>
+  Provides the target for deleting the WattDepot database files to clean things up.
+  </description>
+
+  <import file="build.xml"/>
+  <property file="${user.home}/.wattdepot/server/wattdepot-server.properties"/>
+  <!-- If the above file did not define sensorbase.db.dir, define it as the default. -->
+  <property name="sensorbase.db.dir" location="${user.home}/.wattdepot/server/db"/>
+    
+  <target name="clean-db" description="Deletes the db directory.">
+    <input message="WARNING: All data is going to be deleted from DB continue (y/n)?"
+           validargs="y,n" addproperty="do.delete" />
+      <condition property="do.abort">
+        <equals arg1="n" arg2="${do.delete}"/>
+      </condition>
+      <fail if="do.abort">DB directory deletion aborted by user.</fail>    
+    <delete dir="${sensorbase.db.dir}"/> 
+  </target>
+
+</project>
+

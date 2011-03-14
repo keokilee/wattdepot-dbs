@@ -1,0 +1,38 @@
+<project name="jaxb" default="jaxb">
+  <description>
+  Supports JAXB binding process (creation of Java classes from the XmlSchema documents.)
+  </description>
+
+  <import file="build.xml" />
+  <property environment="env" />
+
+  <!-- While recent versions of Java 1.6 include JAXB 2.1.X, they don't appear to include the
+       jar file that includes the xjc Ant task. So you have to install the reference implementation
+       of JAXB to use this build file -->
+  
+  <!-- Make sure that the JAXB compiler is available. -->
+  <available file="${env.JAXB_HOME}/lib/jaxb-xjc.jar" property="jaxb.xjc.available" />
+  <fail message="Could not find ${env.JAXB_HOME}/lib/jaxb-xjc.jar. See Section 3.0 of http://code.google.com/p/hackystat/wiki/InstallingJAXBinJava5" unless="jaxb.xjc.available" />
+
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath>
+      <fileset dir="${env.JAXB_HOME}/lib" includes="*.jar" />
+    </classpath>
+  </taskdef>
+
+  <target name="jaxb" description="Runs the XJC compiler.">
+    <echo message="Compiling using ${env.JAXB_HOME}." />
+    <xjc schema="${basedir}/xml/schema/sensordata.xsd" extension="true" destdir="src" package="org.wattdepot.resource.sensordata.jaxb">
+      <produces dir="${src.dir}/org/wattdepot/resource/sensordata/jaxb" includes="*" />
+    </xjc>
+    <xjc schema="${basedir}/xml/schema/source.xsd" extension="true" destdir="src" package="org.wattdepot.resource.source.jaxb">
+      <produces dir="${src.dir}/org/wattdepot/resource/source/jaxb" includes="*" />
+    </xjc>
+    <xjc schema="${basedir}/xml/schema/source-summary.xsd" extension="true" destdir="src" package="org.wattdepot.resource.source.summary.jaxb">
+      <produces dir="${src.dir}/org/wattdepot/resource/source/summary/jaxb" includes="*" />
+    </xjc>
+    <xjc schema="${basedir}/xml/schema/user.xsd" extension="true" destdir="src" package="org.wattdepot.resource.user.jaxb">
+      <produces dir="${src.dir}/org/wattdepot/resource/user/jaxb" includes="*" />
+    </xjc>
+  </target>
+</project>

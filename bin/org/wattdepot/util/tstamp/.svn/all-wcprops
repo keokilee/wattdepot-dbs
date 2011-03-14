@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/216/trunk/src/org/wattdepot/util/tstamp
+END
+TstampComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/140/trunk/src/org/wattdepot/util/tstamp/TstampComparator.java
+END
+TestTstamp.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/216/trunk/src/org/wattdepot/util/tstamp/TestTstamp.java
+END
+Tstamp.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/216/trunk/src/org/wattdepot/util/tstamp/Tstamp.java
+END
+package.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/140/trunk/src/org/wattdepot/util/tstamp/package.html
+END

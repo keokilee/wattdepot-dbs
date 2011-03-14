@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="Hackystat Rules"
+    xmlns="http://pmd.sf.net/ruleset/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+  <description>
+    Specifies the PMD rules to be used (and excluded) in Hackystat.
+  </description>
+  
+  <rule ref="rulesets/basic.xml"/>
+  <rule ref="rulesets/braces.xml"/>
+  <rule ref="rulesets/coupling.xml">
+    <exclude name="ExcessiveImports"/>
+    <exclude name="CouplingBetweenObjects"/>
+  </rule>
+  <rule ref="rulesets/design.xml">
+    <exclude name="ImmutableField"/>
+    <exclude name="AvoidSynchronizedAtMethodLevel"/>
+    <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+    <exclude name="UseSingleton"/>
+  </rule>
+  <rule ref="rulesets/imports.xml">
+    <exclude name="TooManyStaticImports"/>
+  </rule>
+  <rule ref="rulesets/junit.xml"/>
+  <rule ref="rulesets/strings.xml"/>
+  
+</ruleset>
+

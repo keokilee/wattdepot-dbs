@@ -1,0 +1,162 @@
+<project name="jar" default="jar" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Provides the targets for building jar files.
+  </description>
+
+  <import file="build.xml" />
+  <property name="tmp.dir" location="${basedir}/tmp" />
+  <property name="tmp.lib.dir" location="${basedir}/tmp-lib" />
+  <property name="build.jar.dir" location="${build.dir}/jar" />
+  <delete dir="${build.jar.dir}" quiet="true" />
+
+  <target name="jar" depends="jar-standalone" />
+
+  <target name="jar-standalone"
+          depends="compile"
+          description="Creates standalone wattdepot-server.jar, and input client jars ">
+    <!-- Define the directories and distribution name -->
+    <delete dir="${tmp.dir}" quiet="yes" />
+    <mkdir dir="${tmp.dir}" />
+    <mkdir dir="${build.jar.dir}" />
+    <!-- Copy over all local classes -->
+    <copy todir="${tmp.dir}">
+      <fileset dir="${basedir}/build/classes" />
+    </copy>
+    <!-- Unjar the libraries required for client (subset of those needed for server) -->
+    <unjar src="${lib.dir}/restlet/org.simpleframework.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/restlet/org.restlet.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/restlet/com.noelios.restlet.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/restlet/com.noelios.restlet.ext.simple_3.1.jar" dest="${tmp.dir}" />
+
+    <jar destfile="${build.jar.dir}/wattdepot-lib-client.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Implementation-Title" value="WattDepot client library" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+    
+    <unjar src="${lib.dir}/commons-cli/commons-cli.jar" dest="${tmp.dir}" />
+    
+    <jar destfile="${build.jar.dir}/wattdepot-sensor-examplestreaming.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.datainput.ExampleStreamingSensor" />
+        <attribute name="Implementation-Title" value="WattDepot ExampleStreamingSensor" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <jar destfile="${build.jar.dir}/wattdepot-sensor-ted5000.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.sensor.ted.Ted5000Sensor" />
+        <attribute name="Implementation-Title" value="WattDepot TED 5000 Sensor" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <jar destfile="${build.jar.dir}/wattdepot-client-monitor.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.client.monitor.MonitorSourceClient" />
+        <attribute name="Implementation-Title" value="WattDepot MonitorSourceClient" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <jar destfile="${build.jar.dir}/wattdepot-client-snapshot.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.client.snapshot.SnapshotClient" />
+        <attribute name="Implementation-Title" value="WattDepot SnapshotClient" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <unjar src="${lib.dir}/opencsv/opencsv.jar" dest="${tmp.dir}" />
+
+    <jar destfile="${build.jar.dir}/wattdepot-sensor-tabular.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.datainput.TabularFileSensor" />
+        <attribute name="Implementation-Title" value="WattDepot TabularFileSensor" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <jar destfile="${build.jar.dir}/wattdepot-sensor-bmo.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.datainput.BMOSensor" />
+        <attribute name="Implementation-Title" value="WattDepot BMOSensor" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <jar destfile="${build.jar.dir}/wattdepot-converter-oscar.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.datainput.OscarDataConverter" />
+        <attribute name="Implementation-Title" value="WattDepot OscarDataConverter" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+
+    <!-- Unjar the additional libraries required for server -->
+    <unjar src="${lib.dir}/commons-lang/commons-lang.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/commons-logging/commons-logging.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/jetty/servlet-api-2.5.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/jetty/jetty.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/jetty/jetty-util.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/icu4j/icu4j.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/google-collections/google-collect.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/google-visualization-java/visualization-datasource.jar" dest="${tmp.dir}" />
+    <unjar src="${lib.dir}/derby/derby.jar" dest="${tmp.dir}" />
+
+    <jar destfile="${build.jar.dir}/wattdepot-server.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.server.Server" />
+        <attribute name="Implementation-Title" value="WattDepot Server" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor"
+                   value="Collaborative Software Development Laboratory, University of Hawaii" />
+      </manifest>
+    </jar>
+    <delete dir="${tmp.dir}" />
+  </target>
+
+  <!--
+     Ivy publication targets.
+   -->
+  <import file="javadoc.build.xml" />
+  <target name="publish"
+          depends="jar, javadoc.zip"
+          description="Publish this project in the local ivy repository">
+    <ivy:resolve />
+    <tstamp>
+      <format property="publication-revision" pattern="yyyy.MM.dd.HH.mm.ss" />
+    </tstamp>
+    <ivy:publish artifactspattern="${build.jar.dir}/[artifact].[ext]"
+                 resolver="local-repository"
+                 pubrevision="${publication-revision}"
+                 update="true" />
+  </target>
+
+  <target name="publish-all" description="Publish all dependent projects, then this one.">
+    <!-- 
+       Here is what a dependent target might look like, although we don't actually have any in this system.
+       <ant antfile="../hackystat-sensorbase-uh/jar.build.xml" target="publish-all" inheritAll="false"/>
+     -->
+    <antcall target="publish" />
+  </target>
+</project>
+

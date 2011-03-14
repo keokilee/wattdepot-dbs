@@ -1,0 +1,135 @@
+<project name="emma" default="emma" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Generates coverage data for JUnit tests. Cleans, compiles, instruments, runs JUnit, cleans. 
+  Invocation: ant -f emma.build.xml
+  </description>
+
+  <import file="build.xml" />
+  <property name="emma.install.dir" location="${lib.dir}/emma"/>
+  <property name="emma.echo.file" location="${configfiles.dir}/hackystat.emma.xsl"/>
+  <property name="emma.dir" location="${build.dir}/emma" />
+  <property name="junit.dir" location="${build.dir}/junit" />
+  
+  <target name="install-emma" depends="install-ivy">
+    <ivy:retrieve module="emma" organisation="com.vladium" revision="${emma.version}" pattern="${lib.dir}/emma/[artifact].[ext]" sync="true" inline="true" log="download-only" transitive="false" type="jar"/>
+  </target> 
+
+  <target name="emma" depends="emma.tool, emma.echo, emma.sensor" description="Runs Emma." />
+
+  <target name="emma.tool" depends="clean, compile, install-emma" description="Cleans, compiles, instruments byte codes, runs unit tests, generates Emma report.">
+    <path id="emma.lib.dir">
+      <pathelement location="${emma.install.dir}/emma.jar" />
+      <pathelement location="${emma.install.dir}/emma_ant.jar" />
+    </path>
+    <taskdef resource="emma_ant.properties" classpathref="emma.lib.dir" />
+    <!-- Instrument the .class files. -->
+    <mkdir dir="${emma.dir}" />
+    <emma enabled="true">
+      <instr instrpath="${build.dir}/classes" destdir="${build.dir}/classes" metadatafile="${emma.dir}/metadata.emma" merge="true" mode="overwrite">
+        <filter excludes="org.wattdepot*.Test*" />
+        <filter excludes="org.wattdepot*.jaxb.*" />
+        <filter excludes="org.wattdepot.tinker.*" />
+      </instr>
+    </emma>
+    <!-- Run JUnit with the instrumented class files. -->
+    <mkdir dir="${junit.dir}" />
+    <!-- Run all non-DB tests. -->
+    <junit printsummary="withOutAndErr" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath"/>
+        <path refid="emma.lib.dir"/>
+      </classpath>
+      <sysproperty key="emma.coverage.out.file" value="${build.dir}/emma/coverage.emma" />
+      <sysproperty key="emma.coverage.out.merge" value="true" />
+      <formatter type="xml" />
+      <batchtest todir="${junit.dir}">
+        <fileset dir="${src.dir}">
+          <include name="**/Test*.java" />
+          <exclude name="**/tinker/**, **/TestDb*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    <!-- Run DB tests using MemoryStorageImplementation -->
+    <junit printsummary="withOutAndErr" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath"/>
+        <path refid="emma.lib.dir"/>
+      </classpath>
+      <sysproperty key="emma.coverage.out.file" value="${build.dir}/emma/coverage.emma" />
+      <sysproperty key="emma.coverage.out.merge" value="true" />
+      <sysproperty key="wattdepot-server.db.impl" value="org.wattdepot.server.db.memory.MemoryStorageImplementation"/>
+      <formatter type="xml" />
+      <batchtest todir="${junit.dir}">
+        <fileset dir="${src.dir}">
+          <include name="**/TestDb*.java" />
+          <exclude name="**/tinker/**"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    <!-- Run DB tests using DerbyStorageImplementation -->
+    <junit printsummary="withOutAndErr" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath"/>
+        <path refid="emma.lib.dir"/>
+      </classpath>
+      <sysproperty key="emma.coverage.out.file" value="${build.dir}/emma/coverage.emma" />
+      <sysproperty key="emma.coverage.out.merge" value="true" />
+      <sysproperty key="wattdepot-server.db.impl" value="org.wattdepot.server.db.derby.DerbyStorageImplementation"/>
+      <formatter type="xml" />
+      <batchtest todir="${junit.dir}">
+        <fileset dir="${src.dir}">
+          <include name="**/TestDb*.java" />
+          <exclude name="**/tinker/**"/>
+        </fileset>
+      </batchtest>
+    </junit>
+    <!-- Generate Emma reports. -->
+    <emma enabled="true">
+      <report sourcepath="${src.dir}" sort="+name" metrics="method:100,block:100,line:100,class:100">
+        <fileset dir="${emma.dir}">
+          <include name="*.emma" />
+        </fileset>
+        <xml outfile="${emma.dir}/coverage.xml" depth="method" />
+        <html outfile="${emma.dir}/coverage.html" depth="method" columns="name,class,method,block,line" />
+      </report>
+    </emma>
+    <!-- Now delete the instrumented .class files. -->
+    <delete dir="${build.dir}/classes" />
+  </target>
+
+  <target name="emma.echo" description="Sends summary of Emma results to console" depends="emma.install.echo.file">
+    <!-- It's ridiculous what we have to do to get a decent summary. -->
+    <xslt style="${emma.echo.file}" in="${emma.dir}/coverage.xml" out="${emma.dir}/coverage.brief.txt" />
+    <replace file="${emma.dir}/coverage.brief.txt" token="class, %" value="class: " />
+    <replace file="${emma.dir}/coverage.brief.txt" token="method, %" value="method:" />
+    <replace file="${emma.dir}/coverage.brief.txt" token="block, %" value="block: " />
+    <replace file="${emma.dir}/coverage.brief.txt" token="line, %" value="line:  " />
+    <concat>
+      <header>Emma Coverage summary
+</header>
+      <fileset file="${emma.dir}/coverage.brief.txt" />
+    </concat>
+  </target>
+  
+  <target name="emma.install.echo.file" unless="emma.echo.available">
+     <get src="${configfiles.url}/hackystat.emma.xsl"
+          dest="${emma.echo.file}" usetimestamp="true"/>
+   </target>
+  
+  <target name="emma.sensor" depends="define-sensors" if="hackystat.enabled"  description="Sends Emma coverage data to Hackystat using the Emma sensor.">
+    <hacky-emma verbose="${hackystat.verbose.mode}" failOnError="true">
+       <datafiles>
+         <fileset file="${emma.dir}/coverage.xml"/>
+       </datafiles>
+       <sourcefiles>
+         <fileset dir="${src.dir}" includes="**/*.java" />
+       </sourcefiles>
+     </hacky-emma>
+   </target>
+</project>
+
+
+

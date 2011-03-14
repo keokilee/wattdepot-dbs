@@ -1,0 +1,68 @@
+<project name="findbugs" default="findbugs" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Runs findbugs on system, using rules in: lib/findbugs/findbugs.filter.xml
+    Invocation: ant -f findbugs.build.xml
+  </description>
+
+  <import file="build.xml" />
+
+  <!-- Initializations for Ivy-based download of FindBugs and associated libraries -->
+  <property name="findbugs.install.dir" location="${lib.dir}/findbugs" />
+  <target name="install-findbugs" depends="install-ivy">
+    <ivy:retrieve module="findbugs" organisation="edu.umd.cs" revision="${findbugs.version}" pattern="${lib.dir}/findbugs/[artifact].[ext]" sync="true" inline="true" log="download-only" type="jar,report" />
+  </target>
+
+  <!-- Download the Hackystat findbugs.filter.file if necessary. -->
+  <property name="findbugs.filter.file" location="${configfiles.dir}/hackystat.findbugs.exclude.xml" />
+  <available file="${findbugs.filter.file}" type="file" property="findbugs.filter.available" />
+  <target name="findbugs.install.filter.file" unless="findbugs.filter.available">
+    <get src="${configfiles.url}/hackystat.findbugs.exclude.xml" dest="${findbugs.filter.file}" usetimestamp="true" />
+  </target>
+
+  <property name="findbugs.dir" location="${build.dir}/findbugs" />
+  <property name="findbugs.failOnError" value="true" />
+
+  <target name="findbugs" depends="findbugs.tool, findbugs.report, findbugs.sensor" description="Runs the FindBugs tool, report, and sensor." />
+
+  <target name="findbugs.tool" depends="compile, install-findbugs, findbugs.install.filter.file" description="Runs FindBugs over the byte code to check for problems.">
+    <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpath="${findbugs.install.dir}/findbugs-ant.jar" />
+
+    <!-- Set up a path containing the classpath for FindBugs, then convert to a property. -->
+    <path id="findbugs.classpath">
+      <fileset dir="${findbugs.install.dir}">
+        <include name="*.jar" />
+      </fileset>
+    </path>
+    <pathconvert property="findbugs.classpath" refid="findbugs.classpath" />
+
+    <!-- Run FindBugs. -->
+    <mkdir dir="${findbugs.dir}" />
+    <findbugs jvmargs="-Xmx512M" classpath="${findbugs.classpath}" pluginList="" failOnError="${findbugs.failOnError}" warningsProperty="findbugs.warningsfound" output="xml:withMessages" outputFile="${findbugs.dir}/findbugs.xml" excludeFilter="${findbugs.filter.file}">
+      <auxClasspath>
+        <path refid="compile.classpath" />
+      </auxClasspath>
+      <sourcePath>
+        <fileset dir="${src.dir}">
+          <include name="**/*.java" />
+        </fileset>
+      </sourcePath>
+      <class location="${build.dir}/classes" />
+    </findbugs>
+  </target>
+
+  <target name="findbugs.report" description="Generate an HTML report on FindBugs.">
+    <xslt in="${findbugs.dir}/findbugs.xml" style="${findbugs.install.dir}/default.xsl" out="${findbugs.dir}/findbugs-default.html" />
+  </target>
+
+  <target name="findbugs.sensor" depends="define-sensors" if="hackystat.enabled" description="Sends CodeIssue data to Hackystat using the Findbugs sensor.">
+    <hacky-findbugs verbose="${hackystat.verbose.mode}" failOnError="true">
+      <datafiles>
+        <fileset file="${findbugs.dir}/findbugs.xml" />
+      </datafiles>
+    </hacky-findbugs>
+  </target>
+
+</project>
+
+
+

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+RESULT=0
+COUNTER=1
+
+while [ $RESULT -eq 0 ]; do
+  echo "Test pass $COUNTER"
+  ant -f junit-debug.build.xml junit.tool
+  RESULT=$?
+  let COUNTER=COUNTER+1
+done

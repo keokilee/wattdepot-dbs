@@ -1,0 +1,30 @@
+<project name="dist" default="dist">
+  <description>
+  Provides the target for building a distribution of this system.
+  </description>
+
+  <import file="build.xml"/>
+  <import file="jar.build.xml"/>   
+    
+  <target name="dist" depends="clean, compile, jar, javadoc.zip" description="Create a distribution package.">
+    <!-- Define the directories and distribution name -->
+    <property name="dist.dir" location="${build.dir}/dist" />
+    <property name="dist.tmp.dir" location="${basedir}/dist-tmp" />
+    <property name="dist.name" value="${system.name}-${version}" />
+
+    <!-- Copy distribution files to the tmp dir. -->
+    <mkdir dir="${dist.tmp.dir}/${dist.name}" />
+    <copy todir="${dist.tmp.dir}/${dist.name}">
+      <fileset dir="${basedir}" excludes="lib/**, javadoc/**, dist-tmp/**, bin/**, **/.svn/*, **/*~, tmp/**, build/**" />
+    </copy>
+    <copy todir="${dist.tmp.dir}/${dist.name}">
+       <fileset dir="${build.jar.dir}" includes="*.jar, *.zip" />
+    </copy>
+
+    <!-- Create the zip distribution of this system, and then delete the tmp dir. -->
+    <mkdir dir="${dist.dir}" />
+    <zip zipfile="${dist.dir}/${dist.name}.zip" basedir="${dist.tmp.dir}" />
+    <delete dir="${dist.tmp.dir}"/>   
+  </target>
+
+</project>

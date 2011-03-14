@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"
+           jaxb:version="2.0">
+         
+    <xs:annotation>
+       <xs:appinfo>
+          <jaxb:globalBindings generateIsSetMethod="true">
+              <xjc:serializable uid="12343"/>
+          </jaxb:globalBindings>
+       </xs:appinfo>
+    </xs:annotation>
+
+  <!-- Primitive elements and attributes -->
+  <xs:element name="Href" type="xs:anyURI"/>
+  <xs:element name="FirstSensorData" type="xs:dateTime"/>
+  <xs:element name="LastSensorData" type="xs:dateTime"/>
+  <xs:element name="TotalSensorDatas" type="xs:long"/>
+
+  <xs:element name="SourceSummary">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Href" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="FirstSensorData" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="LastSensorData" minOccurs="1" maxOccurs="1"/>
+        <xs:element ref="TotalSensorDatas" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SourceSummaries">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SourceSummary" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+  </xs:element>
+
+</xs:schema>

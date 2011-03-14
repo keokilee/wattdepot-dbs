@@ -1,0 +1,23 @@
+<project name="cpd" default="cpd" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Runs Copy/Paste Detector on source code
+  Invocation: ant -f cpd.build.xml
+  </description>
+
+  <import file="build.xml" />
+  <import file="pmd.build.xml" />
+
+  <property name="cpd.dir" location="${build.dir}/cpd" />
+
+  <target name="cpd" depends="install-pmd">
+    <mkdir dir="${cpd.dir}" />
+    <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask">
+      <classpath>
+        <fileset dir="${pmd.install.dir}" includes="*.jar" />
+      </classpath>
+    </taskdef>
+    <cpd minimumTokenCount="100" outputFile="${cpd.dir}/cpd.txt">
+      <fileset dir="${src.dir}" includes="**/*.java" excludes="**/jaxb/**, **/tinker/**" />
+    </cpd>
+  </target>
+</project>

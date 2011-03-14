@@ -1,0 +1,42 @@
+<project name="sclc" default="sclc" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Runs sclc on system to generate information on size.
+    Invocation: ant -f sclc.build.xml
+  </description>
+
+  <import file="build.xml" />
+  <property name="sclc.dir" location="${build.dir}/sclc" />
+
+  <target name="sclc" depends="sclc.tool, sclc.sensor" description="Runs SCLC." />
+
+  <!-- Download SCLC from Ivy if necessary. -->
+  <property name="sclc.install.dir" location="${lib.dir}/sclc" />
+  <target name="install-sclc" depends="install-ivy">
+    <ivy:retrieve module="sclc" organisation="edu.hawaii.ics.csdl" revision="${sclc.version}" pattern="${lib.dir}/sclc/[artifact].[ext]" sync="true" inline="true" log="download-only" type="script" />
+  </target> 
+    
+  <target name="sclc.tool" depends="compile, install-sclc" description="Compute size data on the source code using SCLC.">
+    <mkdir dir="${sclc.dir}" />
+    <!-- Run size data using SCLC.  Invoke Perl via the exec task to run SCLC. -->
+    <exec executable="perl" dir="${build.dir}">
+      <arg line="${sclc.install.dir}/sclc.pl -default_exclude -ignore -xml_output ${sclc.dir}/size.xml -recurse ${src.dir}" />
+    </exec>
+  </target>
+
+  <target name="sclc.sensor" depends="sclc.install.xsl.file, define-sensors" if="hackystat.enabled" description="Sends data to Hackystat via the XmlData sensor.">
+    <!-- Transform the data into a format suitable for input to the hackystat xml data sensor. -->
+    <xslt in="${sclc.dir}/size.xml" out="${sclc.dir}/hackystat-size.xml" style="${sclc.xsl.file}" />
+    <!-- Invoke XmlData by executing the jar file and passing in command line args. -->
+    <java jar="${ant.lib.dir}/xmldata-cli.jar" fork="true">
+      <arg line="-setRuntime -uniqueTimestamps -file ${sclc.dir}/hackystat-size.xml" />
+    </java>
+  </target>
+
+  <!-- Download the sclc.xsl file if necessary. -->
+  <property name="sclc.xsl.file" location="${configfiles.dir}/sclc.xsl" />
+  <available file="${sclc.xsl.file}" type="file" property="sclc.xsl.available" />
+  <target name="sclc.install.xsl.file" unless="sclc.xsl.available">
+    <get src="${configfiles.url}/sclc.xsl" dest="${sclc.xsl.file}" usetimestamp="true" />
+  </target>
+</project>
+
