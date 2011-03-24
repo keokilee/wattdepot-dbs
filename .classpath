@@ -80,5 +80,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="external-libs/jamod/jamod-1.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="external-libs/mongodb/mongo-2.5.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

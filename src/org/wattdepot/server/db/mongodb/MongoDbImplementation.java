@@ -1,6 +1,11 @@
 package org.wattdepot.server.db.mongodb;
 
+import java.io.StringWriter;
+import java.net.UnknownHostException;
 import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.wattdepot.resource.sensordata.SensorDataStraddle;
 import org.wattdepot.resource.sensordata.StraddleList;
@@ -16,8 +21,35 @@ import org.wattdepot.resource.user.jaxb.UserIndex;
 import org.wattdepot.server.Server;
 import org.wattdepot.server.db.DbBadIntervalException;
 import org.wattdepot.server.db.DbImplementation;
+import org.wattdepot.util.StackTrace;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+import com.mongodb.WriteResult;
 
 public class MongoDbImplementation extends DbImplementation {
+  private static final String UNABLE_TO_PARSE_PROPERTY_XML =
+    "Unable to parse property XML from database ";
+
+  private boolean isFreshlyCreated;
+  private DBCollection sensorDataCollection;
+  private DBCollection sourceCollection;
+  private DBCollection userCollection;
+  
+  /** Property JAXBContext. */
+  private static final JAXBContext propertiesJAXB;
+  
+  static {
+    try {
+      propertiesJAXB =
+          JAXBContext.newInstance(org.wattdepot.resource.property.jaxb.Properties.class);
+    }
+    catch (Exception e) {
+      throw new RuntimeException("Couldn't create JAXB context instance.", e);
+    }
+  }
 
   public MongoDbImplementation(Server server) {
     super(server);
@@ -157,14 +189,43 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public void initialize(boolean wipe) {
-    // TODO Auto-generated method stub
-
+    String mongoServer = "localhost";
+    Integer mongoPort = 27017;
+    Mongo mongo;
+    try {
+      mongo = new Mongo(mongoServer, mongoPort);
+    }
+    catch (UnknownHostException e) {
+      throw new RuntimeException("Could not connect to " + mongoServer);
+    }
+    catch (MongoException e) {
+      throw new RuntimeException("Could not connect to "  + mongoServer + "on port " + mongoPort.toString());
+    }
+    
+    //Check if the database exists.
+    String mongoDbName = "wattdepot";
+    List<String> mongoDbs = mongo.getDatabaseNames();
+    this.isFreshlyCreated = !mongoDbs.contains(mongoDbName);
+    DB mongoDb = mongo.getDB(mongoDbName);
+    
+    //Set up collections and indices.
+    this.sensorDataCollection = mongoDb.getCollection("sensorData");
+    BasicDBObject dataIndex = new BasicDBObject();
+    dataIndex.put("source", 1);
+    dataIndex.put("timestamp", 1);
+    BasicDBObject uniqueOption = new BasicDBObject("unique", true);
+    this.sensorDataCollection.ensureIndex(dataIndex, uniqueOption);
+    
+    this.sourceCollection = mongoDb.getCollection("sources");
+    this.sourceCollection.ensureIndex(new BasicDBObject("name", 1), uniqueOption);
+    
+    this.userCollection = mongoDb.getCollection("users");
+    this.userCollection.ensureIndex(new BasicDBObject("name", 1), uniqueOption);
   }
 
   @Override
   public boolean isFreshlyCreated() {
-    // TODO Auto-generated method stub
-    return false;
+    return this.isFreshlyCreated;
   }
 
   @Override
@@ -181,8 +242,25 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public boolean storeSensorData(SensorData data) {
-    // TODO Auto-generated method stub
-    return false;
+    BasicDBObject dbData = new BasicDBObject();
+    dbData.put("source", data.getSource());
+    dbData.put("timestamp",data.getTimestamp().toGregorianCalendar().getTimeInMillis());
+    dbData.put("tool", data.getTool());
+    
+    if (data.isSetProperties()) {
+      try {
+        Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
+        StringWriter writer = new StringWriter();
+        propertiesMarshaller.marshal(data.getProperties(), writer);
+        dbData.put("properties", writer.toString());
+      }
+      catch (JAXBException e) {
+        this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
+      }
+    }
+    
+    WriteResult result = this.sensorDataCollection.insert(dbData);
+    return result.getError() == null;
   }
 
   @Override
