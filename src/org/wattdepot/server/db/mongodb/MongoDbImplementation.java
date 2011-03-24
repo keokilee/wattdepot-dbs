@@ -33,6 +33,8 @@ public class MongoDbImplementation extends DbImplementation {
   private static final String UNABLE_TO_PARSE_PROPERTY_XML =
     "Unable to parse property XML from database ";
 
+  private static JAXBContext subSourcesJAXB;
+
   private boolean isFreshlyCreated;
   private DBCollection sensorDataCollection;
   private DBCollection sourceCollection;
@@ -43,8 +45,8 @@ public class MongoDbImplementation extends DbImplementation {
   
   static {
     try {
-      propertiesJAXB =
-          JAXBContext.newInstance(org.wattdepot.resource.property.jaxb.Properties.class);
+      propertiesJAXB = JAXBContext.newInstance(org.wattdepot.resource.property.jaxb.Properties.class);
+      subSourcesJAXB = JAXBContext.newInstance(org.wattdepot.resource.source.jaxb.SubSources.class);
     }
     catch (Exception e) {
       throw new RuntimeException("Couldn't create JAXB context instance.", e);
@@ -246,6 +248,7 @@ public class MongoDbImplementation extends DbImplementation {
     dbData.put("source", data.getSource());
     dbData.put("timestamp",data.getTimestamp().toGregorianCalendar().getTimeInMillis());
     dbData.put("tool", data.getTool());
+    dbData.put("lastMod", System.currentTimeMillis());
     
     if (data.isSetProperties()) {
       try {
@@ -265,14 +268,79 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public boolean storeSource(Source source, boolean overwrite) {
-    // TODO Auto-generated method stub
-    return false;
+    BasicDBObject dbSource = new BasicDBObject();
+    dbSource.put("name", source.getName());
+    dbSource.put("owner", source.getOwner());
+    dbSource.put("location", source.getLocation());
+    dbSource.put("coordinates", source.getCoordinates());
+    dbSource.put("isPublic", source.isPublic());
+    dbSource.put("isVirtual", source.isVirtual());
+    dbSource.put("lastMod", System.currentTimeMillis());
+    
+    if (source.isSetProperties()) {
+      try {
+        Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
+        StringWriter writer = new StringWriter();
+        propertiesMarshaller.marshal(source.getProperties(), writer);
+        dbSource.put("properties", writer.toString());
+      }
+      catch (JAXBException e) {
+        this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
+      }
+    }
+    if (source.isSetSubSources()) {
+      try {
+        Marshaller subSourcesMarshaller = subSourcesJAXB.createMarshaller();
+        StringWriter writer = new StringWriter();
+        subSourcesMarshaller.marshal(source.getSubSources(), writer);
+        dbSource.put("subSources", writer.toString());
+      }
+      catch (JAXBException e) {
+        this.logger.warning("Unable to parse subsources " + StackTrace.toString(e));
+      }
+    }
+    
+    WriteResult result;
+    if (overwrite) {
+      //Find an existing source with this name.
+      BasicDBObject query = new BasicDBObject("name", source.getName());
+      //Third parameter is to "upsert" (update if exists, insert otherwise).
+      //Fourth is to update all matching objects, though there should be only one.
+      result = this.sourceCollection.update(query, dbSource, true, true);
+    }
+    else {
+      result = this.sourceCollection.insert(dbSource);
+    }
+    
+    return result.getError() == null;
   }
 
   @Override
   public boolean storeUser(User user) {
-    // TODO Auto-generated method stub
-    return false;
+    BasicDBObject dbUser = new BasicDBObject();
+    dbUser.put("name", user.getEmail());
+    dbUser.put("password", user.getPassword());
+    dbUser.put("isAdmin", user.isAdmin());
+    dbUser.put("lastMod", System.currentTimeMillis());
+    
+    if (user.isSetProperties()) {
+      try {
+        Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
+        StringWriter writer = new StringWriter();
+        propertiesMarshaller.marshal(user.getProperties(), writer);
+        dbUser.put("properties", writer.toString());
+      }
+      catch (JAXBException e) {
+        this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
+      }
+    }
+    
+    WriteResult result = this.userCollection.insert(dbUser);
+    if (result.getError() != null) {
+      this.logger.warning("MongoDB: Received error while trying to insert user " + result.getError());
+    }
+    
+    return result.getError() == null;
   }
 
   @Override
