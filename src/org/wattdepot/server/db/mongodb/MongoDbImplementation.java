@@ -30,6 +30,7 @@ import org.wattdepot.util.tstamp.Tstamp;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
@@ -94,17 +95,7 @@ public class MongoDbImplementation extends DbImplementation {
     return null;
   }
 
-  @Override
-  public SensorData getSensorData(String sourceName, XMLGregorianCalendar timestamp) {
-    BasicDBObject query = new BasicDBObject();
-    query.put("source", Source.sourceToUri(sourceName, this.server));
-    query.put("timestamp", timestamp.toGregorianCalendar().getTimeInMillis());
-    DBObject object = this.sensorDataCollection.findOne(query);
-    
-    if (object == null) {
-      return null;
-    }
-    
+  private SensorData dbObjectToSensorData(DBObject object) {
     SensorData data = new SensorData();
     data.setSource((String) object.get("source"));
     data.setTimestamp(Tstamp.makeTimestamp((Long)object.get("timestamp")));
@@ -120,7 +111,22 @@ public class MongoDbImplementation extends DbImplementation {
         this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
       }
     }
+    
     return data;
+  }
+  
+  @Override
+  public SensorData getSensorData(String sourceName, XMLGregorianCalendar timestamp) {
+    BasicDBObject query = new BasicDBObject();
+    query.put("source", Source.sourceToUri(sourceName, this.server));
+    query.put("timestamp", timestamp.toGregorianCalendar().getTimeInMillis());
+    DBObject object = this.sensorDataCollection.findOne(query);
+    
+    if (object == null) {
+      return null;
+    }
+    
+    return this.dbObjectToSensorData(object);
   }
 
   @Override
@@ -163,18 +169,7 @@ public class MongoDbImplementation extends DbImplementation {
     return null;
   }
 
-  @Override
-  public Source getSource(String sourceName) {
-    if (sourceName == null) {
-      return null;
-    }
-    
-    BasicDBObject query = new BasicDBObject("source", Source.sourceToUri(sourceName, this.server));
-    DBObject object = this.sourceCollection.findOne(query);
-    if (object == null) {
-      return null;
-    }
-    
+  private Source dbObjectToSource(DBObject object) {
     Source source = new Source();
     source.setName((String)object.get("name"));
     source.setOwner((String)object.get("owner"));
@@ -206,6 +201,21 @@ public class MongoDbImplementation extends DbImplementation {
     
     return source;
   }
+  
+  @Override
+  public Source getSource(String sourceName) {
+    if (sourceName == null) {
+      return null;
+    }
+    
+    BasicDBObject query = new BasicDBObject("source", Source.sourceToUri(sourceName, this.server));
+    DBObject dbSource = this.sourceCollection.findOne(query);
+    if (dbSource == null) {
+      return null;
+    }
+    
+    return this.dbObjectToSource(dbSource);
+  }
 
   @Override
   public SourceIndex getSourceIndex() {
@@ -221,8 +231,13 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public Sources getSources() {
-    // TODO Auto-generated method stub
-    return null;
+    Sources sources = new Sources();
+    DBCursor cursor = this.sourceCollection.find();
+    for (DBObject object : cursor) {
+      sources.getSource().add(this.dbObjectToSource(object));
+    }
+    
+    return sources;
   }
 
   @Override
