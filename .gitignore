@@ -12,3 +12,6 @@ bin/
 
 # Ignore .DS_Store
 .DS_Store
+
+# Ignore top level Berkeleydb folder
+/berkeleyDb
