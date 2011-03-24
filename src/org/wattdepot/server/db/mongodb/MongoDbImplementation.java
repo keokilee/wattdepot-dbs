@@ -1,12 +1,15 @@
 package org.wattdepot.server.db.mongodb;
 
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.UnknownHostException;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.wattdepot.resource.property.jaxb.Properties;
 import org.wattdepot.resource.sensordata.SensorDataStraddle;
 import org.wattdepot.resource.sensordata.StraddleList;
 import org.wattdepot.resource.sensordata.jaxb.SensorData;
@@ -22,9 +25,11 @@ import org.wattdepot.server.Server;
 import org.wattdepot.server.db.DbBadIntervalException;
 import org.wattdepot.server.db.DbImplementation;
 import org.wattdepot.util.StackTrace;
+import org.wattdepot.util.tstamp.Tstamp;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
@@ -90,8 +95,31 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public SensorData getSensorData(String sourceName, XMLGregorianCalendar timestamp) {
-    // TODO Auto-generated method stub
-    return null;
+    BasicDBObject query = new BasicDBObject();
+    query.put("source", Source.sourceToUri(sourceName, this.server));
+    query.put("timestamp", timestamp.toGregorianCalendar().getTimeInMillis());
+    DBObject object = this.sensorDataCollection.findOne(query);
+    
+    if (object == null) {
+      return null;
+    }
+    
+    SensorData data = new SensorData();
+    data.setSource((String) object.get("source"));
+    data.setTimestamp(Tstamp.makeTimestamp((Long)object.get("timestamp")));
+    data.setTool((String) object.get("tool"));
+    
+    if (object.containsField("properties")) {
+      String props = (String)object.get("properties");
+      try {
+        Unmarshaller unmarshaller = propertiesJAXB.createUnmarshaller();
+        data.setProperties((Properties) unmarshaller.unmarshal(new StringReader(props)));
+      }
+      catch (JAXBException e) {
+        this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
+      }
+    }
+    return data;
   }
 
   @Override
