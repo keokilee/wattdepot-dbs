@@ -27,7 +27,7 @@
       <batchtest todir="${junit.build.dir}">
         <fileset dir="${src.dir}"
                  includes="**/Test*.java"
-                 excludes="**/tinker/**, **/TestDb*.java, **/TestDerbyStorageImplementation.java" />
+                 excludes="**/tinker/**, **/TestDb*.java, **/TestDerbyStorageImplementation.java, **/TestBerkeleyDbImplementation.java" />
       </batchtest>
     </junit>
     <!-- Run DB tests using MemoryStorageImplementation -->
@@ -45,7 +45,7 @@
       <sysproperty key="wattdepot-server.db.impl"
                    value="org.wattdepot.server.db.memory.MemoryStorageImplementation" />
       <batchtest todir="${junit.build.dir}">
-        <fileset dir="${src.dir}" includes="**/TestDb*.java" excludes="**/tinker/**" />
+        <fileset dir="${src.dir}" includes="**/TestDb*.java" excludes="**/tinker/**, **/TestBerkeleyDbImplementation.java" />
       </batchtest>
     </junit>
     <!-- Run DB tests using DerbyStorageImplementation -->
@@ -64,7 +64,26 @@
         <!-- Note special class for testing -->
         <fileset dir="${src.dir}"
                  includes="**/TestDb*.java, **/TestDerbyStorageImplementation.java"
-                 excludes="**/tinker/**" />
+                 excludes="**/tinker/**, **/TestBerkeleyDbImplementation.java" />
+      </batchtest>
+    </junit>
+  	<!-- Run DB tests using BerkeleyDbImplementation -->
+    <junit printsummary="withOutAndErr"
+           haltonfailure="${junit.haltonfailure}"
+           failureproperty="junit.failed"
+           fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath" />
+      </classpath>
+      <formatter type="xml" />
+      <sysproperty key="wattdepot-server.db.impl"
+                   value="org.wattdepot.server.db.berkeleydb.BerkeleyDbImplementation" />
+      <batchtest todir="${junit.build.dir}">
+        <!-- Note special class for testing -->
+        <fileset dir="${src.dir}"
+                 includes="**/TestDb*.java, **/TestBerkeleyDbImplementation.java"
+                 excludes="**/tinker/**, **/TestDerbyStorageImplementation.java" />
       </batchtest>
     </junit>
   </target>

@@ -1,5 +1,0 @@
-<body>
-This package provides classes that implement a client that creates a snapshot of the database on
-the server. This is useful to ensure that a consistent version of the database is available for
-backups.
-</body>

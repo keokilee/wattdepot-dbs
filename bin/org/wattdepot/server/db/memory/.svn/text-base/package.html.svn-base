@@ -1,3 +1,0 @@
-<body>
-Provides an in-memory storage implementation for WattDepot, without any on-disk storage at all.
-</body>

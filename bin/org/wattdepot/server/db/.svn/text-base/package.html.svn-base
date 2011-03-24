@@ -1,4 +1,0 @@
-<body>
-Provides an abstraction for the underlying database system for persisting data, thereby allowing
-alternative storage implementations. 
-</body>

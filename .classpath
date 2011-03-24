@@ -79,5 +79,6 @@
 			<attribute name="javadoc_location" value="http://jamod.sourceforge.net/apidocs/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/berkeleydb/berkeley-db-java.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

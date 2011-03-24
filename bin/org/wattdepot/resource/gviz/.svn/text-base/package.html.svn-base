@@ -1,8 +1,0 @@
-<body>
-This package provides classes that make WattDepot data available using the
-<a href="http://code.google.com/apis/visualization/documentation/dev/implementing_data_source_overview.html">Google
-Visualization data source API</a> using the
-<a href="http://code.google.com/apis/visualization/documentation/dev/dsl_about.html">Google
-Visualization data source library</a>. This provides the ability to visualize WattDepot data using
-Google visualization gagdets. 
-</body>

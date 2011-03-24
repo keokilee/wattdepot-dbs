@@ -187,6 +187,13 @@
         <include name="*.jar" />
       </fileset>
     </path>
+  	
+  	<ivy:retrieve organisation="com.sleepycat" module="berkeley-db-java" revision="${berkeleydb.version}" pattern="${lib.dir}/berkeleydb/[artifact].[ext]" sync="true" inline="true" conf="default" log="download-only" transitive="true" type="jar,javadoc" />
+  	<path id="berkeleydb.path">
+  	  <fileset dir="${lib.dir}/berkeleydb">
+  	    <include name="*.jar" />
+  	  </fileset>
+  	</path>
     
   </target>
 
@@ -207,6 +214,7 @@
     <path refid="google-collections.path" />
     <path refid="google-visualization-java.path" />
     <path refid="derby.path" />
+  	<path refid="berkeleydb.path" />
     <fileset dir="external-libs">
       <include name="**/*.jar"/>
     </fileset>

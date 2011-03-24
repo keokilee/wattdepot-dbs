@@ -1,0 +1,11 @@
+# Ignore build files.
+build/
+
+# Ignore svn files.
+.svn/
+
+# Ignore lib directory.
+lib/
+
+# Ignore bin directory
+bin/
