@@ -18,6 +18,7 @@ import org.wattdepot.resource.sensordata.jaxb.SensorDatas;
 import org.wattdepot.resource.source.jaxb.Source;
 import org.wattdepot.resource.source.jaxb.SourceIndex;
 import org.wattdepot.resource.source.jaxb.Sources;
+import org.wattdepot.resource.source.jaxb.SubSources;
 import org.wattdepot.resource.source.summary.jaxb.SourceSummary;
 import org.wattdepot.resource.user.jaxb.User;
 import org.wattdepot.resource.user.jaxb.UserIndex;
@@ -164,8 +165,46 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public Source getSource(String sourceName) {
-    // TODO Auto-generated method stub
-    return null;
+    if (sourceName == null) {
+      return null;
+    }
+    
+    BasicDBObject query = new BasicDBObject("source", Source.sourceToUri(sourceName, this.server));
+    DBObject object = this.sourceCollection.findOne(query);
+    if (object == null) {
+      return null;
+    }
+    
+    Source source = new Source();
+    source.setName((String)object.get("name"));
+    source.setOwner((String)object.get("owner"));
+    source.setPublic((Boolean)object.get("isPublic"));
+    source.setVirtual((Boolean)object.get("isVirtual"));
+    source.setLocation((String)object.get("location"));
+    source.setCoordinates((String)object.get("coordinates"));
+    if (object.containsField("properties")) {
+      String props = (String)object.get("properties");
+      try {
+        Unmarshaller unmarshaller = propertiesJAXB.createUnmarshaller();
+        source.setProperties((Properties) unmarshaller.unmarshal(new StringReader(props)));
+      }
+      catch (JAXBException e) {
+        this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
+      }
+    }
+    
+    if (object.containsField("subSources")) {
+      String subSources = (String)object.get("subSources");
+      try {
+        Unmarshaller unmarshaller = subSourcesJAXB.createUnmarshaller();
+        source.setSubSources((SubSources) unmarshaller.unmarshal(new StringReader(subSources)));
+      }
+      catch (JAXBException e) {
+        this.logger.warning("Unable to parse SubSource XML " + StackTrace.toString(e));
+      }
+    }
+    
+    return source;
   }
 
   @Override
