@@ -30,6 +30,7 @@ public class DbShutdownHook extends Thread {
   /**
    * Runs at system shutdown time and closes the environment and entity store. 
    */
+  @Override
   public void run() {
     try {
       if (env != null) {

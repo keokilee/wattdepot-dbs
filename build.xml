@@ -5,7 +5,7 @@
 
   <!-- Override version number properties set in common.build.xml before loading it -->
   <property name="majorVersionNumber" value="1" />
-  <property name="minorVersionNumber" value="4" />
+  <property name="minorVersionNumber" value="5" />
 
   <import file="common.build.xml" />
 

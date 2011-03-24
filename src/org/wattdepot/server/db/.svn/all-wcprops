@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svn/!svn/ver/318/trunk/src/org/wattdepot/server/db
+/svn/!svn/ver/330/trunk/src/org/wattdepot/server/db
 END
 DbBadIntervalException.java
 K 25

@@ -2,10 +2,13 @@
 build/
 
 # Ignore svn files.
-.svn/
+.svn
 
 # Ignore lib directory.
 lib/
 
 # Ignore bin directory
 bin/
+
+# Ignore .DS_Store
+.DS_Store
