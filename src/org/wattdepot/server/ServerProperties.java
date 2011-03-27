@@ -35,6 +35,10 @@ public class ServerProperties {
   public static final String HOSTNAME_KEY = "wattdepot-server.hostname";
   /** The logging level key. */
   public static final String LOGGING_LEVEL_KEY = "wattdepot-server.logging.level";
+  /** MongoDB server hostname key.*/
+  public static final String MONGODB_HOSTNAME_KEY = "wattdepot-server.db.impl.mongodb.host";
+  /** MongoDB server port key.*/
+  public static final String MONGODB_PORT_KEY = "wattdepot-server.db.impl.mongodb.port";
   /** The Restlet Logging key. */
   public static final String RESTLET_LOGGING_KEY = "wattdepot-server.restlet.logging";
   /** The SMTP host key. */
@@ -123,6 +127,9 @@ public class ServerProperties {
     properties.setProperty(DB_IMPL_KEY, "org.wattdepot.server.db.derby.DerbyStorageImplementation");
     properties.setProperty(HOSTNAME_KEY, "localhost");
     properties.setProperty(LOGGING_LEVEL_KEY, "INFO");
+    // PMD doesn't like the hard coded localhost IP, but the string "localhost" doesn't work.
+    properties.setProperty(MONGODB_HOSTNAME_KEY, "127.0.0.1"); // NOPMD
+    properties.setProperty(MONGODB_PORT_KEY, "27017");
     properties.setProperty(RESTLET_LOGGING_KEY, FALSE);
     properties.setProperty(SMTP_HOST_KEY, "mail.hawaii.edu");
     properties.setProperty(PORT_KEY, "8182");

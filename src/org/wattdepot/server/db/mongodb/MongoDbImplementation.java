@@ -28,9 +28,9 @@ import org.wattdepot.resource.user.jaxb.User;
 import org.wattdepot.resource.user.jaxb.UserIndex;
 import org.wattdepot.resource.user.jaxb.UserRef;
 import org.wattdepot.server.Server;
+import org.wattdepot.server.ServerProperties;
 import org.wattdepot.server.db.DbBadIntervalException;
 import org.wattdepot.server.db.DbImplementation;
-import org.wattdepot.server.db.mongodb.DbShutdownHook;
 import org.wattdepot.util.StackTrace;
 import org.wattdepot.util.tstamp.Tstamp;
 import com.mongodb.BasicDBObject;
@@ -40,14 +40,23 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
-import com.mongodb.MongoOptions;
-import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import com.mongodb.WriteResult;
 
+/**
+ * Provides an implementation of DbImplementation that uses MongoDB, a NoSQL database.
+ * 
+ * @author George Lee
+ *
+ */
 public class MongoDbImplementation extends DbImplementation {
   private static final String UNABLE_TO_PARSE_PROPERTY_XML =
     "Unable to parse property XML from database ";
+  
+  private static final String SOURCE_KEY = "source";
+  private static final String TIMESTAMP_KEY = "timestamp";
+  private static final String NAME_KEY = "name";
+  private static final String PROPERTIES_KEY = "properties";
 
   private static JAXBContext subSourcesJAXB;
 
@@ -55,10 +64,6 @@ public class MongoDbImplementation extends DbImplementation {
   private DBCollection sensorDataCollection;
   private DBCollection sourceCollection;
   private DBCollection userCollection;
-
-  private Mongo mongo;
-
-  private DB mongoDb;
   
   /** Property JAXBContext. */
   private static final JAXBContext propertiesJAXB;
@@ -73,6 +78,11 @@ public class MongoDbImplementation extends DbImplementation {
     }
   }
 
+  /**
+   * Instantiates this implementation.
+   * 
+   * @param server The server this implementation is associated with.
+   */
   public MongoDbImplementation(Server server) {
     super(server);
     // TODO Auto-generated constructor stub
@@ -85,11 +95,12 @@ public class MongoDbImplementation extends DbImplementation {
     }
     
     String sourceUri = Source.sourceToUri(sourceName, this.server);
-    BasicDBObject query = new BasicDBObject("source", sourceUri);
-    query.put("timestamp", timestamp.toGregorianCalendar().getTimeInMillis());
+    BasicDBObject query = new BasicDBObject(SOURCE_KEY, sourceUri);
+    query.put(TIMESTAMP_KEY, timestamp.toGregorianCalendar().getTimeInMillis());
     
     DBObject object = this.sensorDataCollection.findAndRemove(query);
     
+    // Deleted object should be returned.
     return object != null;
   }
 
@@ -100,9 +111,11 @@ public class MongoDbImplementation extends DbImplementation {
     }
     
     String sourceUri = Source.sourceToUri(sourceName, this.server);
-    BasicDBObject query = new BasicDBObject("source", sourceUri);
-    DBObject object = this.sensorDataCollection.findAndRemove(query);
-    return object == null;
+    BasicDBObject query = new BasicDBObject(SOURCE_KEY, sourceUri);
+    WriteResult result = this.sensorDataCollection.remove(query, WriteConcern.SAFE);
+    
+    // The only way we can tell if anything was deleted is to look at the number of affected records
+    return result.getN() > 0;
   }
 
   @Override
@@ -111,7 +124,7 @@ public class MongoDbImplementation extends DbImplementation {
       return false;
     }
     
-    DBObject object = this.sourceCollection.findAndRemove(new BasicDBObject("name", sourceName));
+    DBObject object = this.sourceCollection.findAndRemove(new BasicDBObject(NAME_KEY, sourceName));
     return object != null;
   }
 
@@ -121,28 +134,44 @@ public class MongoDbImplementation extends DbImplementation {
       return false;
     }
     
-    DBObject object = this.userCollection.findAndRemove(new BasicDBObject("name", username));
+    DBObject object = this.userCollection.findAndRemove(new BasicDBObject(NAME_KEY, username));
     return object != null;
   }
 
   @Override
   protected SensorData getLatestNonVirtualSensorData(String sourceName) {
-    // TODO Auto-generated method stub
-    return null;
+    if (sourceName == null) {
+      return null;
+    }
+    
+    String source = Source.sourceToUri(sourceName, this.server);
+    DBCursor cursor = this.sensorDataCollection.find(new BasicDBObject(SOURCE_KEY, source));
+    if (cursor.count() == 0) {
+      return null;
+    }
+    
+    cursor = cursor.sort(new BasicDBObject(TIMESTAMP_KEY, -1)).limit(1);
+    return this.dbObjectToSensorData(cursor.next());
   }
-
+  
+  /**
+   * Converts a DBObject from MongoDB to WattDepot sensor data.
+   * 
+   * @param object The sensor data retrieved from MongoDB.
+   * @return The converted WattDepot SensorData.
+   */
   private SensorData dbObjectToSensorData(DBObject object) {
     if (object == null) {
       return null;
     }
     
     SensorData data = new SensorData();
-    data.setSource((String) object.get("source"));
-    data.setTimestamp(Tstamp.makeTimestamp((Long)object.get("timestamp")));
+    data.setSource((String) object.get(SOURCE_KEY));
+    data.setTimestamp(Tstamp.makeTimestamp((Long)object.get(TIMESTAMP_KEY)));
     data.setTool((String) object.get("tool"));
     
-    if (object.containsField("properties")) {
-      String props = (String)object.get("properties");
+    if (object.containsField(PROPERTIES_KEY)) {
+      String props = (String)object.get(PROPERTIES_KEY);
       try {
         Unmarshaller unmarshaller = propertiesJAXB.createUnmarshaller();
         data.setProperties((Properties) unmarshaller.unmarshal(new StringReader(props)));
@@ -157,9 +186,13 @@ public class MongoDbImplementation extends DbImplementation {
   
   @Override
   public SensorData getSensorData(String sourceName, XMLGregorianCalendar timestamp) {
+    if (sourceName == null || timestamp == null) {
+      return null;
+    }
+    
     BasicDBObject query = new BasicDBObject();
-    query.put("source", Source.sourceToUri(sourceName, this.server));
-    query.put("timestamp", timestamp.toGregorianCalendar().getTimeInMillis());
+    query.put(SOURCE_KEY, Source.sourceToUri(sourceName, this.server));
+    query.put(TIMESTAMP_KEY, timestamp.toGregorianCalendar().getTimeInMillis());
     DBObject object = this.sensorDataCollection.findOne(query);
     
     if (object == null) {
@@ -203,15 +236,15 @@ public class MongoDbImplementation extends DbImplementation {
     Long end = endTime.toGregorianCalendar().getTimeInMillis();
     
     BasicDBObject query = new BasicDBObject();
-    query.put("source", sourceUri);
+    query.put(SOURCE_KEY, sourceUri);
     // Mongo uses "gte" and "lte" for greater/less than or equal
-    query.put("timestamp", new BasicDBObject("$gte", start).append("$lte", end));
+    query.put(TIMESTAMP_KEY, new BasicDBObject("$gte", start).append("$lte", end));
     
     DBCursor cursor = this.sensorDataCollection.find(query);
     SensorDataRef ref;
     for (DBObject object : cursor) {
-      ref = new SensorDataRef(Tstamp.makeTimestamp((Long)object.get("timestamp")), 
-          (String) object.get("tool"), (String) object.get("source"));
+      ref = new SensorDataRef(Tstamp.makeTimestamp((Long)object.get(TIMESTAMP_KEY)), 
+          (String) object.get("tool"), (String) object.get(SOURCE_KEY));
       index.getSensorDataRef().add(ref);
     }
     return index;
@@ -236,10 +269,13 @@ public class MongoDbImplementation extends DbImplementation {
       String sourceUri = Source.sourceToUri(sourceName, this.server.getHostName());
       
       // Grab data immediately previous.
-      BasicDBObject query = new BasicDBObject("source", sourceUri);
-      query.put("timestamp", new BasicDBObject("$lt", dbTime));
+      BasicDBObject query = new BasicDBObject(SOURCE_KEY, sourceUri);
+      query.put(TIMESTAMP_KEY, new BasicDBObject("$lt", dbTime));
       cursor = this.sensorDataCollection.find(query);
-      cursor.sort(new BasicDBObject("timestamp", -1)).limit(1);
+      cursor.sort(new BasicDBObject(TIMESTAMP_KEY, -1)).limit(1);
+      if (cursor.count() == 0) {
+        return null;
+      }
       dbData = cursor.next();
       cursor.close();
       if (dbData == null) {
@@ -248,10 +284,13 @@ public class MongoDbImplementation extends DbImplementation {
       beforeData = this.dbObjectToSensorData(dbData);
       
       //Grab data immediately after.
-      query = new BasicDBObject("source", sourceUri);
-      query.put("timestamp", new BasicDBObject("$gt", dbTime));
+      query = new BasicDBObject(SOURCE_KEY, sourceUri);
+      query.put(TIMESTAMP_KEY, new BasicDBObject("$gt", dbTime));
       cursor = this.sensorDataCollection.find(query);
-      cursor.sort(new BasicDBObject("timestamp", 1)).limit(1);
+      if (cursor.count() == 0) {
+        return null;
+      }
+      cursor.sort(new BasicDBObject(TIMESTAMP_KEY, 1)).limit(1);
       dbData = cursor.next();
       cursor.close();
       if (dbData == null) {
@@ -341,15 +380,18 @@ public class MongoDbImplementation extends DbImplementation {
     if (sourceName == null || startTime == null || endTime == null) {
       return null;
     }
+    else if (this.getSource(sourceName) == null) {
+      return null;
+    }
     
     String sourceUri = Source.sourceToUri(sourceName, server);
-    BasicDBObject query = new BasicDBObject("source", sourceUri);
+    BasicDBObject query = new BasicDBObject(SOURCE_KEY, sourceUri);
     long start = startTime.toGregorianCalendar().getTimeInMillis();
     long end = endTime.toGregorianCalendar().getTimeInMillis();
     BasicDBObject range = new BasicDBObject();
     range.put("$gte", start);
     range.put("$lte", end);
-    query.put("timestamp", range);
+    query.put(TIMESTAMP_KEY, range);
     DBCursor cursor = this.sensorDataCollection.find(query);
     SensorDatas datas = new SensorDatas();
     for (DBObject object : cursor) {
@@ -359,16 +401,23 @@ public class MongoDbImplementation extends DbImplementation {
     return datas;
   }
 
+  /**
+   * Converts the DBObject retrieved from MongoDB to a WattDepot source object.
+   * 
+   * @param object The object retrieved from MongoDB.
+   * @return The converted WattDepot Source object.
+   */
   private Source dbObjectToSource(DBObject object) {
     Source source = new Source();
-    source.setName((String)object.get("name"));
+    source.setName((String)object.get(NAME_KEY));
     source.setOwner((String)object.get("owner"));
     source.setPublic((Boolean)object.get("isPublic"));
     source.setVirtual((Boolean)object.get("isVirtual"));
     source.setLocation((String)object.get("location"));
     source.setCoordinates((String)object.get("coordinates"));
-    if (object.containsField("properties")) {
-      String props = (String)object.get("properties");
+    source.setDescription((String)object.get("description"));
+    if (object.containsField(PROPERTIES_KEY)) {
+      String props = (String)object.get(PROPERTIES_KEY);
       try {
         Unmarshaller unmarshaller = propertiesJAXB.createUnmarshaller();
         source.setProperties((Properties) unmarshaller.unmarshal(new StringReader(props)));
@@ -392,16 +441,22 @@ public class MongoDbImplementation extends DbImplementation {
     return source;
   }
   
+  /**
+   * Converts the MongoDB object to a WattDepot SourceRef.
+   * 
+   * @param object The object received from WattDepot.
+   * @return The converted WattDepot SourceRef.
+   */
   private SourceRef dbObjectToSourceRef(DBObject object) {
     SourceRef ref = new SourceRef();
-    ref.setName((String) object.get("name"));
+    ref.setName((String) object.get(NAME_KEY));
     ref.setOwner((String) object.get("owner"));
     ref.setCoordinates((String) object.get("coordinates"));
     ref.setDescription((String)object.get("description"));
     ref.setLocation((String) object.get("location"));
     ref.setPublic((Boolean) object.get("isPublic"));
     ref.setVirtual((Boolean) object.get("isVirtual"));
-    ref.setHref((String) object.get("name"), this.server);
+    ref.setHref((String) object.get(NAME_KEY), this.server);
     return ref;
   }
   
@@ -411,7 +466,7 @@ public class MongoDbImplementation extends DbImplementation {
       return null;
     }
     
-    BasicDBObject query = new BasicDBObject("source", Source.sourceToUri(sourceName, this.server));
+    BasicDBObject query = new BasicDBObject(NAME_KEY, sourceName);
     DBObject dbSource = this.sourceCollection.findOne(query);
     if (dbSource == null) {
       return null;
@@ -423,7 +478,7 @@ public class MongoDbImplementation extends DbImplementation {
   @Override
   public SourceIndex getSourceIndex() {
     SourceIndex index = new SourceIndex();
-    DBCursor cursor = this.sourceCollection.find();
+    DBCursor cursor = this.sourceCollection.find().sort(new BasicDBObject(NAME_KEY, 1));
     for (DBObject object : cursor) {
       index.getSourceRef().add(this.dbObjectToSourceRef(object));
     }
@@ -456,7 +511,7 @@ public class MongoDbImplementation extends DbImplementation {
     for (Source subSource : sourceList) {
       subsourceUri = Source.sourceToUri(subSource.getName(), this.server.getHostName());
       //Create cursor for getting data.
-      cursor = this.sensorDataCollection.find(new BasicDBObject("source", subsourceUri));
+      cursor = this.sensorDataCollection.find(new BasicDBObject(SOURCE_KEY, subsourceUri));
       sensorData = cursor.toArray();
       
       //Count the number of results for this source.
@@ -464,14 +519,14 @@ public class MongoDbImplementation extends DbImplementation {
       if (dataCount > 0) {
         //Get first timestamp of sensor data.
         temp = sensorData.get(0);
-        if (firstTimestamp == null || (Long)temp.get("timestamp") < firstTimestamp) {
-          firstTimestamp = (Long)temp.get("timestamp");
+        if (firstTimestamp == null || (Long)temp.get(TIMESTAMP_KEY) < firstTimestamp) {
+          firstTimestamp = (Long)temp.get(TIMESTAMP_KEY);
         }
         
         //Get last timestamp of sensor data.
         temp = sensorData.get(sensorData.size() - 1);
-        if (lastTimestamp == null || (Long)temp.get("timestamp") > lastTimestamp) {
-          lastTimestamp = (Long)temp.get("timestamp");
+        if (lastTimestamp == null || (Long)temp.get(TIMESTAMP_KEY) > lastTimestamp) {
+          lastTimestamp = (Long)temp.get(TIMESTAMP_KEY);
         }
       }
       //Clean up
@@ -487,7 +542,7 @@ public class MongoDbImplementation extends DbImplementation {
   @Override
   public Sources getSources() {
     Sources sources = new Sources();
-    DBCursor cursor = this.sourceCollection.find();
+    DBCursor cursor = this.sourceCollection.find().sort(new BasicDBObject(NAME_KEY, 1));
     for (DBObject object : cursor) {
       sources.getSource().add(this.dbObjectToSource(object));
     }
@@ -533,14 +588,20 @@ public class MongoDbImplementation extends DbImplementation {
     return masterList;
   }
 
+  /**
+   * Converts a MongoDB object to a WattDepot User object.
+   * 
+   * @param object The object received from MongoDB.
+   * @return The converted WattDepot User object.
+   */
   private User dbObjectToUser(DBObject object) {
     User user = new User();
-    user.setEmail((String) object.get("name"));
+    user.setEmail((String) object.get(NAME_KEY));
     user.setPassword((String) object.get("password"));
     user.setAdmin((Boolean) object.get("isAdmin"));
     
-    if (object.containsField("properties")) {
-      String props = (String)object.get("properties");
+    if (object.containsField(PROPERTIES_KEY)) {
+      String props = (String)object.get(PROPERTIES_KEY);
       try {
         Unmarshaller unmarshaller = propertiesJAXB.createUnmarshaller();
         user.setProperties((Properties) unmarshaller.unmarshal(new StringReader(props)));
@@ -559,7 +620,7 @@ public class MongoDbImplementation extends DbImplementation {
       return null;
     }
     
-    BasicDBObject query = new BasicDBObject("name", username);
+    BasicDBObject query = new BasicDBObject(NAME_KEY, username);
     DBObject object = this.userCollection.findOne(query);
     if (object == null) {
       return null;
@@ -571,9 +632,9 @@ public class MongoDbImplementation extends DbImplementation {
   @Override
   public UserIndex getUsers() {
     UserIndex index = new UserIndex();
-    DBCursor cursor = this.userCollection.find().sort(new BasicDBObject("name", 1));
+    DBCursor cursor = this.userCollection.find().sort(new BasicDBObject(NAME_KEY, 1));
     for (DBObject object : cursor) {
-      index.getUserRef().add(new UserRef((String) object.get("name"), this.server));
+      index.getUserRef().add(new UserRef((String) object.get(NAME_KEY), this.server));
     }
     cursor.close();
     return index;
@@ -587,8 +648,8 @@ public class MongoDbImplementation extends DbImplementation {
   @Override
   public boolean indexTables() {
     BasicDBObject dataIndex = new BasicDBObject();
-    dataIndex.put("source", 1);
-    dataIndex.put("timestamp", 1);
+    dataIndex.put(SOURCE_KEY, 1);
+    dataIndex.put(TIMESTAMP_KEY, 1);
     BasicDBObject uniqueOption = new BasicDBObject("unique", true);
     try {
       this.sensorDataCollection.ensureIndex(dataIndex, uniqueOption);
@@ -598,14 +659,14 @@ public class MongoDbImplementation extends DbImplementation {
     }
     
     try {
-      this.sourceCollection.ensureIndex(new BasicDBObject("name", 1), uniqueOption);
+      this.sourceCollection.ensureIndex(new BasicDBObject(NAME_KEY, 1), uniqueOption);
     }
     catch (MongoException e) {
       this.logger.fine("Index exists on sources.");
     }
     
     try {
-      this.userCollection.ensureIndex(new BasicDBObject("name", 1), uniqueOption);
+      this.userCollection.ensureIndex(new BasicDBObject(NAME_KEY, 1), uniqueOption);
     }
     catch (MongoException e) {
       this.logger.fine("Index exists on users.");
@@ -616,33 +677,37 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public void initialize(boolean wipe) {
-    String mongoServer = "127.0.0.1";
-    Integer mongoPort = 27017;
+    ServerProperties props = this.server.getServerProperties();
+    String mongoServer = props.get(ServerProperties.MONGODB_HOSTNAME_KEY);
+    Integer mongoPort = Integer.parseInt(props.get(ServerProperties.MONGODB_PORT_KEY));
+    Mongo mongo;
     
     try {
-      this.mongo = new Mongo(mongoServer, mongoPort);
+      mongo = new Mongo(mongoServer, mongoPort);
     }
     catch (UnknownHostException e) {
-      throw new RuntimeException("Could not connect to " + mongoServer);
+      this.logger.severe("Could not connect to " + mongoServer);
+      throw new RuntimeException("Could not connect. " + StackTrace.toString(e));
     }
     catch (MongoException e) {
-      throw new RuntimeException("Could not connect to "  + mongoServer + "on port " + mongoPort.toString());
+      this.logger.severe("Could not connect to "  + mongoServer + "on port " + mongoPort.toString());
+      throw new RuntimeException("Could not connect. " + StackTrace.toString(e));
     }
     
     //Check if the database exists.
     String mongoDbName = "wattdepot";
-    List<String> mongoDbs = this.mongo.getDatabaseNames();
+    List<String> mongoDbs = mongo.getDatabaseNames();
     this.isFreshlyCreated = !mongoDbs.contains(mongoDbName);
-    this.mongoDb = this.mongo.getDB(mongoDbName);
+    DB mongoDb = mongo.getDB(mongoDbName);
     
     //Set up collections and indices.
-    this.sensorDataCollection = this.mongoDb.getCollection("sensorData");
-    this.sourceCollection = this.mongoDb.getCollection("sources");
-    this.userCollection = this.mongoDb.getCollection("users");
+    this.sensorDataCollection = mongoDb.getCollection("sensorData");
+    this.sourceCollection = mongoDb.getCollection("sources");
+    this.userCollection = mongoDb.getCollection("users");
     this.indexTables();
     
     //Create shutdown hook.
-    DbShutdownHook shutdownHook = new DbShutdownHook(this.mongo);
+    DbShutdownHook shutdownHook = new DbShutdownHook(mongo);
     Runtime.getRuntime().addShutdownHook(shutdownHook);
     
     if (wipe) {
@@ -669,9 +734,13 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public boolean storeSensorData(SensorData data) {
+    if (data == null) {
+      return false;
+    }
+    
     BasicDBObject dbData = new BasicDBObject();
-    dbData.put("source", data.getSource());
-    dbData.put("timestamp",data.getTimestamp().toGregorianCalendar().getTimeInMillis());
+    dbData.put(SOURCE_KEY, data.getSource());
+    dbData.put(TIMESTAMP_KEY,data.getTimestamp().toGregorianCalendar().getTimeInMillis());
     dbData.put("tool", data.getTool());
     dbData.put("lastMod", System.currentTimeMillis());
     
@@ -680,22 +749,33 @@ public class MongoDbImplementation extends DbImplementation {
         Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
         StringWriter writer = new StringWriter();
         propertiesMarshaller.marshal(data.getProperties(), writer);
-        dbData.put("properties", writer.toString());
+        dbData.put(PROPERTIES_KEY, writer.toString());
       }
       catch (JAXBException e) {
         this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
       }
     }
     
-    WriteResult result = this.sensorDataCollection.insert(dbData);
-    return result.getLastError().ok();
+    try {
+      this.sensorDataCollection.insert(dbData, WriteConcern.SAFE);
+    }
+    catch (MongoException.DuplicateKey dke) {
+      return false;
+    }
+    
+    return true;
   }
 
   @Override
   public boolean storeSource(Source source, boolean overwrite) {
+    if (source == null) {
+      return false;
+    }
+    
     BasicDBObject dbSource = new BasicDBObject();
-    dbSource.put("name", source.getName());
+    dbSource.put(NAME_KEY, source.getName());
     dbSource.put("owner", source.getOwner());
+    dbSource.put("description", source.getDescription());
     dbSource.put("location", source.getLocation());
     dbSource.put("coordinates", source.getCoordinates());
     dbSource.put("isPublic", source.isPublic());
@@ -707,7 +787,7 @@ public class MongoDbImplementation extends DbImplementation {
         Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
         StringWriter writer = new StringWriter();
         propertiesMarshaller.marshal(source.getProperties(), writer);
-        dbSource.put("properties", writer.toString());
+        dbSource.put(PROPERTIES_KEY, writer.toString());
       }
       catch (JAXBException e) {
         this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
@@ -725,19 +805,23 @@ public class MongoDbImplementation extends DbImplementation {
       }
     }
     
-    WriteResult result;
     if (overwrite) {
       //Find an existing source with this name.
-      BasicDBObject query = new BasicDBObject("name", source.getName());
+      BasicDBObject query = new BasicDBObject(NAME_KEY, source.getName());
       //Third parameter is to "upsert" (update if exists, insert otherwise).
-      //Fourth is to update all matching objects, though there should be only one.
-      result = this.sourceCollection.update(query, dbSource, true, true);
+      //Fourth is to update all matching objects, which shouldn't happen.
+      this.sourceCollection.update(query, dbSource, true, false, WriteConcern.SAFE);
     }
     else {
-      result = this.sourceCollection.insert(dbSource);
+      try {
+        this.sourceCollection.insert(dbSource, WriteConcern.SAFE);
+      }
+      catch (MongoException.DuplicateKey dke) {
+        return false;
+      }
     }
     
-    return result.getLastError().ok();
+    return true;
   }
 
   @Override
@@ -747,7 +831,7 @@ public class MongoDbImplementation extends DbImplementation {
     }
     
     BasicDBObject dbUser = new BasicDBObject();
-    dbUser.put("name", user.getEmail());
+    dbUser.put(NAME_KEY, user.getEmail());
     dbUser.put("password", user.getPassword());
     dbUser.put("isAdmin", user.isAdmin());
     dbUser.put("lastMod", System.currentTimeMillis());
@@ -757,7 +841,7 @@ public class MongoDbImplementation extends DbImplementation {
         Marshaller propertiesMarshaller = propertiesJAXB.createMarshaller();
         StringWriter writer = new StringWriter();
         propertiesMarshaller.marshal(user.getProperties(), writer);
-        dbUser.put("properties", writer.toString());
+        dbUser.put(PROPERTIES_KEY, writer.toString());
       }
       catch (JAXBException e) {
         this.logger.warning(UNABLE_TO_PARSE_PROPERTY_XML + StackTrace.toString(e));
@@ -781,6 +865,7 @@ public class MongoDbImplementation extends DbImplementation {
     this.sourceCollection.drop();
     this.userCollection.drop();
     
+    //drop() drops indexes, so we should rebuild them here.
     this.indexTables();
     
     return true;
