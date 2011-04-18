@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svn/!svn/ver/318/trunk/src/org/wattdepot/resource/sensordata
+/svn/!svn/ver/336/trunk/src/org/wattdepot/resource/sensordata
 END
 TestSensorDataStraddle.java
 K 25
@@ -25,7 +25,7 @@ TestSensorDataResource.java
 K 25
 svn:wc:ra_dav:version-url
 V 89
-/svn/!svn/ver/318/trunk/src/org/wattdepot/resource/sensordata/TestSensorDataResource.java
+/svn/!svn/ver/336/trunk/src/org/wattdepot/resource/sensordata/TestSensorDataResource.java
 END
 SensorDataResource.java
 K 25

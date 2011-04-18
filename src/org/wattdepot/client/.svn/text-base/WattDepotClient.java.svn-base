@@ -447,7 +447,14 @@ public class WattDepotClient {
   }
 
   /**
-   * Requests the latest SensorData from a given Source.
+   * Returns the latest SensorData instance for a particular named Source, or throws an exception if
+   * the data cannot be retrieved. If the Source is virtual, the latest SensorData returned is the
+   * union of all the properties of the latest SensorData for each SubSource, and for any properties
+   * in common with numeric values, the returned value will be the sum of all the values. The
+   * timestamp of the SensorData for a virtual Source will be the <b>earliest</b> of the timestamps
+   * of the latest SensorData from each SubSource, as this ensures that any subsequent requests for
+   * ranges of data using that timestamp will succeed (since all SubSources have valid data up to
+   * that endpoint).
    * 
    * @param source The name of the Source.
    * @return The SensorData.

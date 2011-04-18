@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 48
-/svn/!svn/ver/318/trunk/src/org/wattdepot/client
+/svn/!svn/ver/336/trunk/src/org/wattdepot/client
 END
 ResourceNotFoundException.java
 K 25
@@ -31,7 +31,7 @@ WattDepotClient.java
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/!svn/ver/318/trunk/src/org/wattdepot/client/WattDepotClient.java
+/svn/!svn/ver/336/trunk/src/org/wattdepot/client/WattDepotClient.java
 END
 OverwriteAttemptedException.java
 K 25

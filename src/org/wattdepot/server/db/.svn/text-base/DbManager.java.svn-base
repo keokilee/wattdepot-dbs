@@ -255,7 +255,13 @@ public class DbManager {
   }
 
   /**
-   * Returns the latest SensorData instance for a particular named Source, or null if not found.
+   * Returns the latest SensorData instance for a particular named Source, or null if not found. If
+   * the Source is virtual, the latest SensorData returned is the union of all the properties of the
+   * latest SensorData for each SubSource, and for any properties in common with numeric values, the
+   * returned value will be the sum of all the values. The timestamp of the SensorData for a virtual
+   * Source will be the <b>earliest</b> of the timestamps of the latest SensorData from each
+   * SubSource, as this ensures that any subsequent requests for ranges of data using that timestamp
+   * will succeed (since all SubSources have valid data up to that endpoint).
    * 
    * @param sourceName The name of the Source whose sensor data is to be returned.
    * @return The SensorData resource, or null.

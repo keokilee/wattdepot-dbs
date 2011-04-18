@@ -624,7 +624,7 @@ public class TestSensorDataResource extends ServerTestHelper {
     virtualProps.getProperty().add(new Property(SensorData.ENERGY_GENERATED_TO_DATE, "5000.0"));
 
     virtualData =
-        new SensorData(source1Time3, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
+        new SensorData(source2Time1, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
     assertEquals(DATA_DOES_NOT_MATCH, virtualData, client.getLatestSensorData(defaultVirtualSource));
     // Test convenience methods
     assertEquals(DATA_DOES_NOT_MATCH, 130.0, client.getLatestPowerConsumed(defaultVirtualSource),
@@ -651,7 +651,7 @@ public class TestSensorDataResource extends ServerTestHelper {
     // Only source 2 has ENERGY_GENERATED_TO_DATE, so just take value from last source 2 sensor data
     virtualProps.getProperty().add(new Property(SensorData.ENERGY_GENERATED_TO_DATE, "5625.0"));
     virtualData =
-        new SensorData(source2Time2, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
+        new SensorData(source1Time3, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
     assertEquals(DATA_DOES_NOT_MATCH, virtualData, client.getLatestSensorData(defaultVirtualSource));
 
   }

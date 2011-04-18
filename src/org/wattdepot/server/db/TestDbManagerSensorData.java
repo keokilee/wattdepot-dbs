@@ -454,7 +454,7 @@ public class TestDbManagerSensorData extends DbManagerTestHelper {
     // Only source 2 has POWER_GENERATED, so just take value from last source 2 sensor data
     virtualProps.getProperty().add(new Property(SensorData.POWER_GENERATED, "1000.0"));
     virtualData =
-        new SensorData(source1Time3, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
+        new SensorData(source2Time1, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
     assertEquals(DATA_DOES_NOT_MATCH, virtualData, manager.getLatestSensorData(virtualSource));
 
     // Add later sensor data for second source
@@ -467,7 +467,7 @@ public class TestDbManagerSensorData extends DbManagerTestHelper {
     // Only source 2 has POWER_GENERATED, so just take value from last source 2 sensor data
     virtualProps.getProperty().add(new Property(SensorData.POWER_GENERATED, "1500.0"));
     virtualData =
-        new SensorData(source2Time2, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
+        new SensorData(source1Time3, SensorData.SERVER_TOOL, virtualSourceUri, virtualProps);
     assertEquals(DATA_DOES_NOT_MATCH, virtualData, manager.getLatestSensorData(virtualSource));
   }
 

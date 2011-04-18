@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/svn/!svn/ver/305/trunk/src/org/wattdepot/resource/energy
+/svn/!svn/ver/332/trunk/src/org/wattdepot/resource/energy
 END
 TestEnergyResource.java
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/!svn/ver/305/trunk/src/org/wattdepot/resource/energy/TestEnergyResource.java
+/svn/!svn/ver/332/trunk/src/org/wattdepot/resource/energy/TestEnergyResource.java
 END
 EnergyResource.java
 K 25

@@ -230,9 +230,9 @@ public class DerbyStorageImplementation extends DbImplementation {
       conn = DriverManager.getConnection(connectionURL);
       s = conn.createStatement();
       s.execute(createSensorDataTableStatement);
-      // s.execute(indexSensorDataTstampStatement);
       s.execute(createUserTableStatement);
       s.execute(createSourceTableStatement);
+      s.execute(indexSensorDataSourceTstampDescStatement);
       s.close();
     }
     finally {

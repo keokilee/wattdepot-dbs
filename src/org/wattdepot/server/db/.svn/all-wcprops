@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svn/!svn/ver/330/trunk/src/org/wattdepot/server/db
+/svn/!svn/ver/336/trunk/src/org/wattdepot/server/db
 END
 DbBadIntervalException.java
 K 25
@@ -19,7 +19,7 @@ DbManager.java
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svn/!svn/ver/318/trunk/src/org/wattdepot/server/db/DbManager.java
+/svn/!svn/ver/336/trunk/src/org/wattdepot/server/db/DbManager.java
 END
 DbManagerTestHelper.java
 K 25
@@ -43,7 +43,7 @@ TestDbManagerSensorData.java
 K 25
 svn:wc:ra_dav:version-url
 V 80
-/svn/!svn/ver/318/trunk/src/org/wattdepot/server/db/TestDbManagerSensorData.java
+/svn/!svn/ver/336/trunk/src/org/wattdepot/server/db/TestDbManagerSensorData.java
 END
 TestDbManagerSources.java
 K 25
@@ -55,7 +55,7 @@ DbImplementation.java
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svn/!svn/ver/318/trunk/src/org/wattdepot/server/db/DbImplementation.java
+/svn/!svn/ver/336/trunk/src/org/wattdepot/server/db/DbImplementation.java
 END
 package.html
 K 25

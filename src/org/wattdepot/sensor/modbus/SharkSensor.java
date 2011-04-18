@@ -6,6 +6,7 @@ import static org.wattdepot.datainput.DataInputClientProperties.WATTDEPOT_USERNA
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Date;
 import javax.xml.datatype.XMLGregorianCalendar;
 import net.wimpi.modbus.Modbus;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
@@ -212,8 +213,9 @@ public class SharkSensor {
         response = readRegisters(meterAddress, ENERGY_FORMAT_REGISTER, ENERGY_FORMAT_LENGTH);
       }
       catch (Exception e) {
-        System.err.format("Unable to retrieve energy format parameters from meter: %s, aborting.",
-            e.getMessage());
+        System.err.format(
+            "Unable to retrieve energy format parameters from meter: %s, aborting.%n", e
+                .getMessage());
         return false;
       }
       if (response instanceof ReadMultipleRegistersResponse) {
@@ -266,7 +268,7 @@ public class SharkSensor {
       }
     }
     else {
-      System.err.format("Invalid credentials for source %s. Aborting.", this.sourceName);
+      System.err.format("Invalid credentials for source %s. Aborting.%n", this.sourceName);
       return false;
     }
   }
@@ -463,7 +465,8 @@ public class SharkSensor {
       powerResponse = readRegisters(meterAddress, port, POWER_REGISTER, POWER_LENGTH);
     }
     catch (Exception e) {
-      System.err.format("Unable to retrieve energy data from meter: %s.", e.getMessage());
+      System.err.format("%s Unable to retrieve energy data from meter: %s.%n", new Date(), e
+          .getMessage());
       return null;
     }
 

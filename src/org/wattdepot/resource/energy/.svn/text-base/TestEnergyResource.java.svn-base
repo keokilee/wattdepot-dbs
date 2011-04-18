@@ -282,14 +282,14 @@ public class TestEnergyResource extends ServerTestHelper {
         client.getEnergyGenerated(sourceName, beforeTime, afterTime, 30), 0.01);
     assertEquals("getEnergy on degenerate range with 29 minute interval gave wrong value", 100,
         client.getEnergyGenerated(sourceName, beforeTime, afterTime, 29), 0.01);
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, sourceName));
     assertEquals("getEnergy with counters gave wrong value", 100, client.getEnergyGenerated(
         sourceName, beforeTime, afterTime, 0), 0.01);
     // interval value should be ignored completely
     assertEquals("getEnergy with counters gave wrong value", 100, client.getEnergyGenerated(
         sourceName, beforeTime, afterTime, 5), 0.01);
     // Back non-energy counter source properties
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, sourceName));
 
     // Try with range that extends beyond sensor data
     XMLGregorianCalendar tooEarly = Tstamp.makeTimestamp("2008-07-28T08:00:00.000-10:00");
@@ -301,7 +301,7 @@ public class TestEnergyResource extends ServerTestHelper {
     catch (BadXmlException e) { // NOPMD
       // Expected in this case
     }
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, sourceName));
     try {
       client.getEnergyGenerated(sourceName, tooEarly, tooLate, 0);
       fail("getEnergyGenerated worked with range outside sensor data");
@@ -309,7 +309,7 @@ public class TestEnergyResource extends ServerTestHelper {
     catch (BadXmlException e) { // NOPMD
       // Expected in this case
     }
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, sourceName));
     client.deleteSensorData(sourceName, beforeData.getTimestamp());
     client.deleteSensorData(sourceName, afterData.getTimestamp());
 
@@ -328,10 +328,10 @@ public class TestEnergyResource extends ServerTestHelper {
         client.getEnergyGenerated(sourceName, beforeTime, afterTime, 5), 0.01);
     assertTrue("Interpolated property not found", client.getEnergy(sourceName, beforeTime,
         afterTime, 0).isInterpolated());
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, sourceName));
     assertEquals("getEnergy on degenerate range with default interval gave wrong value", 150,
         client.getEnergyGenerated(sourceName, beforeTime, afterTime, 0), 0.01);
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, sourceName));
     client.deleteSensorData(sourceName, beforeData.getTimestamp());
     client.deleteSensorData(sourceName, afterData.getTimestamp());
 
@@ -368,7 +368,7 @@ public class TestEnergyResource extends ServerTestHelper {
         .getPropertyAsDouble(SensorData.ENERGY_CONSUMED), 0.01);
 
     // Now using counters
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, sourceName));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, sourceName));
     assertEquals("getEnergyGenerated on on Oscar data was wrong", 2.6633333333333336E7, client
         .getEnergyGenerated(sourceName, timestamp1, timestamp2, 0), 0.01);
     assertEquals("getEnergyConsumed on on Oscar data was wrong", 0, client.getEnergyConsumed(
@@ -432,13 +432,13 @@ public class TestEnergyResource extends ServerTestHelper {
     }
 
     // Now try with counters
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source1Name));
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source2Name));
     assertEquals(
         "getEnergy on degenerate range virtual source with energy counters gave wrong value", 200,
         client.getEnergyGenerated(virtualSourceName, beforeTime, afterTime, 0), 0.01);
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, source1Name));
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, source2Name));
 
     client.deleteSensorData(source1Name, beforeData.getTimestamp());
     client.deleteSensorData(source1Name, afterData.getTimestamp());
@@ -471,10 +471,10 @@ public class TestEnergyResource extends ServerTestHelper {
     assertEquals("getEnergyGenerated on for simple gave wrong value", 1.5E7, client
         .getEnergyGenerated(source1Name, timestamp1, timestamp2, 0), 0.01);
     // Now with counters
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source1Name));
     assertEquals("getEnergy on virtual source with energy counters gave wrong value", 1.5E7, client
         .getEnergyGenerated(source1Name, timestamp1, timestamp2, 0), 0.01);
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, source1Name));
 
     // Computed by hand from Oscar data
     beforeTime = Tstamp.makeTimestamp("2009-10-12T00:00:00.000-10:00");
@@ -500,10 +500,10 @@ public class TestEnergyResource extends ServerTestHelper {
     assertEquals("getEnergyGenerated on for simple gave wrong value", 5.948E7, client
         .getEnergyGenerated(source2Name, timestamp1, timestamp2, 0), 0.2E7);
     // Now try with counters
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source2Name));
     assertEquals("getEnergyGenerated on for simple gave wrong value", 5.952E7, client
         .getEnergyGenerated(source2Name, timestamp1, timestamp2, 0), 0.02E7);
-    assertTrue("Unable to remove energy coutners", removeEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to remove energy counters", removeEnergyCounterProperty(client, source2Name));
 
     // Virtual source should get the sum of the two previous power values
     assertEquals("energy for virtual source did not equal expected value", 7.448E7, client
@@ -511,8 +511,8 @@ public class TestEnergyResource extends ServerTestHelper {
     assertTrue("Interpolated property not found", client.getEnergy(virtualSourceName, timestamp1,
         timestamp2, 0).isInterpolated());
     // Now try with counters
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source1Name));
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source2Name));
     assertEquals("energy for virtual source did not equal expected value", 7.452E7, client
         .getEnergyGenerated(virtualSourceName, timestamp1, timestamp2, 0), 0.01E7);
   }
@@ -535,8 +535,8 @@ public class TestEnergyResource extends ServerTestHelper {
     String source1 = Source.sourceToUri(source1Name, server);
     String source2 = Source.sourceToUri(source2Name, server);
 
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source1Name));
-    assertTrue("Unable to add energy coutners", addEnergyCounterProperty(client, source2Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source1Name));
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, source2Name));
 
     beforeTime = Tstamp.makeTimestamp("2009-10-12T00:12:35.000-10:00");
     timestamp1 = Tstamp.makeTimestamp("2009-10-12T00:13:00.000-10:00");
@@ -587,6 +587,46 @@ public class TestEnergyResource extends ServerTestHelper {
     catch (BadXmlException e) { // NOPMD
       // Expected in this case
     }
+  }
+
+  /**
+   * Tests a problem reported via the HiREAP project: energy retrieval between two sensordata
+   * resources.
+   * 
+   * @throws Exception If there are problems creating timestamps, or if the client has problems.
+   */
+  @Test
+  public void testHneiEnergyIssue() throws Exception {
+    WattDepotClient client =
+        new WattDepotClient(getHostName(), defaultOwnerUsername, defaultOwnerPassword);
+    XMLGregorianCalendar startDataTstamp = Tstamp.makeTimestamp("1999-08-01T06:00:00.000-10:00");
+    XMLGregorianCalendar endDataTstamp = Tstamp.makeTimestamp("1999-08-11T06:00:00.000-10:00");
+
+    XMLGregorianCalendar energyStart = Tstamp.makeTimestamp("1999-08-05T06:00:00.000-10:00");
+    XMLGregorianCalendar energyEnd = Tstamp.makeTimestamp("1999-08-06T06:00:00.000-10:00");
+
+    String sourceName = defaultPublicSource;
+    String sourceURI = Source.sourceToUri(sourceName, getHostName());
+    SensorData startData, endData, energyData;
+
+    // Add energy counter property to source
+    assertTrue("Unable to add energy counters", addEnergyCounterProperty(client, sourceName));
+
+    // Create SensorData objects
+    startData =
+        SensorDataStraddle.makePowerEnergySensorData(startDataTstamp, sourceURI, 0, 0, 0, 3000000,
+            false);
+    client.storeSensorData(startData);
+    endData =
+        SensorDataStraddle.makePowerEnergySensorData(endDataTstamp, sourceURI, 0, 0, 0, 6000000,
+            false);
+    client.storeSensorData(endData);
+
+    // Retrieve calculated energy data
+    energyData = client.getEnergy(sourceName, energyStart, energyEnd, 0);
+
+    assertEquals("Unexpected energy value returned by WattDepot", 300000.0, energyData
+        .getPropertyAsDouble(SensorData.ENERGY_CONSUMED), 0.0001);
   }
 
   /**

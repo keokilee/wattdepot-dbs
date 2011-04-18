@@ -220,5 +220,4 @@ public class StressTest {
     System.out.format("Mean time to retrieve latest sensor data from virtual source : %.1f ms%n",
         msElapsed / iterations);
   }
-
 }
