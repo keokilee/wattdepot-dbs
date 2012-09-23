@@ -1,0 +1,60 @@
+<project name="benchmark" default="benchmark" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Runs junit on system, using tests in classes whose names start with Test*.
+    Invocation: ant -f junit.build.xml
+  </description>
+
+  <import file="build.xml" />
+  <property name="junit.build.dir" location="${build.dir}/junit" />
+
+  <target name="benchmark" depends="compile" description="Run benchmark using multiple Db backends.">
+    <mkdir dir="${junit.build.dir}" />
+    <!-- Run DB tests using DerbyStorageImplementation -->
+    <junit printsummary="withOutAndErr"
+           fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath" />
+      </classpath>
+      <formatter type="xml" />
+      <sysproperty key="wattdepot-server.db.impl"
+                   value="org.wattdepot.server.db.derby.DerbyStorageImplementation" />
+      <batchtest todir="${junit.build.dir}">
+        <!-- Note special class for testing -->
+        <fileset dir="${src.dir}"
+                 includes="**/ParallelDbStressTest.java"/>
+      </batchtest>
+    </junit>
+  	<!-- Run DB tests using BerkeleyDbImplementation -->
+    <junit printsummary="withOutAndErr"
+           fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath" />
+      </classpath>
+      <formatter type="xml" />
+      <sysproperty key="wattdepot-server.db.impl"
+                   value="org.wattdepot.server.db.berkeleydb.BerkeleyDbImplementation" />
+      <batchtest todir="${junit.build.dir}">
+        <!-- Note special class for testing -->
+        <fileset dir="${src.dir}"
+                 includes="**/ParallelDbStressTest.java"/>
+      </batchtest>
+    </junit>
+    
+    <!-- Run DB tests using MongoDbImplementation -->
+		<junit printsummary="withOutAndErr" haltonfailure="false" fork="yes">
+			<classpath>
+				<pathelement location="${build.dir}/classes" />
+				<path refid="compile.classpath" />
+			</classpath>
+			<formatter type="xml" />
+			<sysproperty key="wattdepot-server.db.impl" value="org.wattdepot.server.db.mongodb.MongoDbImplementation" />
+			<batchtest todir="${junit.build.dir}">
+				<!-- Note special class for testing -->
+				<fileset dir="${src.dir}"
+                 includes="**/ParallelDbStressTest.java"/>
+			</batchtest>
+		</junit>
+  </target>
+</project>

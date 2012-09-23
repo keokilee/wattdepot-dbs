@@ -25,6 +25,7 @@ import org.wattdepot.resource.user.jaxb.User;
 import org.wattdepot.resource.user.jaxb.UserIndex;
 import org.wattdepot.resource.user.jaxb.UserRef;
 import org.wattdepot.server.Server;
+import org.wattdepot.server.ServerProperties;
 import org.wattdepot.server.db.DbBadIntervalException;
 import org.wattdepot.server.db.DbImplementation;
 import org.wattdepot.util.StackTrace;
@@ -55,6 +56,7 @@ public class BerkeleyDbImplementation extends DbImplementation {
   private Environment environment;
   private long lastBackupFileId;
   private File backupDir;
+  private File dataDir;
   
   /**
    * Instantiates the BerkeleyDB installation.
@@ -68,32 +70,32 @@ public class BerkeleyDbImplementation extends DbImplementation {
   @Override
   public void initialize(boolean wipe) {
     // Construct directories.
-    String currDir = System.getProperty("user.dir");
-    File topDir = new File(currDir, "berkeleyDb");
-    boolean success = topDir.mkdirs();
+    String dbDir = server.getServerProperties().get(ServerProperties.DB_DIR_KEY);
+    this.dataDir = new File(dbDir, "berkeleyDb");
+    boolean success = this.dataDir.mkdirs();
     if (success) {
       System.out.println("Created the berkeleyDb directory.");
     }
     
-    File dir = new File(topDir, "sensorDataDb");
+    File dir = new File(this.dataDir, "sensorDataDb");
     success = dir.mkdirs();
     if (success) {
       System.out.println("Created the sensorData directory.");
     }
     
-    dir = new File(topDir, "sourceDb");
+    dir = new File(this.dataDir, "sourceDb");
     success = dir.mkdirs();
     if (success) {
       System.out.println("Created the source directory.");
     }
     
-    dir = new File(topDir, "userDb");
+    dir = new File(this.dataDir, "userDb");
     success = dir.mkdirs();
     if (success) {
       System.out.println("Created the user directory.");
     }
     
-    this.backupDir = new File(topDir, "backup");
+    this.backupDir = new File(server.getServerProperties().get(ServerProperties.DB_SNAPSHOT_KEY));
     success = this.backupDir.mkdirs();
     if (success) {
       System.out.println("Created the backup directory.");
@@ -119,7 +121,7 @@ public class BerkeleyDbImplementation extends DbImplementation {
     StoreConfig storeConfig = new StoreConfig();
     envConfig.setAllowCreate(true);
     storeConfig.setAllowCreate(true);
-    this.environment = new Environment(topDir, envConfig);
+    this.environment = new Environment(this.dataDir, envConfig);
     
     //Initialize data stores.
     EntityStore sensorDataStore = new EntityStore(this.environment, "EntityStore", storeConfig);
@@ -824,7 +826,7 @@ public class BerkeleyDbImplementation extends DbImplementation {
     
     for (String filename : filenames) {
       // Filenames are rooted in berkeleyDb folder.
-      sourceFile = new File("berkeleyDb", filename);
+      sourceFile = new File(this.dataDir, filename);
       destFile = new File(this.backupDir, sourceFile.getName());
       
       try {

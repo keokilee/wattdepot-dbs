@@ -53,10 +53,13 @@ public class StressTest {
     DataGenerator test = new DataGenerator(manager, adminUserUri, server);
     System.out.print("Creating test data...");
     StressTest.START_TIMESTAMP = Tstamp.makeTimestamp("2010-01-08T00:00:00.000-10:00");
-    StressTest.END_TIMESTAMP = Tstamp.makeTimestamp("2010-01-09T00:00:00.000-10:00");
-
-    test.storeData(START_TIMESTAMP, END_TIMESTAMP, 5);
-    System.out.println("done");
+    StressTest.END_TIMESTAMP = Tstamp.makeTimestamp("2010-02-08T00:00:00.000-10:00");
+    
+    Date testStart = new Date();
+    int rows = test.storeData(START_TIMESTAMP, END_TIMESTAMP, 15);
+    Date testEnd = new Date();
+    double msElapsed = testEnd.getTime() - testStart.getTime();
+    System.out.format("Time to insert %d rows: %.1f ms%n", rows, msElapsed);
   }
 
   /**

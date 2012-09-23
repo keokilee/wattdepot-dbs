@@ -66,21 +66,23 @@ public class DataGenerator {
    * @param startTime The first timestamp to generate data for.
    * @param endTime The last timestamp to generate data for.
    * @param rate The rate in minutes at which to generate successive data points.
+   * 
+   * @return The number of items stored.
    */
-  public void storeData(XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, int rate) {
+  public int storeData(XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, int rate) {
     long intervalMilliseconds;
     long rangeLength = Tstamp.diff(startTime, endTime);
     long minutesToMilliseconds = 60L * 1000L;
 
     if (rate <= 0) {
-      return;
+      return 0;
     }
     if (rangeLength <= 0) {
       // either startTime == endTime, or startTime > endTime
-      return;
+      return 0;
     }
     else if ((rate * minutesToMilliseconds) > rangeLength) {
-      return;
+      return 0;
     }
     else {
       // got a good interval
@@ -98,6 +100,7 @@ public class DataGenerator {
     int power;
     // Store energy counter per source across loop iterations
     double totalEnergyGenerated[] = {0, 1234.0, 2345, 3456, 4567, 5678, 6789, 7890, 8901, 9012};
+    int count = 0;
     while (Tstamp.lessThan(timestamp, endTime)) {
       for (int i = 0; i < NUM_SOURCES; i++) {
         props = new Properties();
@@ -117,7 +120,11 @@ public class DataGenerator {
       timestamp = Tstamp.incrementMilliseconds(timestamp, intervalMilliseconds);
       // Keep ratcheting up j until we reach 100, then reset to 0
       j = (j < 100) ? j + 10 : 0;
+      // Keep track of how many rows of sensor data we stored.
+      count += NUM_SOURCES;
     }
+    
+    return count;
   }
 
   /**

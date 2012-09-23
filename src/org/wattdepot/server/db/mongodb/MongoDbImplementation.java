@@ -722,14 +722,14 @@ public class MongoDbImplementation extends DbImplementation {
 
   @Override
   public boolean makeSnapshot() {
-    // TODO Auto-generated method stub
-    return false;
+    // Server should be backed up separately outside of WattDepot.
+    return true;
   }
 
   @Override
   public boolean performMaintenance() {
-    // TODO Auto-generated method stub
-    return false;
+    // Server should be backed up separately outside of WattDepot.
+    return true;
   }
 
   @Override
@@ -740,7 +740,7 @@ public class MongoDbImplementation extends DbImplementation {
     
     BasicDBObject dbData = new BasicDBObject();
     dbData.put(SOURCE_KEY, data.getSource());
-    dbData.put(TIMESTAMP_KEY,data.getTimestamp().toGregorianCalendar().getTimeInMillis());
+    dbData.put(TIMESTAMP_KEY, data.getTimestamp().toGregorianCalendar().getTimeInMillis());
     dbData.put("tool", data.getTool());
     dbData.put("lastMod", System.currentTimeMillis());
     

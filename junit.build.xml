@@ -86,7 +86,7 @@
                  excludes="**/tinker/**" />
 			</batchtest>
 		</junit>
-		<!-- Run DB tests using BerkeleyDbImplementation -->
+		<!-- Run DB tests using MongoDbImplementation -->
 		<junit printsummary="withOutAndErr" haltonfailure="${junit.haltonfailure}" failureproperty="junit.failed" fork="yes">
 			<classpath>
 				<pathelement location="${build.dir}/classes" />
